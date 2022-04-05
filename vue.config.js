@@ -30,7 +30,14 @@ module.exports = {
       include: /node_modules/,
       type: 'javascript/auto'
     })
-
+  },
+  chainWebpack: config => {
+    config.resolve.alias
+      .set('@', resolve('src'))
+      .set('assets', resolve('src/assets'))
+      .set('css', resolve('src/assets/css'))
+      .set('img', resolve('src/assets/image'))
+      .set('js', resolve('src/assets/js'))
   },
   lintOnSave: false,
   transpileDependencies: [],
