@@ -45,276 +45,281 @@
     </div>
     <!-- 查询容器 -->
     <div class="queryContainer">
-      <el-input placeholder="吧啦吧啦" style="width:204px" size="mini" v-model="searchContent" @change="search" clearable></el-input>
-      <el-button icon="el-icon-search" style="margin-left: 5px" size="mini" circle @click="search"></el-button>
+      <el-input placeholder="吧啦吧啦" style="width:204px" size="mini" v-model="searchContent" @change="search"
+                clearable></el-input>
+      <el-button icon="search" style="margin-left: 5px" circle @click="searchArticle"/>
     </div>
 
     <!--文章内容渲染-->
     <div class="mian_box">
       <div class="content">
-          <el-scrollbar v-loading="false" height="800px">
-        <ul class="articles">
-          <li v-for="item in articles" :key="item.id">
-            <div class="article_content">
-              <a
-                href="javascript:void(0)"
-                @click="jumpToPage('/doc/' + item.id)"
-              >
-                <p class="article_title">{{ item.title }}</p>
-              </a>
-              <a
-                href="javascript:void(0)"
-                @click="jumpToPage('/doc/' + item.id)"
-              >
-                <p class="article_desc">{{ item.description }}</p>
-              </a>
-              <div>
+        <el-scrollbar v-loading="false" height="50rem">
+          <ul class="articles">
+            <li v-for="item in articles" :key="item.id">
+              <div class="article_content">
+                <a
+                  href="javascript:void(0)"
+                  @click="jumpToPage('/doc/' + item.id)"
+                >
+                  <p class="article_title">{{ item.title }}</p>
+                </a>
+                <a
+                  href="javascript:void(0)"
+                  @click="jumpToPage('/doc/' + item.id)"
+                >
+                  <p class="article_desc">{{ item.description }}</p>
+                </a>
+                <div>
                 <span class="article_detail">
                   <label>时间: </label><span>{{ item.createTime }}</span>
                 </span>
-                <span class="article_detail">
+                  <span class="article_detail">
                   <label>浏览: </label><span>{{ item.skim }}</span>
                 </span>
-                <span class="article_detail">
+                  <span class="article_detail">
                   <label>分类: </label>
                   <span
-                    ><a href="javascript:void(0)">{{ item.type }}</a></span
+                  ><a href="javascript:void(0)">{{ item.type }}</a></span
                   >
                 </span>
+                </div>
               </div>
-            </div>
-          </li>
-        </ul>
-      </el-scrollbar>
+            </li>
+          </ul>
+        </el-scrollbar>
       </div>
       <!-- 分页 -->
-      <el-pagination
-        :hide-on-single-page="isSinglePage"
-        @current-change="handleCurrentChange"
-        @prev-click="handlePreClick"
-        @next-click="handleNextClick"
-        v-model:currentPage="currentPage"
-        :page-size="10"
-        layout="total, prev, pager, next"
-        :total="this.params.totalCount"
-      >
-      </el-pagination>
+      <div>
+        <el-pagination
+          class="pagination"
+          :hide-on-single-page="isSinglePage"
+          @current-change="handleCurrentChange"
+          @prev-click="handlePreClick"
+          @next-click="handleNextClick"
+          v-model:currentPage="this.params.currentPage"
+          :page-size="10"
+          layout="total, prev, pager, next"
+          :total="this.params.totalCount"
+          />
+      </div>
     </div>
   </div>
 </template>
 
 <script>
-import "css/articles.css";
-import "js/jquery-3.6.0";
-import { proNavanimate } from "js/qs-jquery-1.0";
-import { qs_index } from "js/qs_index";
-import "js/articles";
-import rightTopNavBar from "../../components/rightTopNavBar/index.vue";
+import 'css/articles.css'
+import 'js/jquery-3.6.0'
+import { proNavanimate } from 'js/qs-jquery-1.0'
+import { qs_index } from 'js/qs_index'
+import 'js/articles'
+import rightTopNavBar from '../../components/rightTopNavBar/index.vue'
+import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
+
 export default {
-  name: "doc",
+  name: 'doc',
   components: {
     rightTopNavBar,
   },
-  created() {
+  created () {
     // 引入js
-    proNavanimate();
-    qs_index();
+    proNavanimate()
+    qs_index()
   },
-  mounted() {
+  mounted () {
     // 引入js
-    proNavanimate();
-    qs_index();
+    proNavanimate()
+    qs_index()
     //请求
-    this.getData(this.params);
+    this.getData(this.params)
   },
-  data() {
+  data () {
     return {
       menuPages: [
         {
-          index: "div_index1",
-          name: "不用看~是首页",
-          alias: "HOME",
-          target: "/home",
+          index: 'div_index1',
+          name: '不用看~是首页',
+          alias: 'HOME',
+          target: '/home',
         },
         {
-          index: "div_index2",
-          name: "这个是关于Java的",
-          alias: "JAVA",
-          target: "/doc",
+          index: 'div_index2',
+          name: '这个是关于Java的',
+          alias: 'JAVA',
+          target: '/doc',
         },
         {
-          index: "div_index3",
-          name: "一些有意义的笔记",
-          alias: "Notes",
-          target: "/note",
+          index: 'div_index3',
+          name: '一些有意义的笔记',
+          alias: 'Notes',
+          target: '/note',
         },
         {
-          index: "div_index4",
-          name: "有趣的小游戏",
-          alias: "Little Game",
-          target: "/game",
+          index: 'div_index4',
+          name: '有趣的小游戏',
+          alias: 'Little Game',
+          target: '/game',
         },
         {
-          index: "div_index5",
-          name: "一个眼睛里慢慢有光的我",
-          alias: "ME",
-          target: "/me",
+          index: 'div_index5',
+          name: '一个眼睛里慢慢有光的我',
+          alias: 'ME',
+          target: '/me',
         },
       ],
       articles: [
         {
           id: 1,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
         {
           id: 2,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
         {
           id: 3,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
         {
           id: 4,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
         {
           id: 5,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
         {
           id: 6,
-          title: "从Paxos到Zookeeper分布式一致性原理与实践",
+          title: '从Paxos到Zookeeper分布式一致性原理与实践',
           description:
-            "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-          createTime: "2021/04/12 19:52",
-          skim: "777",
-          type: "分布式架构",
+            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
+          createTime: '2021/04/12 19:52',
+          skim: '777',
+          type: '分布式架构',
         },
       ],
       params: {
-        pageSize: "10",
+        pageSize: '10',
         currentPage: 1,
         totalCount: 100,
       },
       options: [
         {
-          value: "Wa~",
-          label: "Wa~",
+          value: 'Wa~',
+          label: 'Wa~',
         },
         {
-          value: "Hou~",
-          label: "Hou~",
+          value: 'Hou~',
+          label: 'Hou~',
         },
         {
-          value: "Gan~",
-          label: "Gan~",
+          value: 'Gan~',
+          label: 'Gan~',
         },
         {
-          value: "Ohuo~",
-          label: "Ohuo~",
+          value: 'Ohuo~',
+          label: 'Ohuo~',
         },
         {
-          value: "Nice!",
-          label: "Nice!",
+          value: 'Nice!',
+          label: 'Nice!',
         },
       ],
-      tagName: "",
+      tagName: '',
       dynamicTags: [],
       searchContent: ''
-    };
+    }
   },
   methods: {
     // more 页面跳转
-    jumpToPage(target) {
-      this.$router.push(target);
+    jumpToPage (target) {
+      this.$router.push(target)
     },
-    handleCurrentChange(value) {
-      this.params.currentPage = value;
+    handleCurrentChange (value) {
+      this.params.currentPage = value
       //请求
-      this.getData(this.params);
+      this.getData(this.params)
     },
-    handlePreClick(value) {
-      this.params.currentPage = value;
+    handlePreClick (value) {
+      this.params.currentPage = value
       //请求
-      this.getData(this.params);
+      this.getData(this.params)
     },
-    handleNextClick(value) {
-      this.params.currentPage = value;
+    handleNextClick (value) {
+      this.params.currentPage = value
       //请求
-      this.getData(this.params);
+      this.getData(this.params)
     },
-    handleClose(tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1);
+    handleClose (tag) {
+      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
       //请求
-      this.getData(this.params);
+      this.getData(this.params)
     },
-    addNewTag() {
-      let tagName = this.tagName;
+    addNewTag () {
+      let tagName = this.tagName
       let index = this.dynamicTags.findIndex((item) => {
-        return item == tagName;
-      });
+        return item == tagName
+      })
       if (index == -1) {
-        this.dynamicTags.push(tagName);
+        this.dynamicTags.push(tagName)
         //请求
-        this.getData(this.params);
+        this.getData(this.params)
       } else {
         this.$message({
           showClose: true,
-          message: "已经选择过了哦~",
-        });
+          message: '已经选择过了哦~',
+        })
       }
-      this.tagName = "";
+      this.tagName = ''
     },
-    search(){
-        console.log(this.searchContent);
-        this.getData(this.params);
+    searchArticle () {
+      console.log(this.searchContent)
+      this.getData(this.params)
     },
-    getData(params) {
-        let loadingInstance = this.$loading({
-            target: document.querySelector('.content')
-        });
-        setTimeout(function(){
-            loadingInstance.close();
-        },2000)
+    getData (params) {
+      let loadingInstance = this.$loading({
+        target: document.querySelector('.content')
+      })
+      setTimeout(function () {
+        loadingInstance.close()
+      }, 2000)
     },
   },
   computed: {
     rightTopMenus: function () {
       return this.menuPages.filter(function (item) {
-        return item.target != "/doc";
-      });
+        return item.target != '/doc'
+      })
     },
     isSinglePage: function () {
-      return this.params.totalCount <= this.params.pageSize;
+      return this.params.totalCount <= this.params.pageSize
     },
   },
-};
+}
 </script>
 
 <style scoped>
@@ -326,6 +331,7 @@ export default {
   left: 45px;
   z-index: 99;
 }
+
 .queryContainer {
   position: absolute;
   width: 300px;
@@ -334,20 +340,28 @@ export default {
   right: 45px;
   z-index: 999;
 }
+
 .tags {
   margin-top: 10px;
 }
+
 .el-tag + .el-tag {
   margin-left: 10px;
   margin-top: 10px;
 }
+
 .content {
-    width: 1000px;
-    margin: 0 auto;
+  width: 60rem;
+  margin: 0 auto;
 }
+
 .p1 {
-  height: 100px;
-  line-height: 100px;
-	font-family :'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+  height: 6rem;
+  line-height: 6rem;
+  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+.pagination {
+  width: 30rem;
+  margin: 0 auto;
 }
 </style>

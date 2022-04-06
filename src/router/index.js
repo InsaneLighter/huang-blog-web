@@ -1,6 +1,4 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-Vue.use(VueRouter)
+import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
@@ -10,39 +8,38 @@ const routes = [
   {
     path: '/home',
     name: 'home',
-    component: (resolve) => require(['@/views/home'], resolve)
+    component: () => import('../views/home/index')
   },
   {
     path: '/doc',
     name: 'doc',
-    component: (resolve) => require(['@/views/doc'], resolve)
+    component: () => import('../views/doc/index')
   },
   // 嵌套路由需要在父组件中渲染子组件
   {
     path: '/doc/:id',
     name: 'document',
-    component: (resolve) => require(['@/views/doc/document'], resolve)
+    component: () => import('../views/doc/document')
   },
   {
     path: '/note',
     name: 'note',
-    component: (resolve) => require(['@/views/note'], resolve)
+    component: () => import('../views/note/index')
   },
   {
     path: '/game',
     name: 'game',
-    component: (resolve) => require(['@/views/game'], resolve)
+    component: () => import('../views/game/index')
   },
   {
     path: '/me',
     name: 'me',
-    component: (resolve) => require(['@/views/me'], resolve)
+    component: () => import('../views/me/index')
   }
 ]
-const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
-})
+const router = createRouter({
+  history: createWebHistory("/"),
+  routes,
+});
 
 export default router
