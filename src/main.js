@@ -1,6 +1,7 @@
 import { createApp } from 'vue'
 import ElementPlus from 'element-plus'
 import 'element-plus/dist/index.css'
+import * as ElIcons from '@element-plus/icons'
 import App from './App.vue'
 import router from './router'
 
@@ -24,6 +25,9 @@ import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/
 VueMarkdownEditor.use(createLineNumbertPlugin());
 
 const app = createApp(App);
+Object.keys(ElIcons).forEach(key => {
+  app.component(key,ElIcons[key])
+})
 app.use(router);
 app.use(VueMarkdownEditor);
 app.use(ElementPlus);

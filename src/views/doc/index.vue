@@ -16,7 +16,6 @@
     <div class="tagMenu">
       <el-select
         v-model="tagName"
-        size="mini"
         clearable
         filterable
         placeholder="分类标签"
@@ -33,7 +32,7 @@
       <div class="tags">
         <el-tag
           :key="tag"
-          type="info"
+          :type="randomType"
           v-for="tag in dynamicTags"
           closable
           :disable-transitions="false"
@@ -45,9 +44,9 @@
     </div>
     <!-- 查询容器 -->
     <div class="queryContainer">
-      <el-input placeholder="吧啦吧啦" style="width:204px" size="mini" v-model="searchContent" @change="search"
+      <el-input placeholder="搜索" style="width:204px" v-model="searchContent" @change="searchArticle"
                 clearable></el-input>
-      <el-button icon="search" style="margin-left: 5px" circle @click="searchArticle"/>
+      <el-button icon="Search" style="margin-left: 5px;margin-bottom: 4px" circle @click="searchArticle"/>
     </div>
 
     <!--文章内容渲染-->
@@ -113,12 +112,12 @@ import { proNavanimate } from 'js/qs-jquery-1.0'
 import { qs_index } from 'js/qs_index'
 import 'js/articles'
 import rightTopNavBar from '../../components/rightTopNavBar/index.vue'
-import { Delete, Edit, Search, Share, Upload } from '@element-plus/icons-vue'
+import { Search } from '@element-plus/icons-vue'
 
 export default {
   name: 'doc',
   components: {
-    rightTopNavBar,
+    rightTopNavBar
   },
   created () {
     // 引入js
@@ -295,6 +294,11 @@ export default {
         })
       }
       this.tagName = ''
+    },
+    randomType(){
+      const types = ['success','info','warning','danger']
+      let randomInt = Math.floor((Math.random() * 10) + 1)
+      return types[randomInt%types.length]
     },
     searchArticle () {
       console.log(this.searchContent)
