@@ -406,9 +406,15 @@ input {
 .articles .article_title {
 	color: #000;
 	font-size: 20px;
-	font-weight: 800;
 	margin-bottom: 10px;
 }
+
+.articles .article_title:hover {
+	color: #e33e33;
+	font-size: 20px;
+	margin-bottom: 10px;
+}
+
 .articles .article_desc {
 	font-size: 14px;
 	color: #888;
@@ -425,12 +431,9 @@ input {
 }
 
 .articles .article_detail a:hover{
-	color: #2ab9d9;
+	color: #000;
 }
 
-.articles .article_detail label {
-	font-weight: bold;
-}
 .l_fixed,.r_fixed {
 	border-radius: 10px;
 	position: fixed;

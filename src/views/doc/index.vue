@@ -15,6 +15,7 @@
     <!-- 标签菜单 -->
     <div class="tagMenu">
       <el-select
+        style="width:12rem;margin-left: 5rem"
         v-model="tagName"
         clearable
         filterable
@@ -32,21 +33,23 @@
       <div class="tags">
         <el-tag
           :key="tag"
-          :type="randomType"
+          :type="tag.randomType"
           v-for="tag in dynamicTags"
           closable
           :disable-transitions="false"
           @close="handleClose(tag)"
         >
-          {{ tag }}
+          {{ tag.name }}
         </el-tag>
       </div>
     </div>
     <!-- 查询容器 -->
     <div class="queryContainer">
-      <el-input placeholder="搜索" style="width:204px" v-model="searchContent" @change="searchArticle"
-                clearable></el-input>
-      <el-button icon="Search" style="margin-left: 5px;margin-bottom: 4px" circle @click="searchArticle"/>
+      <div class="search">
+        <el-input placeholder="搜索" style="width:12rem" v-model="searchContent" @change="searchArticle"
+                  clearable></el-input>
+        <el-button icon="Search" style="margin-left: 5px;margin-bottom: 4px" circle @click="searchArticle"/>
+      </div>
     </div>
 
     <!--文章内容渲染-->
@@ -61,27 +64,22 @@
                   @click="jumpToPage('/doc/' + item.id)"
                 >
                   <p class="article_title">{{ item.title }}</p>
-                </a>
-                <a
-                  href="javascript:void(0)"
-                  @click="jumpToPage('/doc/' + item.id)"
-                >
                   <p class="article_desc">{{ item.description }}</p>
+                  <div>
+                    <span class="article_detail">
+                      <label>时间: </label><span>{{ item.createTime }}</span>
+                    </span>
+                      <span class="article_detail">
+                      <label>浏览: </label><span>{{ item.skim }}</span>
+                    </span>
+                    <span class="article_detail">
+                    <label>分类: </label>
+                    <span>
+                      <a href="javascript:void(0)">{{ item.type }}</a>
+                    </span>
+                  </span>
+                  </div>
                 </a>
-                <div>
-                <span class="article_detail">
-                  <label>时间: </label><span>{{ item.createTime }}</span>
-                </span>
-                  <span class="article_detail">
-                  <label>浏览: </label><span>{{ item.skim }}</span>
-                </span>
-                  <span class="article_detail">
-                  <label>分类: </label>
-                  <span
-                  ><a href="javascript:void(0)">{{ item.type }}</a></span
-                  >
-                </span>
-                </div>
               </div>
             </li>
           </ul>
@@ -281,10 +279,10 @@ export default {
     addNewTag () {
       let tagName = this.tagName
       let index = this.dynamicTags.findIndex((item) => {
-        return item == tagName
+        return item.name == tagName
       })
       if (index == -1) {
-        this.dynamicTags.push(tagName)
+        this.dynamicTags.push({name:tagName,randomType: this.randomType()})
         //请求
         this.getData(this.params)
       } else {
@@ -367,5 +365,10 @@ export default {
 .pagination {
   width: 30rem;
   margin: 0 auto;
+}
+.classify {
+  margin-top: 5px;
+  height: 20px;
+  line-height: 20px;
 }
 </style>

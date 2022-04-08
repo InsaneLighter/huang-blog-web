@@ -10,9 +10,13 @@
       </div>
     </div>
 
+    <div class="backStep">
+      <a @click="$router.go(-1)"><el-icon style="vertical-align: -10%"><back /></el-icon><span>返回</span></a>
+    </div>
+
     <!-- 文章内容 -->
     <div class="article_container">
-      <el-scrollbar height="820px">
+      <el-scrollbar height="50rem">
         <div class="article_content">
           <v-md-editor v-model="text"
            mode="preview"
@@ -164,7 +168,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .article_content {
   text-align: left;
   width: 1200px;
@@ -177,5 +181,21 @@ export default {
 	font-family :'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
   height: 100px;
   line-height: 100px;
+}
+.backStep {
+  color: #afadad;
+  position: absolute;
+  top: 8rem;
+  left: 12rem;
+  font-size: 16px;
+  z-index: 999;
+
+  a:hover {
+    color: #000;
+  }
+
+  span {
+    margin-left: 5px
+  }
 }
 </style>
