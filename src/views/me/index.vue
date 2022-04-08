@@ -5,7 +5,7 @@
       <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
     </div>
     <!--主页面-->
-    <div class="div_abo">
+    <div class="me_div1">
       <div class="page_content">
         <div class="div1">Life was a box of chocolate</div>
         <div class="div2">You never know</div>
@@ -14,24 +14,13 @@
       </div>
     </div>
     <!--页面1-->
-    <div class="div_abo1">
-      <div class="box">
-        <el-carousel :interval="5000" height="700px" arrow="hover">
-          <el-carousel-item
-            :label="item.label"
-            v-for="item in rotationCharts"
-            :key="item"
-          >
-            <img style="width: 100%" :src="item.url" :alt="item.label" />
-          </el-carousel-item>
-        </el-carousel>
-      </div>
+    <div class="me_div2">
+      <picture-wall></picture-wall>
     </div>
     <!--页面2-->
-    <div class="div_abo2">
+    <div class="me_div3">
       <div class="introduce">未完待续~</div>
     </div>
-    <!--页面3-->
     <!--向下滑动标签-->
     <div id="scrollDown">
       <span id="scrollDownSpan"></span>
@@ -62,12 +51,14 @@ import "js/jquery-3.6.0";
 import { aboutMe } from "js/about";
 import { proNavanimate } from "js/qs-jquery-1.0";
 import { qs_index } from "js/qs_index";
-import rightTopNavBar from "@/components/rightTopNavBar/index.vue";
+import rightTopNavBar from "@/components/rightTopNavBar";
+import pictureWall from "@/components/pictureWall"
 
 export default {
   name: "me",
   components: {
     rightTopNavBar,
+    pictureWall
   },
   created() {
     // 引入js

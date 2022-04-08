@@ -6,7 +6,7 @@ function autoType(elementClass, typingSpeed) {
     var amntOfChars = text.length;
     var newString = "";
     setTimeout(function() {
-        thhis.css("opacity", 1); 	
+        thhis.css("opacity", 1);
         for (var i = 0; i < amntOfChars; i++) {
             (function(i, char) {
                 setTimeout(function() {
@@ -17,7 +17,7 @@ function autoType(elementClass, typingSpeed) {
 					}
                 }, i * typingSpeed);
             })(i + 1, text[i]);
-			
+
         }
     }, 1500);
 }
@@ -31,7 +31,7 @@ export let proNavanimate = function(){
 			$(this).find("img").stop(true,false).animate({opacity:"0",width:"0"}, 300)
 		}
 	)
-	
+
 	$(".ul_js li").hover(
 		function(){
 			$(this).stop(true,false).animate({top:"-5px"}, 300)
@@ -67,7 +67,7 @@ export let proNavanimate = function(){
 			$(".div_js_close").stop(true,false).delay(0).animate({opacity:"0"}, 2000);
 		}
 	)
-	
+
 	$(".div_index5 .div_bg .div2").hover(
 		function(){
 			$(this).find(".div5").stop(true,false).delay(0).animate({top:"100%"}, 1400);
@@ -84,11 +84,11 @@ export let proNavanimate = function(){
 			$(this).find(".div2").stop(true,false).delay(0).animate({bottom:"-100%",opacity:"0"}, 500);
 		}
 	)
-	
-	$(".div_abo .page_content .div1").delay(0).animate({ top:"200px", opacity:"1"},1000);
-	$(".div_abo .page_content .div2").delay(200).animate({ top:"300px", opacity:"1"},1000);
-	$(".div_abo .page_content .div3").delay(400).animate({ top:"400px", opacity:"1"},1000);
+
+	$(".me_div1 .page_content .div1").delay(0).animate({ top:"200px", opacity:"1"},1000);
+	$(".me_div1 .page_content .div2").delay(200).animate({ top:"300px", opacity:"1"},1000);
+	$(".me_div1 .page_content .div3").delay(400).animate({ top:"400px", opacity:"1"},1000);
 	autoType(".page_content",300);
-	autoType(".div_abo2",300);
-	autoType(".div_abo3",300);
+	autoType(".me_div3",300);
+	autoType(".me_div13",300);
 }
