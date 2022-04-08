@@ -9,21 +9,31 @@
         <div class="p1">Daily life</div>
       </div>
     </div>
+
+    <div class="backStep">
+      <a @click="$router.push('/')"><el-icon style="vertical-align: -10%"><back /></el-icon><span>返回</span></a>
+    </div>
+
     <div class="note_container">
       <el-scrollbar height="810px">
         <div class="note_content">
           <el-timeline>
             <el-timeline-item
+              size="large"
               v-for="item in notes"
               :key="item.id"
               :timestamp="item.timestamp"
               placement="top"
-              size="large"
               :icon="item.mood"
               :color="item.color"
             >
               <el-card>
-                <h4>{{ item.content }}</h4>
+                <img width="230" v-if="item.image != null && item.image !== ''"
+                     v-for="img in item.image"
+                     :src="img"
+                     alt="这是一张照片"
+                     style="margin-right: 10px;margin-bottom: 10px">
+                <div class="note_item_content" v-html="item.content"></div>
                 <p>{{ item.editor }}  提交于  {{ item.createTime }}</p>
               </el-card>
             </el-timeline-item>
@@ -100,8 +110,10 @@ export default {
         {
           id: 1,
           editor: "yiyi",
-          mood: '',
-          color: '',
+          mood: 'Sunny',
+          color: '#37cbcb ',
+          image: ['https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png','https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png','https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png','https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png','https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png','https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'],
+          title: "哈哈哈哈哈",
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
@@ -109,8 +121,9 @@ export default {
         {
           id: 2,
           editor: "yiyi",
-          mood: 'el-icon-light-rain',
-          color: '',
+          mood: 'Sunrise',
+          color: '#8340e2',
+          image: ['https://shadow.elemecdn.com/app/element/hamburger.9cf7b091-55e9-11e9-a976-7f4d0b07eef6.png'],
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
@@ -118,8 +131,8 @@ export default {
         {
           id: 3,
           editor: "yiyi",
-          mood: '',
-          color: '',
+          mood: 'Moon',
+          color: '#c73697',
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
@@ -127,17 +140,17 @@ export default {
         {
           id: 4,
           editor: "yiyi",
-          mood: 'el-icon-light-rain',
-          color: 'red',
-          content: "今天是很开心的一天",
+          mood: 'MoonNight',
+          // color: '#9ee8d1',
+          content: "<h1>今天是很开心的一天</h1>",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
         },
         {
           id: 5,
           editor: "yiyi",
-          mood: '',
-          color: '',
+          mood: 'MoreFilled',
+          // color: '#38b7f1',
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
@@ -145,8 +158,8 @@ export default {
         {
           id: 6,
           editor: "yiyi",
-          mood: '',
-          color: 'black',
+          mood: 'NoSmoking',
+          // color: '#27bfa8',
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
@@ -154,13 +167,13 @@ export default {
         {
           id: 7,
           editor: "yiyi",
-          mood: '',
-          color: '',
+          mood: 'Headset',
+          color: '#4fc6a2',
           content: "今天是很开心的一天",
           timestamp: "2018/4/12",
           createTime: "2018/4/12 20:46",
-        },
-      ],
+        }
+      ]
     };
   },
   created() {
@@ -189,7 +202,7 @@ export default {
 };
 </script>
 
-<style scoped>
+<style lang="less" scoped>
 .p1 {
   height: 100px;
   line-height: 100px;
@@ -200,7 +213,7 @@ export default {
 }
 .note_content {
   text-align: left;
-  width: 1200px;
+  width: 80rem;
   margin: 10px auto;
 }
 .el-card:hover {
@@ -210,5 +223,22 @@ export default {
 .el-card p {
   font-size: 12px;
   color: rgb(185, 178, 178);
+}
+
+.backStep {
+  color: #afadad;
+  position: absolute;
+  top: 8rem;
+  left: 12rem;
+  font-size: 16px;
+  z-index: 999;
+
+a:hover {
+  color: #000;
+}
+
+span {
+  margin-left: 5px
+}
 }
 </style>
