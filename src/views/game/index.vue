@@ -7,7 +7,7 @@
     <div class="mian_box">
       <ul class="ul_list">
         <li v-for="item in games" :key="item.id">
-          <div class="div1"><img :src="item.picture" /></div>
+          <div class="div1"><img :src="item.picture"/></div>
           <div class="div2">
             <div class="p1"></div>
             <div class="p2">
@@ -47,106 +47,63 @@
 </template>
 
 <script>
-import "css/articles.css";
-import "css/game.css";
-import { proNavanimate } from "js/qs-jquery-1.0";
-import { qs_index } from "js/qs_index";
-import rightTopNavBar from "@/components/rightTopNavBar";
+import 'css/articles.css'
+import 'css/game.css'
+import { game } from 'js/game'
+import rightTopNavBar from '@/components/rightTopNavBar'
+import globalHeader from '@/components/globalHeader'
+
 export default {
-  name: "game",
+  name: 'game',
   components: {
     rightTopNavBar,
+    globalHeader
   },
-  created() {
-    // 引入js
-    proNavanimate();
-    qs_index();
-  },
-  mounted() {
-    // 引入js
-    proNavanimate();
-    qs_index();
-  },
-  data() {
+  data () {
     return {
-      menuPages: [
-        {
-          index: "div_index1",
-          name: "不用看~是首页",
-          alias: "HOME",
-          target: "/home",
-        },
-        {
-          index: "div_index2",
-          name: "这个是关于Java的",
-          alias: "JAVA",
-          target: "/doc",
-        },
-        {
-          index: "div_index3",
-          name: "一些有意义的笔记",
-          alias: "Notes",
-          target: "/note",
-        },
-        {
-          index: "div_index4",
-          name: "有趣的小游戏",
-          alias: "Little Game",
-          target: "/game",
-        },
-        {
-          index: "div_index5",
-          name: "一个眼睛里慢慢有光的我",
-          alias: "ME",
-          target: "/me",
-        },
-      ],
       games: [
         {
           id: 1,
-          picture: "/static/image/tom.jpg",
-          description: "我诅咒你一辈子买方便面没有调料包,哈哈哈",
-          target: "",
+          picture: '/static/image/tom.jpg',
+          description: '我诅咒你一辈子买方便面没有调料包,哈哈哈',
+          target: '',
         },
         {
           id: 2,
-          picture: "/static/image/tom.jpg",
-          description: "我诅咒你一辈子买方便面没有调料包,哈哈哈",
-          target: "",
+          picture: '/static/image/tom.jpg',
+          description: '我诅咒你一辈子买方便面没有调料包,哈哈哈',
+          target: '',
         },
         {
           id: 3,
-          picture: "/static/image/tom.jpg",
-          description: "我诅咒你一辈子买方便面没有调料包,哈哈哈",
-          target: "",
+          picture: '/static/image/tom.jpg',
+          description: '我诅咒你一辈子买方便面没有调料包,哈哈哈',
+          target: '',
         },
       ],
-    };
+    }
+  },
+  mounted () {
+    game()
   },
   methods: {
     // more 页面跳转
-    jumpToPage(target) {
-      this.$router.push(target);
+    jumpToPage (target) {
+      this.$router.push(target)
     },
-  },
-  computed: {
-    rightTopMenus: function () {
-      return this.menuPages.filter(function (item) {
-        return item.target != "/game";
-      });
-    },
-  },
-};
+  }
+}
 </script>
 
 <style scoped>
-.p1,.foot {
+.p1, .foot {
   height: 100px;
   line-height: 100px;
   font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
+  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
- .foot {
+
+.foot {
   text-align: center;
   font-size: 20px;
   font-weight: 600;

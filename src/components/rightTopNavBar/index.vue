@@ -2,13 +2,13 @@
   <div>
     <!--右上导航栏-->
     <div class="div_js index_dh">
-      <img src="../../assets/image/menu.png" width="50" height="25" />
+      <img src="/static/image/menu.png" width="50" height="25" />
     </div>
 
     <!--右上导航栏页面-->
     <div class="div_js_txt">
       <div class="div_js_bg">
-        <div class="div_js_close"><img src="../../assets/image/close.png" /></div>
+        <div class="div_js_close"><img src="/static/image/close.png" /></div>
         <div class="div_js_lf lf">
           <div class="tag_right">
             <ul class="nav-menu clearfix unstyled">
@@ -33,11 +33,6 @@
 export default {
   name: "rightTopNavBar",
   props: ['menuPages'],
-  data() {
-    return {
-
-    };
-  },
   methods:{
     // 页面跳转
     jumpToPage(target){

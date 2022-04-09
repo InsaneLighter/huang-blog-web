@@ -13,8 +13,8 @@
 </template>
 
 <script>
-import { proNavanimate } from 'js/qs-jquery-1.0'
-import { qs_index } from 'js/qs_index'
+import { navAnimate } from 'js/navAnimate'
+import { home } from 'js/home'
 import rightTopNavBar from '@/components/rightTopNavBar'
 
 export default {
@@ -63,13 +63,13 @@ export default {
   },
   created () {
     // 引入js
-    proNavanimate()
-    qs_index()
+    navAnimate()
+    home()
   },
   mounted () {
     // 引入js
-    proNavanimate()
-    qs_index()
+    navAnimate()
+    home()
   },
   methods: {
     getDynamicMenus(currentPage){

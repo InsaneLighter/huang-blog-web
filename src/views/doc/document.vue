@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div class="container">
-      <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
-
-      <!--背景图片 title-->
-      <div class="main_bg div_news">
-        <div class="p1">Changing your life's style</div>
-      </div>
-    </div>
+    <global-header :currentPage="$route.path">
+      Changing your life's style
+    </global-header>
 
     <div class="backStep">
       <a @click="$router.go(-1)"><el-icon style="vertical-align: -10%"><back /></el-icon><span>返回</span></a>
@@ -30,48 +24,17 @@
 
 <script>
 import "css/articles.css";
-import { proNavanimate } from "js/qs-jquery-1.0";
-import { qs_index } from "js/qs_index";
 import rightTopNavBar from "@/components/rightTopNavBar";
+import globalHeader from '@/components/globalHeader'
+
 export default {
   name: "document",
   components: {
     rightTopNavBar,
+    globalHeader
   },
   data() {
     return {
-      menuPages: [
-        {
-          index: "div_index1",
-          name: "不用看~是首页",
-          alias: "HOME",
-          target: "/home",
-        },
-        {
-          index: "div_index2",
-          name: "这个是关于Java的",
-          alias: "JAVA",
-          target: "/doc",
-        },
-        {
-          index: "div_index3",
-          name: "一些有意义的笔记",
-          alias: "Notes",
-          target: "/note",
-        },
-        {
-          index: "div_index4",
-          name: "有趣的小游戏",
-          alias: "Little Game",
-          target: "/game",
-        },
-        {
-          index: "div_index5",
-          name: "一个眼睛里慢慢有光的我",
-          alias: "ME",
-          target: "/me",
-        },
-      ],
       text:
         '提示：写完文章后，目录可以自动生成，如何生成可参考右边的帮助文档\n' +
             '> 随着人工智能的不断发展，机器学习这门技术也越来越重要，很多人都开启了学习机器学习，本文就介绍了机器学习的基础内容。\n' +
@@ -138,31 +101,10 @@ export default {
             '例如：以上就是今天要讲的内容，本文仅仅简单介绍了pandas的使用，而pandas提供了大量能使我们快速便捷地处理数据的函数和方法。\'\n',
     };
   },
-  created() {
-    // 引入js
-    proNavanimate();
-    qs_index();
-  },
-  mounted() {
-    // 引入js
-    proNavanimate();
-    qs_index();
-  },
   methods: {
-    // more 页面跳转
-    jumpToPage(target) {
-      this.$router.push(target);
-    },
     handleCopyCodeSuccess(){
       this.$message.success("代码复制成功")
     }
-  },
-  computed: {
-    rightTopMenus: function () {
-      return this.menuPages.filter(function (item) {
-        return item.target;
-      });
-    },
   }
 };
 </script>

@@ -25,7 +25,7 @@
     <div id="scrollDown">
       <span id="scrollDownSpan"></span>
     </div>
-    <el-backtop>
+    <el-backtop id="backTop">
       <div
         style="
         height: 100%;
@@ -47,9 +47,9 @@
 <script>
 import "css/articles.css";
 import "css/about.css";
-import { aboutMe } from "js/about";
-import { proNavanimate } from "js/qs-jquery-1.0";
-import { qs_index } from "js/qs_index";
+import { aboutMe } from "js/aboutMe";
+import { navAnimate } from "js/navAnimate";
+import { home } from "js/home";
 import rightTopNavBar from "@/components/rightTopNavBar";
 import pictureWall from "@/components/pictureWall"
 
@@ -61,14 +61,14 @@ export default {
   },
   created() {
     // 引入js
-    proNavanimate();
-    qs_index();
+    navAnimate();
+    home();
     aboutMe();
   },
   mounted() {
     // 引入js
-    proNavanimate();
-    qs_index();
+    navAnimate();
+    home();
     aboutMe();
   },
   data() {
@@ -105,29 +105,6 @@ export default {
           target: "/me",
         },
       ],
-      rotationCharts: [
-        {
-          id: 1,
-          label: "lalala",
-          url: "../../assets/image/IMG_20210417_195637.jpg",
-        },
-        {
-          id: 2,
-          label: "lalala",
-          url: "../../assets/image/IMG_20210417_195637.jpg",
-        },
-        {
-          id: 3,
-          label: "lalala",
-          url: "../../assets/image/IMG_20210417_195637.jpg",
-        },
-        {
-          id: 4,
-          label: "lalala",
-          url: "../../assets/image/IMG_20210417_195637.jpg",
-        },
-      ]
-
     };
   },
   methods: {
@@ -139,7 +116,7 @@ export default {
   computed: {
     rightTopMenus: function () {
       return this.menuPages.filter(function (item) {
-        return item.target != "/me";
+        return item.target !== "/me";
       });
     },
   },
@@ -147,19 +124,5 @@ export default {
 </script>
 
 <style scoped>
-.el-carousel__item h3 {
-  color: #475669;
-  font-size: 18px;
-  opacity: 0.75;
-  line-height: 300px;
-  margin: 0;
-}
 
-.el-carousel__item:nth-child(2n) {
-  background-color: #99a9bf;
-}
-
-.el-carousel__item:nth-child(2n + 1) {
-  background-color: #d3dce6;
-}
 </style>

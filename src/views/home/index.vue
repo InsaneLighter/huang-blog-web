@@ -11,7 +11,7 @@
       <!--content-->
       <div id="content">
         <dl class="article div_index1">
-          <div class="bg"><img src="../../assets/image/index.jpg"></div>
+          <div class="bg"><img src="/static/image/index.jpg"></div>
           <div class="div1">
               Chasing The Light
           </div>
@@ -39,8 +39,8 @@
 
 <script>
 import 'css/base.css';
-import {proNavanimate} from 'js/qs-jquery-1.0';
-import {qs_index} from 'js/qs_index';
+import {navAnimate} from 'js/navAnimate';
+import {home} from 'js/home';
 import rightNavBar from '@/components/rightNavBar';
 import rightTopNavBar from '@/components/rightTopNavBar';
 export default {
@@ -103,11 +103,9 @@ export default {
       this.$router.push(target);
     },
   },
-  created(){
-  },
   mounted(){
-    proNavanimate();
-    qs_index();
+    navAnimate();
+    home();
   }
 }
 

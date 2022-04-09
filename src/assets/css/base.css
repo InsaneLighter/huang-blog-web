@@ -80,7 +80,7 @@ input {
     overflow: hidden;
 }
 .div_js_bg {
-    background: url(../image/blankMenu.png) repeat center center;
+    background: url(/static/image/blankMenu.png) repeat center center;
     position: absolute;
     width: 100%;
     height: 100%;
@@ -445,14 +445,14 @@ input {
     color: #fff;
     font-size: 20px;
     margin-bottom: 20px;
-    background: url(../image/sideGuide.png) left center no-repeat;
+    background: url(/static/image/sideGuide.png) left center no-repeat;
     width: 43px;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
 }
 .head .activesss:hover, .head .on {
-    background: url(../image/sideGuide.png) right center no-repeat;
+    background: url(/static/image/sideGuide.png) right center no-repeat;
     -webkit-transition: all .3s;
     -moz-transition: all .3s;
     transition: all .3s;
