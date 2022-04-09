@@ -1,14 +1,8 @@
 <template>
   <div>
-    <div class="container">
-      <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
-
-      <!--背景图片 title-->
-      <div class="main_bg div_news">
-        <div class="p1">Daily life</div>
-      </div>
-    </div>
+    <global-header :currentPage="$route.path">
+      Daily life
+    </global-header>
 
     <div class="backStep">
       <a @click="$router.push('/')"><el-icon style="vertical-align: -10%"><back /></el-icon><span>返回</span></a>
@@ -63,9 +57,8 @@
 
 <script>
 import "css/articles.css";
-import "js/jquery-3.6.0.js";
-import { proNavanimate } from "js/qs-jquery-1.0.js";
-import { qs_index } from "js/qs_index.js";
+import { proNavanimate } from "js/qs-jquery-1.0";
+import { qs_index } from "js/qs_index";
 import rightTopNavBar from "@/components/rightTopNavBar";
 export default {
   name: "note",

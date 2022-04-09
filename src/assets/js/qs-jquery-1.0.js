@@ -1,3 +1,4 @@
+//屏幕打印文字
 function autoType(elementClass, typingSpeed) {
     var thhis = $(elementClass);
     thhis = thhis.find(".introduce");
@@ -23,23 +24,6 @@ function autoType(elementClass, typingSpeed) {
 }
 
 export let proNavanimate = function(){
-	$(".index_qq a").hover(
-		function(){
-			$(this).find("img").stop(true,false).animate({opacity:"1",width:"144px"}, 300)
-		},
-		function(){
-			$(this).find("img").stop(true,false).animate({opacity:"0",width:"0"}, 300)
-		}
-	)
-
-	$(".ul_js li").hover(
-		function(){
-			$(this).stop(true,false).animate({top:"-5px"}, 300)
-		},
-		function(){
-			$(this).stop(true,false).animate({top:"0px"}, 300)
-		}
-	)
 	$(".index_dh").click(
 		function(){
 			$(".div_js_txt").stop(true,false).delay(0).animate({width:"100%",height:"100%"}, 0);
@@ -49,16 +33,8 @@ export let proNavanimate = function(){
 			$(".div_js_close").stop(true,false).delay(500).animate({opacity:"1"}, 2000);
 		}
 	)
-	$(".main_dh").click(
-		function(){
-			$(".div_js_txt").stop(true,false).delay(0).animate({width:"100%",height:"100%"}, 0);
-			$(".div_js_bg").stop(true,false).delay(0).animate({opacity:"1"}, 500);
-			$(".div_js_lf").stop(true,false).delay(0).animate({left:"0"}, 500);
-			$(".div_js_rg").stop(true,false).delay(500).animate({opacity:"1"}, 2000);
-			$(".div_js_close").stop(true,false).delay(500).animate({opacity:"1"}, 2000);
-		}
-	)
-	$(".div_js_close").click(
+
+	$(".div_js_close").unbind("click").click(
 		function(){
 			$(".div_js_txt").stop(true,false).delay(500).animate({width:"0",height:"0"}, 0);
 			$(".div_js_bg").stop(true,false).delay(0).animate({opacity:"0"}, 800);

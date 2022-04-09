@@ -1,16 +1,8 @@
 <template>
   <div>
-    <div class="container">
-      <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
-
-      <!--背景图片 title-->
-      <div class="main_bg div_news">
-        <div class="p1">
-          Today,I consider myself the luckiest man on the face of the earth
-        </div>
-      </div>
-    </div>
+    <global-header :currentPage="$route.path">
+      Today,I consider myself the luckiest man on the face of the earth
+    </global-header>
 
     <!-- 标签菜单 -->
     <div class="tagMenu">
@@ -105,27 +97,16 @@
 
 <script>
 import 'css/articles.css'
-import 'js/jquery-3.6.0'
-import { proNavanimate } from 'js/qs-jquery-1.0'
-import { qs_index } from 'js/qs_index'
-import 'js/articles'
-import rightTopNavBar from '../../components/rightTopNavBar/index.vue'
-import { Search } from '@element-plus/icons-vue'
+import globalHeader from '@/components/globalHeader'
 
 export default {
   name: 'doc',
   components: {
-    rightTopNavBar
+    globalHeader
   },
   created () {
-    // 引入js
-    proNavanimate()
-    qs_index()
   },
   mounted () {
-    // 引入js
-    proNavanimate()
-    qs_index()
     //请求
     this.getData(this.params)
   },
@@ -312,15 +293,10 @@ export default {
     },
   },
   computed: {
-    rightTopMenus: function () {
-      return this.menuPages.filter(function (item) {
-        return item.target != '/doc'
-      })
-    },
     isSinglePage: function () {
       return this.params.totalCount <= this.params.pageSize
     },
-  },
+  }
 }
 </script>
 

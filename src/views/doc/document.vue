@@ -30,10 +30,9 @@
 
 <script>
 import "css/articles.css";
-import "js/jquery-3.6.0";
 import { proNavanimate } from "js/qs-jquery-1.0";
 import { qs_index } from "js/qs_index";
-import rightTopNavBar from "@/components/rightTopNavBar/index.vue";
+import rightTopNavBar from "@/components/rightTopNavBar";
 export default {
   name: "document",
   components: {

@@ -1,16 +1,9 @@
 <template>
   <div>
-    <div class="container">
-      <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
+    <global-header :currentPage="$route.path">
+      When you choose to become others, you will lose yourself
+    </global-header>
 
-      <!--背景图片 title-->
-      <div class="main_bg div_news">
-        <div class="p1">
-          When you choose to become others, you will lose yourself
-        </div>
-      </div>
-    </div>
     <div class="mian_box">
       <ul class="ul_list">
         <li v-for="item in games" :key="item.id">
@@ -56,10 +49,9 @@
 <script>
 import "css/articles.css";
 import "css/game.css";
-import "js/jquery-3.6.0";
 import { proNavanimate } from "js/qs-jquery-1.0";
 import { qs_index } from "js/qs_index";
-import rightTopNavBar from "@/components/rightTopNavBar/index.vue";
+import rightTopNavBar from "@/components/rightTopNavBar";
 export default {
   name: "game",
   components: {

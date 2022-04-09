@@ -39,9 +39,8 @@
 
 <script>
 import 'css/base.css';
-import 'js/jquery-3.6.0.js';
-import {proNavanimate} from 'js/qs-jquery-1.0.js';
-import {qs_index} from 'js/qs_index.js';
+import {proNavanimate} from 'js/qs-jquery-1.0';
+import {qs_index} from 'js/qs_index';
 import rightNavBar from '@/components/rightNavBar';
 import rightTopNavBar from '@/components/rightTopNavBar';
 export default {
@@ -89,12 +88,12 @@ export default {
   computed: {
     activeMenuPages: function(){
       return this.menuPages.filter(function(item){
-        return item.index != "div_index1";
+        return item.index !== "div_index1";
       })
     },
     rightTopMenus: function(){
       return this.menuPages.filter(function(item){
-        return item.target != '/home';
+        return item.target !== '/home';
       })
     }
   },
@@ -105,8 +104,6 @@ export default {
     },
   },
   created(){
-    proNavanimate();
-    qs_index();
   },
   mounted(){
     proNavanimate();

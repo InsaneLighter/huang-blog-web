@@ -5,7 +5,7 @@ export let aboutMe = function () {
     //页面向下滑动
     function scrollDown() {
         //页面向下滑动
-        $("#scrollDownSpan").click(function () {
+        $("#scrollDownSpan").unbind("click").click(function () {
             $(this).parent().hide();
             window.scrollTo({
                 top: 970 * (++index),

@@ -47,7 +47,6 @@
 <script>
 import "css/articles.css";
 import "css/about.css";
-import "js/jquery-3.6.0";
 import { aboutMe } from "js/about";
 import { proNavanimate } from "js/qs-jquery-1.0";
 import { qs_index } from "js/qs_index";

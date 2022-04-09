@@ -12,26 +12,14 @@ export let qs_index = function () {
 		});
 	}
 	resetFun();
-			$(".index_logo").delay(0).animate({ left:"34px", opacity:"1"},800);
-			$(".index_line").delay(0).animate({ top:"0px", opacity:"1"},800,"easeOutBounce");
-			$(".index_search").delay(0).animate({ right:"9%", opacity:"1"},800);
 			$(".index_dh").delay(300).animate({ right:"3%", opacity:"1"},800);
-			$(".index_right").delay(0).animate({ right:"0px", opacity:"1"},800);
-			$(".index_left").delay(0).animate({ left:"34px", opacity:"1"},800);
-			$(".index_foot").delay(0).animate({ left:"34px", bottom:"30px", opacity:"1"},800);
-			$(".index_qq").delay(0).animate({ right:"2.5%", bottom:"30px", opacity:"1"},800);
-
 			$(".div_index1 .div1").stop().css({ left:"-150px", opacity:"0"}).delay(500).animate({left:"25%", opacity:"1"},800 );
-
 			$(".div_index2 .div_bg .div1 .p1").stop().css({left:"-150px", opacity:"0"}).delay(500).animate({left:"0",opacity:"1"}, 1000);
 			$(".div_index2 .div_bg .div1 .p2").stop().css({top:"50px", opacity:"0"}).delay(500).animate({top:"0",opacity:"1"}, 1000);
-
 			$(".div_index3 .div_bg .div1 .p1").stop().css({left:"-150px", opacity:"0"}).delay(500).animate({left:"0",opacity:"1"}, 1000);
 			$(".div_index3 .div_bg .div1 .p2").stop().css({top:"50px", opacity:"0"}).delay(500).animate({top:"0",opacity:"1"}, 1000);
-
 			$(".div_index4 .div_bg .div1 .p1").stop().css({left:"-150px", opacity:"0"}).delay(500).animate({left:"0",opacity:"1"}, 1000);
 			$(".div_index4 .div_bg .div1 .p2").stop().css({top:"50px", opacity:"0"}).delay(500).animate({top:"0",opacity:"1"}, 1000);
-
 			$(".div_index5 .div_bg .div1 .p1").stop().css({left:"-150px", opacity:"0"}).delay(500).animate({left:"0",opacity:"1"}, 1000);
 			$(".div_index5 .div_bg .div1 .p2").stop().css({top:"50px", opacity:"0"}).delay(500).animate({top:"0",opacity:"1"}, 1000);
 
@@ -53,17 +41,17 @@ export let qs_index = function () {
 			$(".div_index5 .div_bg .div1 .p2").stop().css({top:"50px", opacity:"0"}).delay(500).animate({top:"0",opacity:"1"}, 1000);
 	  }
 	};
-	
+
 	let goToFun = function(){
 		direct=0;
 		if(index<0){  index=guideLi.length-1 }
 		if(index>=guideLi.length){ index=0 }
-		curBg.stop().animate({ left:curBg.width()*index },300,"swing"); 
-		guideLi.removeClass("on").eq(index).addClass("on"); 
-		$("html,body").stop().animate({ scrollLeft:( ($(window).width()) *index ) },1000,"swing",function(){ direct=0;}); 
+		curBg.stop().animate({ left:curBg.width()*index },300,"swing");
+		guideLi.removeClass("on").eq(index).addClass("on");
+		$("html,body").stop().animate({ scrollLeft:( ($(window).width()) *index ) },1000,"swing",function(){ direct=0;});
 		dh(index);
 	}
-	
+
 	guideLi.each(function(i){
 		$(this).hover(
 			function(){
@@ -76,7 +64,7 @@ export let qs_index = function () {
 	$(window).resize(function(){ resetFun() });
 
 	let scrollFunc=function(e){
-		e=e || window.event; 
+		e=e || window.event;
 		if(e.wheelDelta){
 			direct += (-e.wheelDelta/200);
 		}else if(e.detail){
