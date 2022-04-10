@@ -23,31 +23,31 @@ export default {
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_1.jpg',
-          content: '相识只是一场缘分'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_2.jpg',
-          content: '爱你哈'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_3.jpg',
-          content: '哦豁了'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_4.jpg',
-          content: '很开心的一天呢'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_5.jpg',
-          content: '认识你我很开心'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_6.jpg',
-          content: '我来了啊'
+          content: 'No better'
         },
         {
           url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_7.jpg',
-          content: 'Lucida Sans Regular'
+          content: 'No better'
         }
       ]
     }
