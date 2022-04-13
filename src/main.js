@@ -4,6 +4,7 @@ import 'element-plus/dist/index.css'
 import * as ElIcons from '@element-plus/icons'
 import App from './App.vue'
 import router from './router'
+import './router/router-permission'
 
 //md-preview
 import VueMarkdownEditor from '@kangc/v-md-editor';
