@@ -38,7 +38,6 @@
 </template>
 
 <script>
-import 'css/base.css';
 import {navAnimate} from 'js/navAnimate';
 import {home} from 'js/home';
 import rightNavBar from '@/components/rightNavBar';

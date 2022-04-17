@@ -14,7 +14,6 @@
 </template>
 
 <script>
-import 'css/base.css';
 export default {
     name: 'rightNavBar'
 }

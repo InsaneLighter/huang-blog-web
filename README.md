@@ -23,7 +23,7 @@ npm run build
 
 3.全局样式文件待更新整理 2022.04.10
 
-4.项目部署至nginx后 直接通过url访问会导致404 只能通过路由跳转才为正常 2022.04.13
+4.项目部署至nginx后 直接通过url访问会导致404 只能通过路由跳转才为正常 2022.04.13(solve)
 location / {
 root html;
 index index.html index.htm;
@@ -34,5 +34,7 @@ nginx部署后会按照 try_files后面的参数依次去匹配 root中对应的
 那么将返回这个文件夹中 index指令指定的文件。
 最后一个 uri参数将作为前面没有匹配到的fallback。（注意 try_files指令至少需要两个参数）
 
-5.如果页面直接通过url访问右上菜单打开后没有隐藏下层页面
+5.如果页面直接通过url访问右上菜单打开后没有隐藏下层页面(solve)
+遮罩层background-image由base.css引入，但只有home/index.vue文件进行引入，所以只能通过index页面跳转才能正常隐藏
+将base.css文件在main.js中引入即解决问题
 ```
