@@ -94,18 +94,3 @@ export default {
   }
 }
 </script>
-
-<style scoped>
-.p1, .foot {
-  height: 100px;
-  line-height: 100px;
-  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
-  "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
-.foot {
-  text-align: center;
-  font-size: 20px;
-  font-weight: 600;
-}
-</style>
