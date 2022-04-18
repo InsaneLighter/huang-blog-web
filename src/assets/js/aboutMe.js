@@ -110,7 +110,6 @@ export let aboutMe = function () {
   $(".me_div1 .page_content .div3").delay(400).animate({ top:"400px", opacity:"1"},1000);
   autoType(".page_content",300);
   autoType(".me_div3",300);
-  autoType(".me_div13",300);
 
   let init = function () {
     initEvent()
