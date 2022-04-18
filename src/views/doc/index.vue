@@ -301,50 +301,5 @@ export default {
 </script>
 
 <style scoped>
-.tagMenu {
-  position: absolute;
-  width: 300px;
-  height: 200px;
-  top: 130px;
-  left: 45px;
-  z-index: 99;
-}
 
-.queryContainer {
-  position: absolute;
-  width: 300px;
-  height: 200px;
-  top: 130px;
-  right: 45px;
-  z-index: 999;
-}
-
-.tags {
-  margin-top: 10px;
-}
-
-.el-tag + .el-tag {
-  margin-left: 10px;
-  margin-top: 10px;
-}
-
-.content {
-  width: 60rem;
-  margin: 0 auto;
-}
-
-.p1 {
-  height: 6rem;
-  line-height: 6rem;
-  font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-}
-.pagination {
-  width: 30rem;
-  margin: 0 auto;
-}
-.classify {
-  margin-top: 5px;
-  height: 20px;
-  line-height: 20px;
-}
 </style>

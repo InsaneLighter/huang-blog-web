@@ -49,7 +49,6 @@ img {
     float: right;
 }
 
-/*移除x滚动轴*/
 html {
     overflow-x: hidden;
 }
@@ -67,8 +66,6 @@ input {
     outline: none;
 }
 
-/*-webkit-filter: blur(0px); filter: blur(0px);*/
-/* 公用样式 */
 .div_js_txt {
     position: fixed;
     width: 0;
@@ -214,21 +211,7 @@ input {
 .nav-menu .active a .front, .nav-menu .active a .back, .nav-menu li a:hover .front, .nav-menu li a:hover .back {
     background-color: #009FFD;
 }
-.div_js_rg {
-    width: 50%;
-    position: absolute;
-    top: 0px;
-    height: 100%;
-    right: 0px;
-    filter: alpha(opacity=0);
-    opacity: 0;
-}
-.div_js_rg img {
-    position: absolute;
-    width: 41%;
-    margin-left: 29%;
-    margin-top: 40%;
-}
+
 .div_js_close {
     position: absolute;
     top: 45px;
@@ -250,12 +233,6 @@ input {
     -o-transform: rotate(360deg);
 }
 
-/* 公用样式 End */
-
-/* Index */
-.ul_js li {
-    position: relative;
-}
 .container {
     width: 100%;
     height: 100%;
@@ -265,67 +242,6 @@ input {
     filter: alpha(opacity=0);
     opacity: 0;
 }
-.index_logo {
-    position: fixed;
-    top: 29px;
-    left: -150px;
-    z-index: 10000;
-}
-/*搜索框 首页*/
-.index_search {
-    position: fixed;
-    top: 30px;
-    right: -228px;
-    z-index: 1000;
-}
-
-.index_search input {
-    height: 30px;
-    width: 200px;
-    position: absolute;
-    right: 100px;
-}
-
-.svg-wrapper {
-    position:relative;
-    display:inline-block;
-    border-radius:3px;
-    margin-left:5px;
-    margin-right:5px
-}
-
-.shape {
-    stroke-width:6px;
-    fill:transparent;
-    stroke:#009FFD;
-    stroke-dasharray:82,200;
-    stroke-dashoffset:-113;
-    transition:1s all ease
-}
-
-.text {
-    margin-top:-36px;
-    text-align:center
-}
-.text a {
-    color:white;
-    text-decoration:none;
-    font-weight:100;
-    font-size:14px
-}
-
-.text a .spot {
-    position:absolute;
-    width:100%;
-    height:100%;
-    top:0;
-    left:0
-}
-.svg-wrapper:hover .shape {
-    stroke-dasharray:50,0;
-    stroke-width:3px;
-    stroke-dashoffset:0;
-    stroke:#06D6A0}
 
 .index_dh {
     position: fixed;
@@ -334,12 +250,7 @@ input {
     z-index: 1000;
     cursor: pointer;
 }
-.index_right {
-    position: fixed;
-    top: 158px;
-    right: -100px;
-    z-index: 1000;
-}
+
 .footer {
     position: fixed;
     bottom: 20px;
@@ -351,46 +262,7 @@ input {
     text-decoration: none;
     color: #eee;
 }
-.index_qq {
-    position: fixed;
-    bottom: -30px;
-    right: -75px;
-    z-index: 1000;
-}
-.index_qq a {
-    display: block;
-    float: left;
-    width: 36px;
-    height: 36px;
-    margin-left: 20px;
-}
-.index_qq .a1 img {
-    position: absolute;
-    bottom: 40px;
-    left: 15px;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    width: 0;
-    padding-bottom: 5px;
-}
-.index_qq .a2 img {
-    position: absolute;
-    bottom: 40px;
-    left: 14px;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    width: 0;
-    padding-bottom: 5px;
-}
-.index_qq .a3 img {
-    position: absolute;
-    bottom: 40px;
-    left: 17px;
-    filter: alpha(opacity=0);
-    opacity: 0;
-    width: 0px;
-    padding-bottom: 5px;
-}
+
 #content {
     overflow: hidden;
     width: 1000%;
@@ -710,4 +582,22 @@ input {
     background: #fff;
     color: #89b20c
 }
-/*index end*/
+
+.main_bg {
+    position: relative;
+    width: 100%;
+}
+
+.div_news {
+    background: #000;
+    text-align: center;
+    color: white;
+}
+
+.div_news .p1 {
+    font-size: 35px;
+    height: 6rem;
+    line-height: 6rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+

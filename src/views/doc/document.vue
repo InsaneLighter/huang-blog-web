@@ -115,13 +115,8 @@ export default {
   width: 1200px;
   margin: 10px auto;
 }
-::v-deep .v-md-editor--preview{
+::v-deep(.v-md-editor--preview) {
   box-shadow: 0 0 5px 1px #d4d4d4;
-}
-.p1 {
-	font-family :'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
-  height: 100px;
-  line-height: 100px;
 }
 .backStep {
   color: #afadad;
