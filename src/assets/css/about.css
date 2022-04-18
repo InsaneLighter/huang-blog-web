@@ -2,17 +2,11 @@ html {
 	overflow-y: hidden;
 }
 
-.box {
-	width: 1200px;
-	margin: 0 auto;
-	padding-top: 100px;
-}
 .me_div1 {
 	height: 60rem;
 	background-color: #000;
 }
 .me_div1 .page_content {
-	position: relative;
 	text-align: center;
 }
 .me_div1 .page_content .div1,.me_div1 .page_content .div2,.me_div1 .page_content .div3 {
@@ -33,9 +27,16 @@ html {
 	z-index: 999;
 	color: white;
 	font-size: 30px;
-	top: 600px;
 	filter: alpha(opacity=0);
 	opacity: 0;
+}
+
+.me_div1 .introduce {
+	top: 35rem;
+}
+
+.me_div3 .introduce {
+	top: 155rem;
 }
 
 .tips {
@@ -66,7 +67,6 @@ html {
 }
 
 .me_div3 {
-	position: relative;
 	background: #000;
 	height: 60rem;
 }
@@ -77,15 +77,15 @@ html {
 #scrollDown {
 	position: absolute;
 	top: 100%;
-	margin-top: -100px;
+	margin-top: -6rem;
 	width: 100%;
 }
 #scrollDownSpan {
 	z-index: 100;
 	position: fixed;
 	left: 51%;
-	margin-left: -30px;
-	margin-top: 50px;
+	margin-left: -2rem;
+	margin-top: 3rem;
 	border-right: 3px solid rgba(255,255,255,0.5);
 	border-top: 3px solid rgba(255,255,255,0.5);
 	height: 20px;

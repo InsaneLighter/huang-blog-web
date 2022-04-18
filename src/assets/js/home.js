@@ -1,7 +1,6 @@
 export let home = function () {
   let goTo = $('.article')
   let guideLi = $('.sideGuide .activesss')
-  let curBg = $('.sideGuide .curBg')
 
   let index = 0
   let direct = 0
@@ -14,13 +13,6 @@ export let home = function () {
   resetFun()
   $('.index_dh').delay(300).animate({
     right: '3%',
-    opacity: '1'
-  }, 800)
-  $('.div_index1 .div1').stop().css({
-    left: '-150px',
-    opacity: '0'
-  }).delay(500).animate({
-    left: '25%',
     opacity: '1'
   }, 800)
   $('.div_index2 .div_bg .div1 .p1').stop().css({
@@ -81,15 +73,7 @@ export let home = function () {
   }, 1000)
 
   let dh = function (qs) {
-    if (qs == 0) {
-      $('.div_index1 .div1').stop().css({
-        left: '-150px',
-        opacity: '0'
-      }).delay(500).animate({
-        left: '25%',
-        opacity: '1'
-      }, 800)
-    } else if (qs == 1) {
+    if (qs == 1) {
       $('.div_index2 .div_bg .div1 .p1').stop().css({
         left: '-150px',
         opacity: '0'
@@ -160,7 +144,6 @@ export let home = function () {
     if (index >= guideLi.length) {
       index = 0
     }
-    curBg.stop().animate({ left: curBg.width() * index }, 300, 'swing')
     guideLi.removeClass('on').eq(index).addClass('on')
     $('html,body').stop().animate({ scrollLeft: (($(window).width()) * index) }, 1000, 'swing', function () {
       direct = 0

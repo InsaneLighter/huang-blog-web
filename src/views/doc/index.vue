@@ -7,7 +7,6 @@
     <!-- 标签菜单 -->
     <div class="tagMenu">
       <el-select
-        style="width:12rem;margin-left: 5rem"
         v-model="tagName"
         clearable
         filterable
@@ -38,7 +37,8 @@
     <!-- 查询容器 -->
     <div class="queryContainer">
       <div class="search">
-        <el-input placeholder="搜索" style="width:12rem" v-model="searchContent" @change="searchArticle"
+        <el-input placeholder="搜索" style="width:12rem"
+                  v-model="searchContent" @change="searchArticle"
                   clearable></el-input>
         <el-button icon="Search" style="margin-left: 5px;margin-bottom: 4px" circle @click="searchArticle"/>
       </div>

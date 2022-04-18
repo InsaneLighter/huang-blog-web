@@ -1,18 +1,15 @@
 .tagMenu {
 	position: absolute;
-	width: 300px;
-	height: 200px;
-	top: 130px;
-	left: 45px;
-	z-index: 99;
+	width: 15rem;
+	top: 8rem;
+	left: 10rem;
+	z-index: 999;
 }
 
 .queryContainer {
 	position: absolute;
-	width: 300px;
-	height: 200px;
-	top: 130px;
-	right: 45px;
+	top: 8rem;
+	right: 10rem;
 	z-index: 999;
 }
 
@@ -37,8 +34,8 @@
 
 .articles li {
 	border-radius: 10px;
-	width: 950px;
-	margin: 25px auto;
+	width: 60rem;
+	margin: 1rem auto;
 	background: #f6f6f6;
 }
 

@@ -61,8 +61,8 @@
 	color: #fff;
 }
 .p1, .foot {
-	height: 100px;
-	line-height: 100px;
+	height: 6rem;
+	line-height: 6rem;
 	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
 	"Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }

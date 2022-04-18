@@ -76,6 +76,7 @@ body {
   overflow: hidden;
   cursor: pointer;
   float: left;
+  padding-top: 6rem;
 }
 
 .box:hover .border {

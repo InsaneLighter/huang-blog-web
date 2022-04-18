@@ -11,7 +11,7 @@
       <!--content-->
       <div id="content">
         <dl class="article div_index1">
-          <div class="bg"><img src="/static/image/index.jpg"></div>
+          <div class="bg"></div>
           <div class="div1">
               Chasing The Light
           </div>

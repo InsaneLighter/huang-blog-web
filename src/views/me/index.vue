@@ -45,7 +45,6 @@
 </template>
 
 <script>
-import "css/articles.css";
 import "css/about.css";
 import { aboutMe } from "js/aboutMe";
 import { navAnimate } from "js/navAnimate";
