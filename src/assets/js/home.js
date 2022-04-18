@@ -193,14 +193,16 @@ export let home = function () {
       if (index < 4) {
         goToFun(index++)
       } else {
-        direct = 0
+        index = 0
+        goToFun(index)
       }
     }
     if (direct <= -8) {
       if (index > 0) {
         goToFun(index--)
       } else {
-        direct = 0
+        index = 4
+        goToFun(index)
       }
     }
 
