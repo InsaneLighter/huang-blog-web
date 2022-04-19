@@ -2,7 +2,7 @@ const webpack = require('webpack')
 const path = require('path')
 const port = 17778
 
-nfunction resolve (dir) {
+function resolve (dir) {
   return path.join(__dirname, dir)
 }
 
