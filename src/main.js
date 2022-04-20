@@ -7,6 +7,9 @@ import App from './App.vue'
 import router from './router'
 import './router/router-permission'
 
+//系统页面禁止缩放及查看开发页面
+import './assets/js/sys'
+
 //md-preview
 import VueMarkdownEditor from '@kangc/v-md-editor';
 import '@kangc/v-md-editor/lib/style/base-editor.css';
