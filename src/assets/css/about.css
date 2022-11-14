@@ -3,7 +3,7 @@ html {
 }
 
 .me_div1 {
-	height: 60rem;
+	height: 100vh;
 	background-color: #000;
 }
 .me_div1 .page_content {
@@ -36,7 +36,7 @@ html {
 }
 
 .me_div3 .introduce {
-	top: 155rem;
+	margin-top: 40vh;
 }
 
 .tips {
@@ -63,12 +63,12 @@ html {
 
 .me_div2 {
 	background: #000;
-	height: 60rem;
+	height: 100vh;
 }
 
 .me_div3 {
 	background: #000;
-	height: 60rem;
+	height: 100vh;
 }
 .me_div2 .title,.me_div3 .title {
 	color: #fff;

@@ -1,95 +1,63 @@
 <template>
   <div>
-    <global-header :currentPage="$route.path">
-      Today,I consider myself the luckiest man on the face of the earth
-    </global-header>
-
-    <!-- 标签菜单 -->
-    <div class="tagMenu">
-      <el-select
-        v-model="tagName"
-        clearable
-        filterable
-        placeholder="分类标签"
-        @change="addNewTag"
-      >
-        <el-option
-          v-for="item in options"
-          :key="item.value"
-          :label="item.label"
-          :value="item.value"
-        >
-        </el-option>
-      </el-select>
-      <div class="tags">
-        <el-tag
-          :key="tag"
-          :type="tag.randomType"
-          v-for="tag in dynamicTags"
-          closable
-          :disable-transitions="false"
-          @close="handleClose(tag)"
-        >
-          {{ tag.name }}
-        </el-tag>
-      </div>
-    </div>
-    <!-- 查询容器 -->
-    <div class="queryContainer">
-      <div class="search">
-        <el-input placeholder="搜索" style="width:12rem"
-                  v-model="searchContent" @change="searchArticle"
-                  clearable></el-input>
-        <el-button icon="Search" style="margin-left: 5px;margin-bottom: 4px" circle @click="searchArticle"/>
-      </div>
+    <div class="container">
+      <!--右上导航栏-->
+      <global-header :currentPage="$route.path">
+        Today,I consider myself the luckiest man on the face of the earth
+      </global-header>
     </div>
 
     <!--文章内容渲染-->
     <div class="mian_box">
       <div class="content">
-        <el-scrollbar v-loading="false" height="50rem">
-          <ul class="articles">
-            <li v-for="item in articles" :key="item.id">
-              <div class="article_content">
-                <a
-                  href="javascript:void(0)"
-                  @click="jumpToPage('/doc/' + item.id)"
+        <div class="terms">
+          <el-form :inline="true">
+            <el-form-item label="关键字">
+              <el-input placeholder="关键字" v-model="params.keyword" @change="search" clearable></el-input>
+            </el-form-item>
+            <el-form-item label="分类标签">
+              <!-- 标签菜单 -->
+              <el-select v-model="params.tagName"
+                         placeholder="分类标签"
+              >
+                <el-option
+                  v-for="item in options"
+                  :key="item.value"
+                  :label="item.label"
+                  :value="item.value"
                 >
+                </el-option>
+              </el-select>
+            </el-form-item>
+            <el-form-item>
+              <el-button :loading="this.isLoading" id="searchBtn" round @click="search">查询</el-button>
+            </el-form-item>
+          </el-form>
+        </div>
+        <ul class="infinite-list articles"
+            v-infinite-scroll="loadData"
+            style="overflow:auto;height: 75vh">
+          <li v-for="item in articles" :key="item.id" class="infinite-list-item">
+            <el-card shadow="hover" :body-style="{ padding: '0px'}">
+              <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
                   <p class="article_title">{{ item.title }}</p>
                   <p class="article_desc">{{ item.description }}</p>
-                  <div>
-                    <span class="article_detail">
-                      <label>时间: </label><span>{{ item.createTime }}</span>
-                    </span>
-                      <span class="article_detail">
-                      <label>浏览: </label><span>{{ item.skim }}</span>
-                    </span>
-                    <span class="article_detail">
-                    <label>分类: </label>
-                    <span>
-                      <a href="javascript:void(0)">{{ item.type }}</a>
-                    </span>
-                  </span>
-                  </div>
-                </a>
+                <span class="article_detail">
+                  <label>时间: </label><span>{{ item.createTime }}</span>
+                </span>
+                  <span class="article_detail">
+                  <label>浏览: </label><span>{{ item.skim }}</span>
+                </span>
+                  <span class="article_detail">
+                  <label>分类: </label>
+                  <span
+                  ><a href="javascript:void(0)">{{ item.type }}</a></span
+                  >
+                </span>
               </div>
-            </li>
-          </ul>
-        </el-scrollbar>
-      </div>
-      <!-- 分页 -->
-      <div>
-        <el-pagination
-          class="pagination"
-          :hide-on-single-page="isSinglePage"
-          @current-change="handleCurrentChange"
-          @prev-click="handlePreClick"
-          @next-click="handleNextClick"
-          v-model:currentPage="this.params.currentPage"
-          :page-size="10"
-          layout="total, prev, pager, next"
-          :total="this.params.totalCount"
-          />
+            </el-card>
+          </li>
+        </ul>
       </div>
     </div>
   </div>
@@ -112,10 +80,11 @@ export default {
   },
   data () {
     return {
+      isLoading: false,
       menuPages: [
         {
           index: 'div_index1',
-          name: '不用看~是首页',
+          name: '不用看是首页',
           alias: 'HOME',
           target: '/home',
         },
@@ -201,105 +170,79 @@ export default {
         },
       ],
       params: {
-        pageSize: '10',
-        currentPage: 1,
-        totalCount: 100,
+        keyword: '',
+        tag: ''
       },
       options: [
         {
-          value: 'Wa~',
-          label: 'Wa~',
+          value: '1',
+          label: 'Wa',
         },
         {
-          value: 'Hou~',
-          label: 'Hou~',
+          value: '2',
+          label: 'Hou',
         },
         {
-          value: 'Gan~',
-          label: 'Gan~',
+          value: '3',
+          label: 'Gan',
         },
         {
-          value: 'Ohuo~',
-          label: 'Ohuo~',
+          value: '4',
+          label: 'Ohuo',
         },
         {
-          value: 'Nice!',
+          value: '5',
           label: 'Nice!',
         },
-      ],
-      tagName: '',
-      dynamicTags: [],
-      searchContent: ''
+      ]
     }
   },
   methods: {
+    search(){
+      this.getData(this.params);
+      document.getElementById("searchBtn").blur();
+    },
+    loadData(){
+      this.articles.push({
+        title: "从Paxos到Zookeeper分布式一致性原理与实践",
+        description:
+          "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
+        createTime: "2021/04/12 19:52",
+        skim: "777",
+        type: "分布式架构",
+      });
+    },
     // more 页面跳转
     jumpToPage (target) {
       this.$router.push(target)
-    },
-    handleCurrentChange (value) {
-      this.params.currentPage = value
-      //请求
-      this.getData(this.params)
-    },
-    handlePreClick (value) {
-      this.params.currentPage = value
-      //请求
-      this.getData(this.params)
-    },
-    handleNextClick (value) {
-      this.params.currentPage = value
-      //请求
-      this.getData(this.params)
-    },
-    handleClose (tag) {
-      this.dynamicTags.splice(this.dynamicTags.indexOf(tag), 1)
-      //请求
-      this.getData(this.params)
-    },
-    addNewTag () {
-      let tagName = this.tagName
-      let index = this.dynamicTags.findIndex((item) => {
-        return item.name == tagName
-      })
-      if (index == -1) {
-        this.dynamicTags.push({name:tagName,randomType: this.randomType()})
-        //请求
-        this.getData(this.params)
-      } else {
-        this.$message({
-          showClose: true,
-          message: '已经选择过了哦~',
-        })
-      }
-      this.tagName = ''
     },
     randomType(){
       const types = ['success','info','warning','danger']
       let randomInt = Math.floor((Math.random() * 10) + 1)
       return types[randomInt%types.length]
     },
-    searchArticle () {
-      console.log(this.searchContent)
-      this.getData(this.params)
-    },
     getData (params) {
+      console.log(params)
+      this.isLoading = true;
       let loadingInstance = this.$loading({
-        target: document.querySelector('.content')
+        target: document.querySelector('.articles')
       })
       setTimeout(function () {
         loadingInstance.close()
-      }, 2000)
-    },
+      }, 2000);
+      this.isLoading = false;
+    }
   },
   computed: {
-    isSinglePage: function () {
-      return this.params.totalCount <= this.params.pageSize
-    },
   }
 }
 </script>
 
 <style scoped>
-
+ .el-card {
+   border-radius: 10px;
+ }
+ .article_content:hover {
+   cursor: pointer;
+ }
 </style>

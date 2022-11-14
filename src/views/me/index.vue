@@ -10,7 +10,7 @@
         <div class="div1">Life was a box of chocolate</div>
         <div class="div2">You never know</div>
         <div class="div3">What you gonna get</div>
-        <div class="introduce">拨开云雾见天日,守得云开见月明</div>
+<!--        <div class="introduce">拨开云雾见天日,守得云开见月明</div>-->
       </div>
     </div>
     <!--页面1-->

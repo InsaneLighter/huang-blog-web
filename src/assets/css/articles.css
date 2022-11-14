@@ -27,22 +27,14 @@
 	margin: 0 auto;
 }
 
-.pagination {
-	width: 30rem;
-	margin: 0 auto;
+.terms {
+	width: 95%;
+	margin: 30px auto;
 }
 
 .articles li {
-	border-radius: 10px;
-	width: 60rem;
-	margin: 1rem auto;
-	background: #f6f6f6;
-}
-
-.articles li:hover {
-	-webkit-box-shadow: #d4d4d4 0px 0px 10px;
-	-moz-box-shadow: #d4d4d4 0px 0px 10px;
-	box-shadow: #d4d4d4 0px 0px 10px;
+	width: 95%;
+	margin: 0 auto 10px ;
 }
 
 .articles .article_content {

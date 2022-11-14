@@ -56,7 +56,6 @@ import globalHeader from '@/components/globalHeader'
 export default {
   name: 'game',
   components: {
-    rightTopNavBar,
     globalHeader
   },
   data () {

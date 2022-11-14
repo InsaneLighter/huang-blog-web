@@ -1,6 +1,8 @@
 export let aboutMe = function () {
   let index = 0
   let direct = 0
+  debugger
+  const windowHeight = window.innerHeight;
 
   //页面向下滑动
   function scrollDown () {
@@ -8,7 +10,7 @@ export let aboutMe = function () {
     $('#scrollDownSpan').unbind('click').click(function () {
       $(this).parent().hide()
       window.scrollTo({
-        top: 975 * (++index),
+        top: windowHeight * (++index),
         behavior: 'smooth'
       })
       $(this).parent().show()
@@ -27,7 +29,7 @@ export let aboutMe = function () {
     }
     direct = 0
     window.scrollTo({
-      top: 975 * index,
+      top: windowHeight * index,
       behavior: 'smooth'
     })
   }
@@ -36,7 +38,7 @@ export let aboutMe = function () {
   var scrollFunc = function (e) {
     e = e || window.event
     if (e.wheelDelta) {
-      direct += (-e.wheelDelta / 200)
+      direct += (-e.wheelDelta / 150)
     } else if (e.detail) {
       direct += e.detail / 3
     }
@@ -70,14 +72,15 @@ export let aboutMe = function () {
     })
   }
 
-  window.onmousewheel = document.onmousewheel = scrollFunc
+  window.onmousewheel = scrollFunc
 
   const initEvent = function () {
     //页面初始化 置顶
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
-    })
+    });
+    $('#scrollDownSpan').parent().show();
   }
 
   //屏幕打印文字
