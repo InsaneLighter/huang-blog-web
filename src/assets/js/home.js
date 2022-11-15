@@ -188,7 +188,6 @@ export let home = function () {
         goToFun(index)
       }
     }
-
   }
   if (document.addEventListener) {
     document.addEventListener('DOMMouseScroll', scrollFunc, false)

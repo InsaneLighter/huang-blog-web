@@ -1,8 +1,7 @@
 export let aboutMe = function () {
   let index = 0
   let direct = 0
-  debugger
-  const windowHeight = window.innerHeight;
+  const clientHeight = $(".me")[0].clientHeight;
 
   //页面向下滑动
   function scrollDown () {
@@ -10,7 +9,7 @@ export let aboutMe = function () {
     $('#scrollDownSpan').unbind('click').click(function () {
       $(this).parent().hide()
       window.scrollTo({
-        top: windowHeight * (++index),
+        top: clientHeight * (++index),
         behavior: 'smooth'
       })
       $(this).parent().show()
@@ -23,44 +22,53 @@ export let aboutMe = function () {
   //屏幕滚动
   let goToFun = function () {
     if (index >= 2) {
-      $('#scrollDownSpan').parent().hide()
+      $('#scrollDown').hide()
     } else {
-      $('#scrollDownSpan').parent().show()
+      $('#scrollDown').show()
     }
     direct = 0
-    window.scrollTo({
-      top: windowHeight * index,
-      behavior: 'smooth'
+    $('html,body').stop().animate({ scrollTop: (($(window).height()) * index) }, 1000, 'swing', function () {
+      direct = 0
     })
   }
 
-  // 滚轮事件
-  var scrollFunc = function (e) {
+  let goTo = $('.me')
+  let resetFun = function () {
+    goTo.each(function () {
+      $(this).height(window.innerHeight)
+      $(this).width(window.innerWidth)
+    })
+  }
+
+  $(window).resize(function () {
+    resetFun()
+  })
+
+  let scrollFunc = function (e) {
     e = e || window.event
     if (e.wheelDelta) {
-      direct += (-e.wheelDelta / 150)
+      direct += (-e.wheelDelta / 200)
     } else if (e.detail) {
       direct += e.detail / 3
     }
-
-    if (direct >= 7) {
-      if (index < 2) {
-        goToFun(++index)
+    if (direct >= 8) {
+      if (index < 4) {
+        goToFun(index++)
       } else {
-        direct = 0
+        index = 0
+        goToFun(index)
       }
     }
-    if (direct <= -7) {
+    if (direct <= -8) {
       if (index > 0) {
-        goToFun(--index)
+        goToFun(index--)
       } else {
-        direct = 0
+        index = 4
+        goToFun(index)
       }
     }
-
   }
 
-  //添加鼠标滑轮监听事件
   if (document.addEventListener) {
     document.addEventListener('DOMMouseScroll', scrollFunc, false)
 
@@ -68,20 +76,12 @@ export let aboutMe = function () {
       if (window.scrollY === 0) {
         index = 0
         direct = 0
+        $('#scrollDown').show()
       }
     })
   }
-
-  window.onmousewheel = scrollFunc
-
-  const initEvent = function () {
-    //页面初始化 置顶
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth'
-    });
-    $('#scrollDownSpan').parent().show();
-  }
+  window.onmousewheel = document.onmousewheel = scrollFunc
+  goToFun()
 
   //屏幕打印文字
   function autoType(elementClass, typingSpeed) {
@@ -115,7 +115,6 @@ export let aboutMe = function () {
   autoType(".me_div3",300);
 
   let init = function () {
-    initEvent()
     scrollDown()
   }
 

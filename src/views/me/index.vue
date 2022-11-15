@@ -5,7 +5,7 @@
       <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
     </div>
     <!--主页面-->
-    <div class="me_div1">
+    <div class="me me_div1">
       <div class="page_content">
         <div class="div1">Life was a box of chocolate</div>
         <div class="div2">You never know</div>
@@ -14,11 +14,11 @@
       </div>
     </div>
     <!--页面1-->
-    <div class="me_div2">
+    <div class="me me_div2">
       <picture-wall></picture-wall>
     </div>
     <!--页面2-->
-    <div class="me_div3">
+    <div class="me me_div3">
       <div class="introduce">未完待续~</div>
     </div>
     <!--向下滑动标签-->
@@ -59,10 +59,6 @@ export default {
     pictureWall
   },
   created() {
-    // 引入js
-    navAnimate();
-    home();
-    aboutMe();
   },
   mounted() {
     // 引入js
