@@ -18,35 +18,35 @@ export default {
     return {
       pictures: [
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_0.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: '一日不见如隔三秋'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_1.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_2.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_3.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_4.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_5.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_6.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         },
         {
-          url: 'https://s3-us-west-2.amazonaws.com/s.cdpn.io/53148/box-image_7.jpg',
+          url: 'https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fb-ssl.duitang.com%2Fuploads%2Fitem%2F201905%2F29%2F20190529213011_sgnsg.thumb.400_0.jpeg&refer=http%3A%2F%2Fb-ssl.duitang.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=auto?sec=1671103964&t=b76ab493a01d563f99543f82254ad7c0',
           content: 'No better'
         }
       ]

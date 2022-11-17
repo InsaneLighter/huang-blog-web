@@ -54,18 +54,14 @@ export let aboutMe = function () {
     if (direct >= 8) {
       if (index < 4) {
         goToFun(index++)
-      } else {
-        index = 0
-        goToFun(index)
       }
+      direct = 0
     }
     if (direct <= -8) {
       if (index > 0) {
         goToFun(index--)
-      } else {
-        index = 4
-        goToFun(index)
       }
+      direct = 0
     }
   }
 
