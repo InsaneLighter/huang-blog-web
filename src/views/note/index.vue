@@ -7,7 +7,7 @@
     <div class="backStep">
       <a @click="$router.push('/')">
         <el-icon style="vertical-align: -10%">
-          <back/>
+          <ArrowLeftBold />
         </el-icon>
         <span>返回</span></a>
     </div>

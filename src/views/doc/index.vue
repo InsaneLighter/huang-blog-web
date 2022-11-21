@@ -13,24 +13,24 @@
         <div class="terms">
           <el-form :inline="true">
             <el-form-item label="关键字">
-              <el-input placeholder="关键字" v-model="params.keyword" @change="search" clearable></el-input>
+              <el-input placeholder="关键字" v-model="params.keyword" clearable></el-input>
             </el-form-item>
             <el-form-item label="分类标签">
               <!-- 标签菜单 -->
-              <el-select v-model="params.tagName"
+              <el-select v-model="params.category"
                          placeholder="分类标签"
               >
                 <el-option
-                  v-for="item in options"
+                  v-for="item in categories"
                   :key="item.value"
-                  :label="item.label"
+                  :label="item.name"
                   :value="item.value"
                 >
                 </el-option>
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-button :loading="this.isLoading" id="searchBtn" round @click="search">查询</el-button>
+              <el-button :loading="this.isLoading" id="searchBtn" round  @click="search">查询</el-button>
             </el-form-item>
           </el-form>
         </div>
@@ -41,17 +41,17 @@
             <el-card shadow="hover" :body-style="{ padding: '0px'}">
               <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
                   <p class="article_title">{{ item.title }}</p>
-                  <p class="article_desc">{{ item.description }}</p>
+                  <p class="article_desc">{{ item.summary }}</p>
                 <span class="article_detail">
                   <label>时间: </label><span>{{ item.createTime }}</span>
                 </span>
                   <span class="article_detail">
-                  <label>浏览: </label><span>{{ item.skim }}</span>
+                  <label>浏览: </label><span>{{ item.visit }}</span>
                 </span>
                   <span class="article_detail">
                   <label>分类: </label>
                   <span
-                  ><a href="javascript:void(0)">{{ item.type }}</a></span
+                  ><a href="javascript:void(0)">{{ item.category }}</a></span
                   >
                 </span>
               </div>
@@ -66,7 +66,7 @@
 <script>
 import 'css/articles.css'
 import globalHeader from '@/components/globalHeader'
-
+import postApi, {list} from '@/api/post'
 export default {
   name: 'doc',
   components: {
@@ -117,82 +117,82 @@ export default {
         {
           id: 1,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
         {
           id: 2,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
         {
           id: 3,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
         {
           id: 4,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
         {
           id: 5,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
         {
           id: 6,
           title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          description:
+          summary:
             '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
           createTime: '2021/04/12 19:52',
-          skim: '777',
-          type: '分布式架构',
+          visit: '777',
+          category: '分布式架构',
         },
       ],
       params: {
         keyword: '',
         tag: ''
       },
-      options: [
+      categories: [
         {
           value: '1',
-          label: 'Wa',
+          name: 'Wa',
         },
         {
           value: '2',
-          label: 'Hou',
+          name: 'Hou',
         },
         {
           value: '3',
-          label: 'Gan',
+          name: 'Gan',
         },
         {
           value: '4',
-          label: 'Ohuo',
+          name: 'Ohuo',
         },
         {
           value: '5',
-          label: 'Nice!',
+          name: 'Nice!',
         },
       ]
     }
@@ -205,32 +205,36 @@ export default {
     loadData(){
       this.articles.push({
         title: "从Paxos到Zookeeper分布式一致性原理与实践",
-        description:
+        summary:
           "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
         createTime: "2021/04/12 19:52",
-        skim: "777",
-        type: "分布式架构",
+        visit: "777",
+        category: "分布式架构",
       });
     },
     // more 页面跳转
     jumpToPage (target) {
       this.$router.push(target)
     },
-    randomType(){
-      const types = ['success','info','warning','danger']
-      let randomInt = Math.floor((Math.random() * 10) + 1)
-      return types[randomInt%types.length]
-    },
     getData (params) {
-      console.log(params)
       this.isLoading = true;
       let loadingInstance = this.$loading({
         target: document.querySelector('.articles')
       })
-      setTimeout(function () {
-        loadingInstance.close()
-      }, 2000);
-      this.isLoading = false;
+      try {
+        postApi.list(this.params).then(response => {
+          if(response.code === 1){
+            this.articles = response.data
+          }else {
+            this.$message.error(response.msg)
+          }
+        }).finally(() => {
+          loadingInstance.close()
+          this.isLoading = false;
+        })
+      } catch (e) {
+        this.$message.error('Failed to load articles', e)
+      }
     }
   },
   computed: {

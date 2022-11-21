@@ -5,7 +5,9 @@
     </global-header>
 
     <div class="backStep">
-      <a @click="$router.go(-1)"><el-icon style="vertical-align: -10%"><back /></el-icon><span>返回</span></a>
+      <a @click="$router.go(-1)"><el-icon style="vertical-align: -10%">
+        <ArrowLeftBold />
+      </el-icon><span>返回</span></a>
     </div>
 
     <!-- 文章内容 -->
