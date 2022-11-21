@@ -32,7 +32,7 @@ html {
 }
 
 .me_div1 .introduce {
-	top: 35rem;
+	top: 35vh;
 }
 
 .me_div3 .introduce {
@@ -61,15 +61,11 @@ html {
     }
 }
 
-.me_div2 {
+.me_div2,.me_div3 {
 	background: #000;
 	height: 100vh;
 }
 
-.me_div3 {
-	background: #000;
-	height: 100vh;
-}
 .me_div2 .title,.me_div3 .title {
 	color: #fff;
 }
@@ -102,4 +98,10 @@ html {
 
 #scrollDownSpan:hover {
 	border-color: white;
+}
+.bottom {
+	border: 1px solid #eee;
+	position: absolute;
+	bottom: 0;
+	width: 100%;
 }

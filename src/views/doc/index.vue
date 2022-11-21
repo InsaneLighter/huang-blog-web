@@ -30,17 +30,20 @@
               </el-select>
             </el-form-item>
             <el-form-item>
-              <el-button :loading="this.isLoading" id="searchBtn" round  @click="search">查询</el-button>
+              <el-button :loading="this.isLoading" id="searchBtn" round @click="search">查询</el-button>
             </el-form-item>
           </el-form>
         </div>
-        <ul class="infinite-list articles"
-            v-infinite-scroll="loadData"
-            style="overflow:auto;height: 75vh">
-          <li v-for="item in articles" :key="item.id" class="infinite-list-item">
-            <el-card shadow="hover" :body-style="{ padding: '0px'}">
-              <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
+        <div class="articles">
+          <ul class="infinite-list"
+              v-infinite-scroll="loadData"
+              style="overflow:auto;height: 78vh">
+            <li v-for="item in articles" :key="item.id" class="infinite-list-item">
+              <el-card shadow="hover" :body-style="{ padding: '0px'}">
+                <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
                   <p class="article_title">{{ item.title }}</p>
+                  <p class="article_desc">{{ item.description }}</p>
+                  <span class="article_detail">
                   <p class="article_desc">{{ item.summary }}</p>
                 <span class="article_detail">
                   <label>时间: </label><span>{{ item.createTime }}</span>
@@ -54,10 +57,11 @@
                   ><a href="javascript:void(0)">{{ item.category }}</a></span
                   >
                 </span>
-              </div>
-            </el-card>
-          </li>
-        </ul>
+                </div>
+              </el-card>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
