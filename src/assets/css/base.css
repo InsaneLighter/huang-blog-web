@@ -592,10 +592,10 @@ input {
 }
 
 ::-webkit-scrollbar {
-    width: 6px;
-
+    width: 6px !important;
 }
+
 ::-webkit-scrollbar-thumb {
-    background-color: #cdcdce;
-    border-radius: 3px;
+    background-color: #dbdbdc !important;
+    border-radius: 3px !important;
 }
