@@ -28,12 +28,11 @@
 }
 
 .terms {
-	width: 95%;
-	margin: 30px auto;
+	margin: 30px auto 10px;
+	padding-left: 2px;
 }
 
 .articles li {
-	width: 95%;
 	margin: 0 auto 10px ;
 }
 

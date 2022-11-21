@@ -277,6 +277,7 @@ input {
 .article {
     float: left;
     position: relative;
+    width: 100%
 }
 .sideGuide {
     position: fixed;

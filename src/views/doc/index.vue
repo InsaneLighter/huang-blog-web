@@ -34,15 +34,16 @@
             </el-form-item>
           </el-form>
         </div>
-        <ul class="infinite-list articles"
-            v-infinite-scroll="loadData"
-            style="overflow:auto;height: 75vh">
-          <li v-for="item in articles" :key="item.id" class="infinite-list-item">
-            <el-card shadow="hover" :body-style="{ padding: '0px'}">
-              <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
+        <div class="articles">
+          <ul class="infinite-list"
+              v-infinite-scroll="loadData"
+              style="overflow:auto;height: 78vh">
+            <li v-for="item in articles" :key="item.id" class="infinite-list-item">
+              <el-card shadow="hover" :body-style="{ padding: '0px'}">
+                <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
                   <p class="article_title">{{ item.title }}</p>
                   <p class="article_desc">{{ item.description }}</p>
-                <span class="article_detail">
+                  <span class="article_detail">
                   <label>时间: </label><span>{{ item.createTime }}</span>
                 </span>
                   <span class="article_detail">
@@ -54,10 +55,11 @@
                   ><a href="javascript:void(0)">{{ item.type }}</a></span
                   >
                 </span>
-              </div>
-            </el-card>
-          </li>
-        </ul>
+                </div>
+              </el-card>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </div>
