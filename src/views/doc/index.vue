@@ -20,11 +20,16 @@
               <el-select v-model="params.category"
                          placeholder="分类标签"
               >
-                <el-option
+                <el-option v-if="categories.length > 0"
                   v-for="item in categories"
                   :key="item.value"
                   :label="item.name"
-                  :value="item.value"
+                  :value="parseInt(item.value)"
+                >
+                </el-option>
+                <el-option v-else
+                           label="-请选择-"
+                           value=""
                 >
                 </el-option>
               </el-select>
@@ -35,32 +40,30 @@
           </el-form>
         </div>
         <div class="articles">
-          <ul class="infinite-list"
-              v-infinite-scroll="loadData"
-              style="overflow:auto;height: 78vh">
-            <li v-for="item in articles" :key="item.id" class="infinite-list-item">
+          <ul v-if="isMounted" class="infinite-list"
+              ref="infiniteList"
+              v-infinite-scroll="getData"
+              :infinite-scroll-disabled="disabled"
+              infinite-scroll-immediate="false"
+              style="overflow:auto">
+            <li v-for="(item,index) in articles" :key="item.id" class="infinite-list-item" :style="{marginTop: index === 0?'0':'10px'}">
               <el-card shadow="hover" :body-style="{ padding: '0px'}">
-                <div class="article_content" @click="jumpToPage('/doc/' + item.id)">
-                  <p class="article_title">{{ item.title }}</p>
-                  <p class="article_desc">{{ item.description }}</p>
-                  <span class="article_detail">
-                  <p class="article_desc">{{ item.summary }}</p>
-                <span class="article_detail">
-                  <label>时间: </label><span>{{ item.createTime }}</span>
-                </span>
-                  <span class="article_detail">
-                  <label>浏览: </label><span>{{ item.visit }}</span>
-                </span>
-                  <span class="article_detail">
-                  <label>分类: </label>
-                  <span
-                  ><a href="javascript:void(0)">{{ item.category }}</a></span
-                  >
-                </span>
+                <div class="article_content">
+                  <div class="article_title" @click="jumpToPage('/doc/' + item.id)">{{ item.title }}</div>
+                  <div class="article_detail" @click="jumpToPage('/doc/' + item.id)">
+                    {{ item.summary }}
+                  </div>
+                  <div>
+                    <div class="article_desc">时间: {{ datetimeFormat(item.createTime) }}</div>
+                    <div class="article_desc">浏览: {{ item.visit }}</div>
+                    <div class="article_desc">分类: <a href="javascript:void(0)" @click="chooseCategory(item.category)">{{ item.category }}</a></div>
+                    <div class="clear"></div>
+                  </div>
                 </div>
               </el-card>
             </li>
           </ul>
+          <p v-if="isLoading" v-loading="isLoading"></p>
         </div>
       </div>
     </div>
@@ -70,7 +73,8 @@
 <script>
 import 'css/articles.css'
 import globalHeader from '@/components/globalHeader'
-import postApi, {list} from '@/api/post'
+import postApi from '@/api/post'
+import {datetimeFormat} from "@/utils/datetime";
 export default {
   name: 'doc',
   components: {
@@ -79,12 +83,23 @@ export default {
   created () {
   },
   mounted () {
-    //请求
-    this.getData(this.params)
+    this.getCategory()
+    this.getData()
+    this.isMounted = true;
+    this.$nextTick(() => {
+      this.$refs.infiniteList.removeAttribute("v-infinite-scroll")
+    })
   },
   data () {
     return {
+      params: {
+        keyword: '',
+        category: '',
+        currentCount: 0
+      },
+      isMounted: false,
       isLoading: false,
+      noMore: false,
       menuPages: [
         {
           index: 'div_index1',
@@ -117,123 +132,63 @@ export default {
           target: '/me',
         },
       ],
-      articles: [
-        {
-          id: 1,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-        {
-          id: 2,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-        {
-          id: 3,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-        {
-          id: 4,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-        {
-          id: 5,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-        {
-          id: 6,
-          title: '从Paxos到Zookeeper分布式一致性原理与实践',
-          summary:
-            '本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问',
-          createTime: '2021/04/12 19:52',
-          visit: '777',
-          category: '分布式架构',
-        },
-      ],
-      params: {
-        keyword: '',
-        tag: ''
-      },
-      categories: [
-        {
-          value: '1',
-          name: 'Wa',
-        },
-        {
-          value: '2',
-          name: 'Hou',
-        },
-        {
-          value: '3',
-          name: 'Gan',
-        },
-        {
-          value: '4',
-          name: 'Ohuo',
-        },
-        {
-          value: '5',
-          name: 'Nice!',
-        },
-      ]
+      articles: [],
+      categories: []
     }
   },
   methods: {
+    getCategory(){
+      try {
+        postApi.category().then(response => {
+          if(response.code === 1){
+            this.categories = response.data
+          }else {
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.$message.error('Failed to load categories', e)
+      }
+    },
+    chooseCategory(categoryName){
+      let categoryId;
+      this.categories.forEach(item => {
+        if (item.name === categoryName) {
+          categoryId = item.value
+        }
+      })
+      this.params.category = categoryId
+      this.search()
+    },
+    datetimeFormat(date){
+      return datetimeFormat(date)
+    },
     search(){
       this.getData(this.params);
       document.getElementById("searchBtn").blur();
-    },
-    loadData(){
-      this.articles.push({
-        title: "从Paxos到Zookeeper分布式一致性原理与实践",
-        summary:
-          "本书将会从分布式一致性的理论出发，向读者进解几种典型的分布式一致性协议是如何解决分布式一致性问",
-        createTime: "2021/04/12 19:52",
-        visit: "777",
-        category: "分布式架构",
-      });
     },
     // more 页面跳转
     jumpToPage (target) {
       this.$router.push(target)
     },
-    getData (params) {
+    getData () {
       this.isLoading = true;
-      let loadingInstance = this.$loading({
-        target: document.querySelector('.articles')
-      })
       try {
         postApi.list(this.params).then(response => {
           if(response.code === 1){
+            let data = response.data;
+            if(data.length === this.params.currentCount){
+              this.$message.info("没有更多的数据了~")
+              this.noMore = true
+              return
+            }
+            this.categories = data
+            this.params.currentCount = data.length
             this.articles = response.data
           }else {
             this.$message.error(response.msg)
           }
         }).finally(() => {
-          loadingInstance.close()
           this.isLoading = false;
         })
       } catch (e) {
@@ -242,6 +197,10 @@ export default {
     }
   },
   computed: {
+    disabled(){
+      return this.params.currentCount < 4 ? false : (this.isLoading || this.noMore)
+    }
+
   }
 }
 </script>
@@ -249,8 +208,5 @@ export default {
 <style scoped>
  .el-card {
    border-radius: 10px;
- }
- .article_content:hover {
-   cursor: pointer;
  }
 </style>

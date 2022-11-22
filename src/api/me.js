@@ -1,4 +1,5 @@
 import {service} from '@/utils/request'
+import {category, detail, list} from "@/api/post";
 
 export function dayInfo() {
   return service({
@@ -20,3 +21,4 @@ export function introduce() {
     method: 'get'
   })
 }
+export default {dayInfo, images, introduce}

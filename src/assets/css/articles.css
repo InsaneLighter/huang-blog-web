@@ -31,13 +31,15 @@
 	margin: 30px auto 10px;
 	padding-left: 2px;
 }
-
+.articles ul {
+	height: 78vh;
+}
 .articles li {
-	margin: 0 auto 10px ;
+	margin: 10px auto 0 ;
 }
 
 .articles .article_content {
-	padding: 18px;
+	padding: 10px 15px;
 }
 .articles .article_title {
 	color: #000;
@@ -49,24 +51,34 @@
 	color: #b3abab;
 	font-size: 20px;
 	margin-bottom: 10px;
+	cursor: pointer;
 }
-
 .articles .article_desc {
+	float: left;
 	font-size: 14px;
 	color: #888;
-	margin-bottom: 15px;
+	margin-right: 10px;
+	height: 22px;
+	line-height: 22px;
 }
+
 .articles .article_detail {
+	height: 15vh;
 	font-size: 14px;
 	color: #888;
 	margin-right: 10px;
 }
 
-.articles .article_detail a{
+.articles .article_detail:hover {
+	color: #000;
+	cursor: pointer;
+}
+
+.articles .article_desc a{
 	color: #888;
 }
 
-.articles .article_detail a:hover{
+.articles .article_desc a:hover{
 	color: #000;
 }
 

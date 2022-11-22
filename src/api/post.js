@@ -21,3 +21,5 @@ export function detail(postId) {
     method: 'get'
   })
 }
+
+export default {category, list, detail}

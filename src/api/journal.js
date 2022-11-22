@@ -1,4 +1,5 @@
 import {service} from '@/utils/request'
+import {category, detail} from "@/api/post";
 
 export function list(data) {
   return service({
@@ -8,3 +9,4 @@ export function list(data) {
   })
 }
 
+export default {list}
