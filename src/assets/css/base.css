@@ -271,7 +271,7 @@ input {
 }
 
 #content {
-    overflow: hidden;
+    /*overflow: hidden;*/
     width: 1000%;
 }
 .article {

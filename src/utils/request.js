@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ElNotification  } from 'element-plus'
+import {notification} from 'ant-design-vue'
 
 // 创建axios实例
 const service = axios.create({
@@ -30,7 +30,7 @@ service.interceptors.response.use(
       reader.readAsText(error.response.data, 'utf-8')
       reader.onload = function (e) {
         const errorMsg = JSON.parse(reader.result).message
-        ElNotification.error({
+        notification.error({
           title: "错误",
           message: errorMsg,
           duration: 1
@@ -42,7 +42,7 @@ service.interceptors.response.use(
         code = error.response.data.status
       } catch (e) {
         if (error.toString().indexOf('Error: timeout') !== -1) {
-          ElNotification.error({
+          notification.error({
             title: "错误",
             message: '网络请求超时',
             duration: 1
@@ -50,7 +50,7 @@ service.interceptors.response.use(
           return Promise.reject(error)
         }
       }
-      ElNotification.error({
+      notification.error({
         title: "错误",
         message: '接口请求失败',
         duration: 1

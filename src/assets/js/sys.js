@@ -46,9 +46,6 @@ if (userAgent.indexOf("Firefox") > -1) {
   };
   setInterval(function() {
     checkStatus = "off";
-    console.log(devtools);
-    console.log(checkStatus);
-    console.clear();
     if (checkStatus === "on") {
       let target = "";
       try {
