@@ -1,9 +1,7 @@
-.tagMenu {
-	position: absolute;
-	width: 15rem;
-	top: 8rem;
-	left: 10rem;
-	z-index: 999;
+.articleContainer {
+	min-height: 89.7vh;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 .queryContainer {
@@ -13,24 +11,13 @@
 	z-index: 999;
 }
 
-.tags {
-	margin-top: 10px;
-}
-
-.el-tag + .el-tag {
-	margin-left: 10px;
-	margin-top: 10px;
-}
-
-.content {
-	width: 60rem;
+.articleContent {
+	width: 60vw;
 	margin: 0 auto;
+	background-color: #fff;
+	border-radius: 5px;
 }
 
-.terms {
-	margin: 30px auto 10px;
-	padding-left: 2px;
-}
 .articles ul {
 	height: 78vh;
 }

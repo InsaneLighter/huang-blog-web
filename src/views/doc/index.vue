@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parentContainer">
     <div class="container">
       <!--右上导航栏-->
       <global-header :currentPage="$route.path">
@@ -7,66 +7,79 @@
       </global-header>
     </div>
 
+    <div class="backStep">
+      <a @click="$router.push('/')"><left-circle-outlined :style="{fontSize: '24px'}"/></a>
+    </div>
+
+
     <!--文章内容渲染-->
-    <div class="mian_box">
-      <div class="content">
-        <div class="terms">
-          <el-form :inline="true">
-            <el-form-item label="关键字">
-              <el-input placeholder="关键字" v-model="params.keyword" clearable></el-input>
-            </el-form-item>
-            <el-form-item label="分类标签">
-              <!-- 标签菜单 -->
-              <el-select v-model="params.category"
-                         placeholder="分类标签"
+    <div class="articleContainer">
+      <div class="articleContent">
+        <a-form
+          ref="formRef"
+          class="ant-advanced-search-form"
+          style="padding: 24px 10px 0px"
+        >
+          <a-row :gutter="24">
+            <a-col :span="6">
+              <a-form-item
+                name="keyword"
+                label="关键字"
               >
-                <el-option v-if="categories.length > 0"
-                  v-for="item in categories"
-                  :key="item.value"
-                  :label="item.name"
-                  :value="parseInt(item.value)"
-                >
-                </el-option>
-                <el-option v-else
-                           label="-请选择-"
-                           value=""
-                >
-                </el-option>
-              </el-select>
-            </el-form-item>
-            <el-form-item>
-              <el-button :loading="this.isLoading" id="searchBtn" round @click="search">查询</el-button>
-            </el-form-item>
-          </el-form>
-        </div>
+                <a-input v-model:value="this.params.keyword"></a-input>
+              </a-form-item>
+            </a-col>
+            <a-col :span="6">
+              <a-form-item
+                name="category"
+                label="分类"
+              >
+                <a-select
+                  v-model:value="this.params.category"
+                  show-search
+                  placeholder="选择分类"
+                  :options="this.categories"
+                  :filter-option="filterOption"
+                ></a-select>
+              </a-form-item>
+            </a-col>
+            <a-col :span="6">
+              <a-form-item
+                name="date"
+                label="日期"
+              >
+                <a-range-picker v-model:value="date" :locale="locale"/>
+              </a-form-item>
+            </a-col>
+            <a-col :span="6">
+              <a-button type="primary" html-type="submit" @click="loadData">查询</a-button>
+              <a-button style="margin: 0 8px" @click="() => formRef.resetFields()">重置</a-button>
+            </a-col>
+          </a-row>
+        </a-form>
+        <a-divider />
         <div class="articles">
-          <ul v-if="isMounted" class="infinite-list"
-              ref="infiniteList"
-              v-infinite-scroll="getData"
-              :infinite-scroll-disabled="disabled"
-              infinite-scroll-immediate="false"
-              style="overflow:auto">
-            <li v-for="(item,index) in articles" :key="item.id" class="infinite-list-item" :style="{marginTop: index === 0?'0':'10px'}">
-              <el-card shadow="hover" :body-style="{ padding: '0px'}">
-                <div class="article_content">
-                  <div class="article_title" @click="jumpToPage('/doc/' + item.id)">{{ item.title }}</div>
-                  <div class="article_detail" @click="jumpToPage('/doc/' + item.id)">
-                    {{ item.summary }}
-                  </div>
-                  <div>
-                    <div class="article_desc">时间: {{ datetimeFormat(item.createTime) }}</div>
-                    <div class="article_desc">浏览: {{ item.visit }}</div>
-                    <div class="article_desc">分类: <a href="javascript:void(0)" @click="chooseCategory(item.category)">{{ item.category }}</a></div>
-                    <div class="clear"></div>
-                  </div>
-                </div>
-              </el-card>
-            </li>
-          </ul>
-          <p v-if="isLoading" v-loading="isLoading"></p>
+          <a-skeleton v-if="isLoading" v-for="index of 6" :key="index" active />
+          <el-card shadow="hover" :body-style="{ padding: '0px'}" v-for="item in articles" :key="item.id">
+            <div class="article_content">
+              <div class="article_title" @click="jumpToPage('/doc/' + item.id)">{{ item.title }}</div>
+              <div class="article_detail" @click="jumpToPage('/doc/' + item.id)">
+                {{ item.summary }}
+              </div>
+              <div>
+                <div class="article_desc">时间: {{ datetimeFormat(item.createTime) }}</div>
+                <div class="article_desc">浏览: {{ item.visit }}</div>
+                <div class="article_desc">分类: <a href="javascript:void(0)" @click="chooseCategory(item.category)">{{ item.category }}</a></div>
+                <div class="clear"></div>
+              </div>
+            </div>
+          </el-card>
         </div>
       </div>
     </div>
+
+    <!-- 回到顶部 -->
+    <a-back-top />
   </div>
 </template>
 
@@ -74,7 +87,10 @@
 import 'css/articles.css'
 import globalHeader from '@/components/globalHeader'
 import postApi from '@/api/post'
+import dayjs from 'dayjs'
 import {datetimeFormat} from "@/utils/datetime";
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
+
 export default {
   name: 'doc',
   components: {
@@ -84,59 +100,28 @@ export default {
   },
   mounted () {
     this.getCategory()
-    this.getData()
-    this.isMounted = true;
-    this.$nextTick(() => {
-      this.$refs.infiniteList.removeAttribute("v-infinite-scroll")
-    })
+    this.loadData()
   },
   data () {
     return {
+      locale: locale,
+      date: [],
       params: {
         keyword: '',
         category: '',
-        currentCount: 0
+        page: 0,
+        size: 10
       },
-      isMounted: false,
+      totalCount: 0,
       isLoading: false,
-      noMore: false,
-      menuPages: [
-        {
-          index: 'div_index1',
-          name: '不用看是首页',
-          alias: 'HOME',
-          target: '/home',
-        },
-        {
-          index: 'div_index2',
-          name: '这个是关于Java的',
-          alias: 'JAVA',
-          target: '/doc',
-        },
-        {
-          index: 'div_index3',
-          name: '一些有意义的笔记',
-          alias: 'Notes',
-          target: '/note',
-        },
-        {
-          index: 'div_index4',
-          name: '有趣的小游戏',
-          alias: 'Little Game',
-          target: '/game',
-        },
-        {
-          index: 'div_index5',
-          name: '一个眼睛里慢慢有光的我',
-          alias: 'ME',
-          target: '/me',
-        },
-      ],
       articles: [],
       categories: []
     }
   },
   methods: {
+    filterOption(input, option){
+      return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    },
     getCategory(){
       try {
         postApi.category().then(response => {
@@ -160,31 +145,23 @@ export default {
       this.params.category = categoryId
       this.search()
     },
-    datetimeFormat(date){
-      return datetimeFormat(date)
-    },
-    search(){
-      this.getData(this.params);
-      document.getElementById("searchBtn").blur();
+    datetimeFormat(date,pattern){
+      return datetimeFormat(date,pattern = 'YYYY-MM-DD HH:mm')
     },
     // more 页面跳转
     jumpToPage (target) {
       this.$router.push(target)
     },
-    getData () {
+    loadData () {
       this.isLoading = true;
+      var dateArr = this.date
+      this.params.startDate = dateArr.length > 0 && dateArr[0] ? dayjs(dateArr[0]).format('YYYY-MM-DD') : ''
+      this.params.endDate = dateArr.length > 0 && dateArr[1] ? dayjs(dateArr[1]).format('YYYY-MM-DD') : ''
       try {
         postApi.list(this.params).then(response => {
           if(response.code === 1){
-            let data = response.data;
-            if(data.length === this.params.currentCount){
-              this.$message.info("没有更多的数据了~")
-              this.noMore = true
-              return
-            }
-            this.categories = data
-            this.params.currentCount = data.length
-            this.articles = response.data
+            this.articles = response.data.list
+            this.totalCount = response.data.totalCount
           }else {
             this.$message.error(response.msg)
           }
@@ -195,18 +172,28 @@ export default {
         this.$message.error('Failed to load articles', e)
       }
     }
-  },
-  computed: {
-    disabled(){
-      return this.params.currentCount < 4 ? false : (this.isLoading || this.noMore)
-    }
-
   }
 }
 </script>
+<style lang="less" scoped>
+.backStep {
+  position: fixed;
+  top: 15%;
+  left: 15%;
+  font-size: 16px;
+  z-index: 999;
+  a {
+    color: #afadad;
+  }
+  a:hover {
+    color: #343434;
+  }
 
-<style scoped>
- .el-card {
-   border-radius: 10px;
- }
+  span {
+    margin-left: 5px
+  }
+}
+:deep(.ant-divider-horizontal) {
+  margin: 0
+}
 </style>

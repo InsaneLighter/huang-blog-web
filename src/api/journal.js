@@ -7,5 +7,12 @@ export function list(data) {
     method: 'get'
   })
 }
+export function like(data) {
+  return service({
+    url: 'api/front/journal/like',
+    method: 'post',
+    data
+  })
+}
 
-export default {list}
+export default {list,like}

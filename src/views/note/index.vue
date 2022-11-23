@@ -11,15 +11,17 @@
     <div class="note_container">
       <div class="noteList">
         <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="notes">
+          <a-skeleton v-if="isLoading" v-for="index of 6" :key="index" active />
           <template #renderItem="{ item }">
             <a-list-item key="item.title">
               <template #actions>
-                <span v-for="{ type, text } in actions" :key="type">
-                  <component :is="type" style="margin-right: 8px" />
-                  {{ text }}
+                <span>
+                  <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
+                             :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)'}" />
+                  {{ item.likes }}
                 </span>
               </template>
-              <a-list-item-meta :description="item.createTime">
+              <a-list-item-meta :description="item.createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.weather">
                 <template #title>
                   {{ item.title }}
                 </template>
@@ -59,6 +61,7 @@ export default {
   },
   data() {
     return {
+      isLoading: false,
       params: {
         page: 0,
         size: 10
@@ -67,9 +70,7 @@ export default {
       notes: [
       ],
       actions:[
-        { type: 'StarOutlined', text: '156' },
         { type: 'LikeOutlined', text: '156' },
-        { type: 'MessageOutlined', text: '2' },
       ]
     };
   },
@@ -90,6 +91,7 @@ export default {
   methods: {
     loadData(page = 1){
       this.params.page = page - 1
+      this.isLoading = true
       try {
         journalApi.list(this.params).then(response => {
           if(response.code === 1){
@@ -104,33 +106,56 @@ export default {
       } catch (e) {
         this.message.error('Failed to load notes', e)
       }
+    },
+    handleLike(item){
+      item.likes+=1
+      window.localStorage.setItem("huang_blog_note_like"+item.id,"1")
+      try {
+        journalApi.like({id:item.id,like:true}).then(response => {
+          if(response.code !== 1){
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.message.error('Failed to like notes', e)
+      }
+    },
+    removeLike(item){
+      item.likes-=1
+      window.localStorage.removeItem("huang_blog_note_like"+item.id)
+      try {
+        journalApi.like({id:item.id,like:false}).then(response => {
+          if(response.code !== 1){
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.message.error('Failed to unlike notes', e)
+      }
+    },
+    isLiked(id){
+      return window.localStorage.getItem("huang_blog_note_like" + id) === "1";
     }
   }
 };
 </script>
 
 <style lang="less" scoped>
-.parentContainer {
-  background-color: #f4f5f5 !important;
-}
 .p1 {
   height: 100px;
   line-height: 100px;
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .note_container {
+  min-height: 91.7vh;
   padding-top: 10px;
   padding-bottom: 10px;
 }
 .noteList {
   width: 60vw;
   margin: 0 auto;
-  padding: 10px;
   background-color: #fff;
   border-radius: 5px;
-}
-.note_item {
-  width: 100%;
 }
 .note_content {
   margin: 10px 0;
@@ -142,16 +167,10 @@ export default {
   width: 100%;
   word-break: break-all;
 }
-.timestamp,.mood {
-  font-size: 0.666rem;
-  color: #afadad;
-}
-.mood {
-  margin-left: 2%;
-}
+
 .backStep {
-  position: absolute;
-  top: 20%;
+  position: fixed;
+  top: 15%;
   left: 15%;
   font-size: 16px;
   z-index: 999;
@@ -159,7 +178,7 @@ export default {
     color: #afadad;
   }
   a:hover {
-    color: #000;
+    color: #343434;
   }
 
   span {
@@ -174,5 +193,12 @@ export default {
 :deep(.ant-image:nth-child(4n))  {
   margin-bottom: 10px ;
   margin-right: 0 ;
+}
+:deep(.ant-list-item:hover)  {
+  background-color: #fafafa;
+}
+:deep(.anticon-like:hover) {
+  cursor:pointer;
+  color: #464646;
 }
 </style>
