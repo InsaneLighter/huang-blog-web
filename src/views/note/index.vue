@@ -11,7 +11,9 @@
     <div class="note_container">
       <div class="noteList">
         <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="notes">
-          <a-skeleton v-if="isLoading" v-for="index of 6" :key="index" active />
+          <div class="skeleton">
+            <a-skeleton v-if="isLoading" v-for="index of 5" :key="index" active />
+          </div>
           <template #renderItem="{ item }">
             <a-list-item key="item.title">
               <template #actions>
@@ -81,7 +83,8 @@ export default {
           this.loadData(page)
         },
         pageSize: this.params.size,
-        total: this.totalCount
+        total: this.totalCount,
+        hideOnSinglePage: true
       }
     }
   },
@@ -147,7 +150,7 @@ export default {
   font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 .note_container {
-  min-height: 91.7vh;
+  //height: calc(100vh - 96px);
   padding-top: 10px;
   padding-bottom: 10px;
 }

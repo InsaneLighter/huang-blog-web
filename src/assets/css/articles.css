@@ -2,6 +2,8 @@
 	min-height: 89.7vh;
 	padding-top: 10px;
 	padding-bottom: 10px;
+	width: 60vw;
+	margin: 0 auto;
 }
 
 .queryContainer {
@@ -12,17 +14,8 @@
 }
 
 .articleContent {
-	width: 60vw;
-	margin: 0 auto;
 	background-color: #fff;
 	border-radius: 5px;
-}
-
-.articles ul {
-	height: 78vh;
-}
-.articles li {
-	margin: 10px auto 0 ;
 }
 
 .articles .article_content {
@@ -67,5 +60,20 @@
 
 .articles .article_desc a:hover{
 	color: #000;
+}
+.articleTitle,.articleDesc {
+	padding: 0 2.5rem;
+}
+.articleTitle {
+	font-size: 2rem;
+	font-weight: 600;
+	line-height: 1.31;
+	color: #252933;
+	padding: 15px 2.5rem 10px 2.5rem;
+}
+.articleDesc {
+	font-size: .8rem;
+	color: #a0a3aa;
+	padding: 0 2.5rem 10px 2.5rem;
 }
 

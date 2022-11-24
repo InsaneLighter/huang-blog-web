@@ -12,8 +12,12 @@ body {
     width: 100%;
     background-color: #f0f2f5;
 }
-.parentContainer {
+.parentContainer,#app {
     background-color: #f4f5f5 !important;
+}
+.skeleton {
+    width: 98%;
+    margin: 0 auto;
 }
 ul, ul li, ol li, tr td, dl dd, dd, dl {
     list-style-type: none;

@@ -8,9 +8,10 @@
     </div>
 
     <div class="backStep">
-      <a @click="$router.push('/')"><left-circle-outlined :style="{fontSize: '24px'}"/></a>
+      <a @click="$router.push('/')">
+        <left-circle-outlined :style="{fontSize: '24px'}"/>
+      </a>
     </div>
-
 
     <!--文章内容渲染-->
     <div class="articleContainer">
@@ -57,29 +58,55 @@
             </a-col>
           </a-row>
         </a-form>
-        <a-divider />
+        <a-divider/>
         <div class="articles">
-          <a-skeleton v-if="isLoading" v-for="index of 6" :key="index" active />
-          <el-card shadow="hover" :body-style="{ padding: '0px'}" v-for="item in articles" :key="item.id">
-            <div class="article_content">
-              <div class="article_title" @click="jumpToPage('/doc/' + item.id)">{{ item.title }}</div>
-              <div class="article_detail" @click="jumpToPage('/doc/' + item.id)">
-                {{ item.summary }}
-              </div>
-              <div>
-                <div class="article_desc">时间: {{ datetimeFormat(item.createTime) }}</div>
-                <div class="article_desc">浏览: {{ item.visit }}</div>
-                <div class="article_desc">分类: <a href="javascript:void(0)" @click="chooseCategory(item.category)">{{ item.category }}</a></div>
-                <div class="clear"></div>
-              </div>
-            </div>
-          </el-card>
+          <div class="skeleton" v-if="isLoading">
+            <a-skeleton v-for="index of 4" :key="index" active :paragraph="{ rows: 4 }"/>
+          </div>
+          <a-list v-else item-layout="vertical" size="large" :pagination="pagination" :data-source="articles">
+            <template #renderItem="{ item }">
+              <a-list-item key="item.title">
+                <template #actions>
+                  <span>
+                    <component :is="'eyeOutlined'"
+                               :style="{marginRight: '8px',cursor:'pointer'}"/>
+                    {{ item.visit }}
+                  </span>
+                  <span>
+                    <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
+                               :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)'}" />
+                    {{ item.likes }}
+                  </span>
+                  <span>
+                    <component :is="'MessageOutlined'" @click=""
+                               :style="{marginRight: '8px',cursor:'pointer'}"/>
+                    {{ item.commentCount }}
+                  </span>
+                </template>
+                <template #extra >
+                  <img
+                    width="272"
+                    alt="logo"
+                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    @click="jumpToPage('/doc/' + item.id)"
+                  />
+                </template>
+                <!--TODO summary 85个字-->
+                <a-list-item-meta :description="item.summary" @click="jumpToPage('/doc/' + item.id)">
+                  <template #title>
+                    <div class="article_title">{{ item.title }}</div>
+                  </template>
+                </a-list-item-meta>
+                {{ item.content }}
+              </a-list-item>
+            </template>
+          </a-list>
         </div>
       </div>
     </div>
 
     <!-- 回到顶部 -->
-    <a-back-top />
+    <a-back-top/>
   </div>
 </template>
 
@@ -88,8 +115,9 @@ import 'css/articles.css'
 import globalHeader from '@/components/globalHeader'
 import postApi from '@/api/post'
 import dayjs from 'dayjs'
-import {datetimeFormat} from "@/utils/datetime";
-import locale from 'ant-design-vue/es/date-picker/locale/zh_CN';
+import { datetimeFormat } from '@/utils/datetime'
+import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
+import journalApi from '@/api/journal'
 
 export default {
   name: 'doc',
@@ -118,16 +146,28 @@ export default {
       categories: []
     }
   },
+  computed: {
+    pagination(){
+      return {
+        onChange: (page) => {
+          this.loadData(page)
+        },
+        pageSize: this.params.size,
+        total: this.totalCount,
+        hideOnSinglePage: true
+      }
+    }
+  },
   methods: {
-    filterOption(input, option){
-      return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0;
+    filterOption (input, option) {
+      return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
     },
-    getCategory(){
+    getCategory () {
       try {
         postApi.category().then(response => {
-          if(response.code === 1){
+          if (response.code === 1) {
             this.categories = response.data
-          }else {
+          } else {
             this.$message.error(response.msg)
           }
         })
@@ -135,8 +175,8 @@ export default {
         this.$message.error('Failed to load categories', e)
       }
     },
-    chooseCategory(categoryName){
-      let categoryId;
+    chooseCategory (categoryName) {
+      let categoryId
       this.categories.forEach(item => {
         if (item.name === categoryName) {
           categoryId = item.value
@@ -145,32 +185,61 @@ export default {
       this.params.category = categoryId
       this.search()
     },
-    datetimeFormat(date,pattern){
-      return datetimeFormat(date,pattern = 'YYYY-MM-DD HH:mm')
+    datetimeFormat (date, pattern) {
+      return datetimeFormat(date, pattern = 'YYYY-MM-DD HH:mm')
     },
     // more 页面跳转
     jumpToPage (target) {
       this.$router.push(target)
     },
     loadData () {
-      this.isLoading = true;
+      this.isLoading = true
       var dateArr = this.date
       this.params.startDate = dateArr.length > 0 && dateArr[0] ? dayjs(dateArr[0]).format('YYYY-MM-DD') : ''
       this.params.endDate = dateArr.length > 0 && dateArr[1] ? dayjs(dateArr[1]).format('YYYY-MM-DD') : ''
       try {
         postApi.list(this.params).then(response => {
-          if(response.code === 1){
+          if (response.code === 1) {
             this.articles = response.data.list
             this.totalCount = response.data.totalCount
-          }else {
+          } else {
             this.$message.error(response.msg)
           }
         }).finally(() => {
-          this.isLoading = false;
+          this.isLoading = false
         })
       } catch (e) {
         this.$message.error('Failed to load articles', e)
       }
+    },
+    handleLike(item){
+      item.likes+=1
+      window.localStorage.setItem("huang_blog_articles_like"+item.id,"1")
+      try {
+        journalApi.like({id:item.id,like:true}).then(response => {
+          if(response.code !== 1){
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.message.error('Failed to like articles', e)
+      }
+    },
+    removeLike(item){
+      item.likes-=1
+      window.localStorage.removeItem("huang_blog_articles_like"+item.id)
+      try {
+        journalApi.like({id:item.id,like:false}).then(response => {
+          if(response.code !== 1){
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.message.error('Failed to unlike articless', e)
+      }
+    },
+    isLiked(id){
+      return window.localStorage.getItem("huang_blog_articles_like" + id) === "1";
     }
   }
 }
@@ -182,9 +251,11 @@ export default {
   left: 15%;
   font-size: 16px;
   z-index: 999;
+
   a {
     color: #afadad;
   }
+
   a:hover {
     color: #343434;
   }
@@ -193,7 +264,17 @@ export default {
     margin-left: 5px
   }
 }
+
 :deep(.ant-divider-horizontal) {
   margin: 0
+}
+:deep(.ant-list-item-meta-content) {
+  height: 8rem;
+}
+:deep(.ant-list-item-meta-content:hover) {
+  cursor: pointer;
+}
+:deep(.ant-list-item-extra:hover) {
+  cursor: pointer;
 }
 </style>

@@ -42,6 +42,11 @@ message.config({
   maxCount: 3 // 最大显示数, 超过限制时，最早的消息会被自动关闭
 });
 
+//评论组件
+import UndrawUi from 'undraw-ui'
+import 'undraw-ui/dist/style.css'
+
+app.use(UndrawUi);
 app.use(Antd);
 app.use(router);
 app.use(VueMarkdownEditor);

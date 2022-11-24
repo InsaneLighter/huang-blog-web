@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="parentContainer">
     <div class="container">
       <!--右上导航栏-->
       <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
