@@ -1,8 +1,5 @@
 <template>
   <div class="comment-view">
-    <a-avatar-group>
-      <a-avatar v-for="index of 4" :key="index" @click="config.user.avatar = 'https://joeschmoe.io/api/v1/random'" src="https://joeschmoe.io/api/v1/random" />
-    </a-avatar-group>
     <u-comment
       :config="config"
       page
