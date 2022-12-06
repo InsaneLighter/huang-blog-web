@@ -1,21 +1,6 @@
 {
-  "name": "undraw-ui",
-  "private": false,
-  "version": "0.7.2",
-  "author": "readpage <f1dao@qq.com>",
-  "repository": {
-    "type": "git",
-    "url": "https://gitee.com/undraw/undraw-ui.git"
-  },
-  "keywords": [
-    "undraw-ui",
-    "element-plus",
-    "component library",
-    "ui framework",
-    "ui",
-    "vue"
-  ],
-  "homepage": "https://undraw.gitee.io/undraw-ui/",
+  "name": "huang-ui",
+  "version": "1.0.0",
   "license": "MIT",
   "main": "dist/index.js",
   "style": "dist/style.css",
