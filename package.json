@@ -15,9 +15,9 @@
     "ant-design-vue": "3.2.14",
     "core-js": "^3.6.5",
     "dayjs": "^1.11.0",
+    "huang-ui": "file:huang-ui",
     "jquery": "^3.6.0",
     "nprogress": "^0.2.0",
-    "undraw-ui": "file:undraw-ui",
     "vue": "^3.2.6",
     "vue-router": "^4.0.0-0"
   },

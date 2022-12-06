@@ -43,10 +43,12 @@ message.config({
 });
 
 //评论组件
-import UndrawUi from 'undraw-ui'
-import 'undraw-ui/dist/style.css'
-
-app.use(UndrawUi);
+// import UndrawUi from 'undraw-ui'
+// import 'undraw-ui/dist/style.css'
+// app.use(UndrawUi);
+import HuangUi from 'huang-ui'
+import 'huang-ui/dist/style.css'
+app.use(HuangUi);
 app.use(Antd);
 app.use(router);
 app.use(VueMarkdownEditor);
