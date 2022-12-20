@@ -11,7 +11,10 @@ export declare const UFold: import('../../util').SFCWithInstall<import("vue").De
         required: false;
     };
 }, {
-    props: any;
+    props: {
+        line: string | number;
+        unfold?: boolean | undefined;
+    };
     line: import("vue").ComputedRef<number>;
     fold: import("vue").Ref<boolean>;
     isOver: import("vue").Ref<boolean>;

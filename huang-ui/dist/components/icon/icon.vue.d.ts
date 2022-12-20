@@ -12,7 +12,11 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
     };
 }, {
-    props: any;
+    props: {
+        name?: string | undefined;
+        size?: string | number | undefined;
+        color?: string | undefined;
+    };
     name: import("vue").ComputedRef<string>;
     style: import("vue").ComputedRef<{
         fontSize: string | number | undefined;

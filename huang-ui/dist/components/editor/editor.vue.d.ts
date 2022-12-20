@@ -13,7 +13,11 @@ declare const _sfc_main: import("vue").DefineComponent<{
         default: number;
     };
 }, {
-    props: any;
+    props: {
+        placeholder?: string | undefined;
+        modelValue: string;
+        minHeight: number;
+    };
     range: import("vue").Ref<Range | undefined>;
     editorRef: import("vue").Ref<HTMLDivElement | undefined>;
     text: import("vue").Ref<any>;
