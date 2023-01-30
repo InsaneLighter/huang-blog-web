@@ -69,18 +69,24 @@
                 <template #actions>
                   <span>
                     <component :is="'eyeOutlined'"
-                               :style="{marginRight: '8px',cursor:'pointer'}"/>
-                    {{ item.visit }}
+                               :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
+                    <span style="vertical-align: middle">
+                      {{ item.visit }}
+                    </span>
                   </span>
                   <span>
                     <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
-                               :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)'}" />
-                    {{ item.likes }}
+                               :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646',verticalAlign: 'middle'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)',verticalAlign: 'middle'}" />
+                    <span style="vertical-align: middle">
+                      {{ item.likes }}
+                    </span>
                   </span>
                   <span>
                     <component :is="'MessageOutlined'" @click=""
-                               :style="{marginRight: '8px',cursor:'pointer'}"/>
-                    {{ item.commentCount }}
+                               :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
+                     <span style="vertical-align: middle">
+                      {{ item.commentCount }}
+                    </span>
                   </span>
                 </template>
                 <template #extra >

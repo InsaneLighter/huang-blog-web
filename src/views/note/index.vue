@@ -17,11 +17,11 @@
           <template #renderItem="{ item }">
             <a-list-item key="item.title">
               <template #actions>
-                <span>
+                <div>
                   <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
-                             :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)'}" />
-                  {{ item.likes }}
-                </span>
+                             :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646',verticalAlign: 'middle'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)',verticalAlign: 'middle'}" />
+                  <span style="vertical-align: middle;">{{ item.likes }}</span>
+                </div>
               </template>
               <a-list-item-meta :description="item.createTime+'&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;'+item.weather">
                 <template #title>
@@ -203,5 +203,8 @@ export default {
 :deep(.anticon-like:hover) {
   cursor:pointer;
   color: #464646;
+}
+:deep(.ant-list-pagination) {
+  padding: 15px;
 }
 </style>
