@@ -19,14 +19,14 @@
         <div class="articleContent">
           <div class="articleHead">
             <div class="articleTitle">{{article.title}}</div>
-            <div class="articleDesc">{{handleDateTrans(article.createTime)}}&nbsp;&nbsp;&nbsp;&nbsp;阅读 0</div>
+            <div class="articleDesc">{{handleDateTrans(article.createTime)}}&nbsp;&nbsp;&nbsp;&nbsp;阅读&nbsp;&nbsp;{{article.visit}}</div>
           </div>
           <a-divider/>
           <v-md-editor v-model="article.content"
                        mode="preview"
                        @copy-code-success="handleCopyCodeSuccess"></v-md-editor>
         </div>
-        <comment></comment>
+        <comment :postId="this.$route.params.id"></comment>
       </div>
     </div>
     <!-- 回到顶部 -->

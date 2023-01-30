@@ -31,6 +31,9 @@ VueMarkdownEditor.use(createCopyCodePlugin());
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index';
 VueMarkdownEditor.use(createLineNumbertPlugin());
 
+//用户信息获取
+import './api/visitor'
+
 const app = createApp(App);
 
 //注入全局属性$message
@@ -43,9 +46,6 @@ message.config({
 });
 
 //评论组件
-// import UndrawUi from 'undraw-ui'
-// import 'undraw-ui/dist/style.css'
-// app.use(UndrawUi);
 import HuangUi from 'huang-ui'
 import 'huang-ui/dist/style.css'
 app.use(HuangUi);
