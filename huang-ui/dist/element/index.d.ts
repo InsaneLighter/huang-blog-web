@@ -2,6 +2,8 @@ export * from './avatar';
 export * from './button';
 export * from './image';
 export * from './popover';
+export * from './dialog';
+export * from './tag';
 export * from './carousel';
 export * from './scrollbar';
 export * from './input';

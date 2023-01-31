@@ -20,14 +20,11 @@ export function add(data) {
     data
   })
 }
-export function del(ids) {
-  if (typeof ids === "string") {
-    ids = Array.of(ids);
-  }
+export function del(data) {
   return service({
     url: 'api/front/comment',
     method: 'delete',
-    data: ids
+    data
   })
 }
 export default {queryCommentsTree,like,add,del}

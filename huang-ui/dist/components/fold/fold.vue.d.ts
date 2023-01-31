@@ -9,10 +9,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
     };
 }, {
-    props: {
-        line: number | string;
-        unfold?: boolean | undefined;
-    };
+    props: any;
     line: import("vue").ComputedRef<number>;
     fold: import("vue").Ref<boolean>;
     isOver: import("vue").Ref<boolean>;

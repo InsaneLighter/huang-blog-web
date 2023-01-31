@@ -1,6 +1,6 @@
-import { h, render, defineComponent, ref, inject, resolveComponent, withDirectives, openBlock, createElementBlock, createVNode, normalizeClass, unref, Transition, withCtx, createTextVNode, toDisplayString, createCommentVNode, nextTick, useCssVars, computed, watch, onMounted, createElementVNode, withKeys, onUnmounted, renderSlot, normalizeStyle, Fragment, renderList, pushScopeId, popScopeId, createBlock, reactive, useSlots, toRef, provide } from "vue";
+import { h, render, defineComponent, ref, inject, resolveComponent, withDirectives, openBlock, createElementBlock, createTextVNode, toDisplayString, createVNode, normalizeClass, Transition, withCtx, unref, createCommentVNode, nextTick, useCssVars, computed, watch, onMounted, createElementVNode, withKeys, onUnmounted, renderSlot, normalizeStyle, Fragment, renderList, pushScopeId, popScopeId, createBlock, reactive, useSlots, toRef, provide } from "vue";
 import { ElButton, ClickOutside, ElPopover, ElScrollbar, ElImage, ElPagination } from "element-plus";
-import { ElAvatar as I, ElButton as N, ElCarousel as V, ElImage as A, ElInput as O, ElPagination as L, ElPopover as F, ElScrollbar as z } from "element-plus";
+import { ElAvatar as F, ElButton as C, ElCarousel as B, ElDialog as I, ElImage as N, ElInput as z, ElPagination as V, ElPopover as A, ElScrollbar as M, ElTag as O } from "element-plus";
 function isArray(e) {
   return typeof Array.isArray == "function" ? Array.isArray(e) : Object.prototype.toString.call(e) === "[object Array]";
 }
@@ -89,19 +89,19 @@ function useBrowser() {
   const p = t.indexOf("android") > 0 ? "android" : navigator.platform.toLowerCase();
   let l = "full";
   e < 768 ? l = "xs" : e < 992 ? l = "sm" : e < 1200 ? l = "md" : e < 1920 ? l = "xl" : l = "full";
-  const a = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), c = (t.match(/[\s\S]+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1], u = n === "pc", m = !u, s = l === "xs" || m, d = window.innerHeight + "px";
+  const a = !!navigator.userAgent.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), s = (t.match(/[\s\S]+(?:rv|it|ra|ie)[\/: ]([\d.]+)/) || [])[1], d = n === "pc", m = !d, c = l === "xs" || m, u = window.innerHeight + "px";
   return {
-    version: c,
+    version: s,
     type: o,
     plat: p,
     tag: n,
     prefix: i,
     isMobile: m,
     isIOS: a,
-    isPC: u,
-    isMini: s,
+    isPC: d,
+    isMini: c,
     screen: l,
-    innerHeight: d
+    innerHeight: u
   };
 }
 function createGlobalNode(e, t) {
@@ -251,66 +251,66 @@ function createStore(e, t, o) {
     _namespaceRegexp: r,
     _testStorage: function(a) {
       try {
-        var c = "__storejs__test__";
-        a.write(c, c);
-        var u = a.read(c) === c;
-        return a.remove(c), u;
+        var s = "__storejs__test__";
+        a.write(s, s);
+        var d = a.read(s) === s;
+        return a.remove(s), d;
       } catch {
         return !1;
       }
     },
-    _assignPluginFnProp: function(a, c) {
-      var u = this[c];
-      this[c] = function() {
-        var s = slice(arguments, 0), d = this;
-        function _() {
-          if (!!u)
+    _assignPluginFnProp: function(a, s) {
+      var d = this[s];
+      this[s] = function() {
+        var c = slice(arguments, 0), u = this;
+        function v() {
+          if (!!d)
             return each$6(arguments, function(y, b) {
-              s[b] = y;
-            }), u.apply(d, s);
+              c[b] = y;
+            }), d.apply(u, c);
         }
-        var v = [_].concat(s);
-        return a.apply(d, v);
+        var _ = [v].concat(c);
+        return a.apply(u, _);
       };
     },
     _serialize: function(a) {
       return JSON.stringify(a);
     },
-    _deserialize: function(a, c) {
+    _deserialize: function(a, s) {
       if (!a)
-        return c;
-      var u = "";
+        return s;
+      var d = "";
       try {
-        u = JSON.parse(a);
+        d = JSON.parse(a);
       } catch {
-        u = a;
+        d = a;
       }
-      return u !== void 0 ? u : c;
+      return d !== void 0 ? d : s;
     },
     _addStorage: function(a) {
       this.enabled || this._testStorage(a) && (this.storage = a, this.enabled = !0);
     },
     _addPlugin: function(a) {
-      var c = this;
+      var s = this;
       if (isList(a)) {
-        each$6(a, function(s) {
-          c._addPlugin(s);
+        each$6(a, function(c) {
+          s._addPlugin(c);
         });
         return;
       }
-      var u = pluck(this.plugins, function(s) {
-        return a === s;
+      var d = pluck(this.plugins, function(c) {
+        return a === c;
       });
-      if (!u) {
+      if (!d) {
         if (this.plugins.push(a), !isFunction(a))
           throw new Error("Plugins must be function values that return objects");
         var m = a.call(this);
         if (!isObject(m))
           throw new Error("Plugins must return an object of function properties");
-        each$6(m, function(s, d) {
-          if (!isFunction(s))
-            throw new Error("Bad plugin property: " + d + " from plugin " + a.name + ". Plugins should only return functions.");
-          c._assignPluginFnProp(s, d);
+        each$6(m, function(c, u) {
+          if (!isFunction(c))
+            throw new Error("Bad plugin property: " + u + " from plugin " + a.name + ". Plugins should only return functions.");
+          s._assignPluginFnProp(c, u);
         });
       }
     },
@@ -320,8 +320,8 @@ function createStore(e, t, o) {
   }, l = create(p, storeAPI, {
     plugins: []
   });
-  return l.raw = {}, each$6(l, function(a, c) {
-    isFunction(a) && (l.raw[c] = bind(l, a));
+  return l.raw = {}, each$6(l, function(a, s) {
+    isFunction(a) && (l.raw[s] = bind(l, a));
   }), each$6(e, function(a) {
     l._addStorage(a);
   }), each$6(t, function(a) {
@@ -654,7 +654,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       e.apply(void 0, n), o = null;
     }, t));
   };
-}, base = "", elAvatar = "", elButton = "", elImage = "", elImageViewer = "", elPopover = "", elPopper = "", elCarousel = "", elScrollbar = "", elInput = "", elPagination = "", elTag = "", elOption = "", elOptionGroup = "", elSelect = "", _hoisted_1$9 = { class: "comment-box" }, _hoisted_2$7 = {
+}, base = "", elAvatar = "", elButton = "", elImage = "", elImageViewer = "", elPopper = "", elPopover = "", elDialog = "", elOverlay = "", elTag = "", elCarousel = "", elScrollbar = "", elInput = "", elPagination = "", elOption = "", elOptionGroup = "", elSelect = "", _hoisted_1$9 = { class: "comment-box" }, _hoisted_2$7 = {
   key: 0,
   class: "action-box"
 }, _sfc_main$9 = /* @__PURE__ */ defineComponent({
@@ -667,19 +667,21 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   },
   emits: ["hide", "close"],
   setup(e, { expose: t, emit: o }) {
-    const n = e, r = ref(""), i = ref(!1), p = ref(!0), l = ref(), a = ref(), c = inject(InjectionCommentFun), u = inject(InjectionEmojiApi), m = () => {
-      c({
+    const n = e, r = ref(""), i = ref(!1), p = ref(!0), l = ref(), a = ref(), s = (_) => {
+      isEmpty(r.value.replace(/&nbsp;|<br>| /g, "")) ? p.value = !0 : p.value = !1;
+    }, d = inject(InjectionCommentFun), m = inject(InjectionEmojiApi), c = () => {
+      d({
         content: n.replay ? `\u56DE\u590D <span style="color: var(--u-color-success-dark-2);">@${n.replay}:</span> ${r.value}` : r.value,
         parentId: isNull(n.parentId, null),
         finish: () => {
-          l.value.clear(), p.value = !0, o("close");
+          l.value.clear(), o("close");
         }
       });
     };
-    function s(_) {
+    function u(_) {
       isEmpty(r.value) && (i.value = !1, o("hide", _));
     }
-    function d() {
+    function v() {
       i.value = !0, nextTick(() => {
         a.value = document.querySelector("div[id^='el-popper-container']");
       });
@@ -689,35 +691,36 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         var _;
         return (_ = l.value) == null ? void 0 : _.focus();
       }
-    }), (_, v) => {
-      const y = resolveComponent("u-editor"), b = resolveComponent("u-emoji");
+    }), (_, y) => {
+      const b = resolveComponent("u-editor"), g = resolveComponent("u-emoji");
       return withDirectives((openBlock(), createElementBlock("div", _hoisted_1$9, [
-        createVNode(y, {
+        createTextVNode(toDisplayString() + " ", 1),
+        createVNode(b, {
           ref_key: "editorRef",
           ref: l,
           modelValue: r.value,
-          "onUpdate:modelValue": v[0] || (v[0] = (g) => r.value = g),
+          "onUpdate:modelValue": y[0] || (y[0] = ($) => r.value = $),
           class: normalizeClass({ "input-active": i.value }),
           placeholder: n.placeholder,
           "min-height": 64,
-          onFocus: d,
-          onInput: v[1] || (v[1] = (g) => unref(isEmpty)(r.value.replace(/  |<br>/g, "")) ? p.value = !0 : p.value = !1),
-          onSubmit: m
+          onFocus: v,
+          onInput: s,
+          onSubmit: c
         }, null, 8, ["modelValue", "class", "placeholder"]),
         createVNode(Transition, { name: "fade" }, {
           default: withCtx(() => [
             i.value ? (openBlock(), createElementBlock("div", _hoisted_2$7, [
-              createVNode(b, {
-                emoji: unref(u),
-                onAddEmoji: v[2] || (v[2] = (g) => {
-                  var $;
-                  return ($ = l.value) == null ? void 0 : $.addText(g);
+              createVNode(g, {
+                emoji: unref(m),
+                onAddEmoji: y[1] || (y[1] = ($) => {
+                  var w;
+                  return (w = l.value) == null ? void 0 : w.addText($);
                 })
               }, null, 8, ["emoji"]),
               createVNode(unref(ElButton), {
                 type: "primary",
                 disabled: p.value,
-                onClick: m
+                onClick: c
               }, {
                 default: withCtx(() => [
                   createTextVNode(toDisplayString(n.contentBtn), 1)
@@ -729,16 +732,16 @@ const storage = store_legacy, debounce = (e, t = 200) => {
           _: 1
         })
       ])), [
-        [unref(ClickOutside), s, a.value]
+        [unref(ClickOutside), u, a.value]
       ]);
     };
   }
-}), commentBox_vue_vue_type_style_index_0_scoped_3ea130c9_lang = "", _export_sfc = (e, t) => {
+}), commentBox_vue_vue_type_style_index_0_scoped_801b1947_lang = "", _export_sfc = (e, t) => {
   const o = e.__vccOpts || e;
   for (const [n, r] of t)
     o[n] = r;
   return o;
-}, CommentBox = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-3ea130c9"]]), _hoisted_1$8 = ["placeholder", "onKeydown", "innerHTML"], __default__$4 = {
+}, CommentBox = /* @__PURE__ */ _export_sfc(_sfc_main$9, [["__scopeId", "data-v-801b1947"]]), _hoisted_1$8 = ["placeholder", "onKeydown", "innerHTML"], __default__$4 = {
   name: "UEditor"
 }, _sfc_main$8 = /* @__PURE__ */ defineComponent({
   ...__default__$4,
@@ -751,10 +754,10 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   setup(e, { expose: t, emit: o }) {
     const n = e;
     useCssVars((g) => ({
-      "5dca5370": unref(c),
-      "2effb400": unref(u)
+      "4631a21c": unref(s),
+      "353f64d4": unref(d)
     }));
-    const r = ref(), i = ref(), p = ref(), l = ref(!1), a = ref(!1), c = computed(() => n.minHeight + "px"), u = computed(() => n.minHeight == 30 ? "4px 10px" : "8px 12px");
+    const r = ref(), i = ref(), p = ref(), l = ref(!1), a = ref(!1), s = computed(() => n.minHeight + "px"), d = computed(() => n.minHeight == 30 ? "4px 10px" : "8px 12px");
     watch(
       () => n.modelValue,
       (g) => {
@@ -764,24 +767,21 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     function m(g) {
       o("focus", g), l.value = !0, a.value = !0;
     }
-    function s(g) {
+    function c(g) {
       var $, w;
       r.value = ($ = window.getSelection()) == null ? void 0 : $.getRangeAt(0), o("blur", g), (w = i.value) != null && w.innerHTML || (a.value = !1), l.value = !1;
     }
-    function d(g) {
+    function u(g) {
       const { innerHTML: $ } = g.target;
       o("update:modelValue", $), o("input", g);
     }
-    function _(g) {
-      var w, x;
+    function v(g) {
+      var w;
+      debugger;
       let $ = window.getSelection();
-      if ($) {
-        $.removeAllRanges(), r.value || ((w = i.value) == null || w.focus(), r.value = $.getRangeAt(0)), r.value.deleteContents(), r.value.insertNode(r.value.createContextualFragment(g)), r.value.collapse(!1), $.addRange(r.value), o("update:modelValue", ((x = i.value) == null ? void 0 : x.innerHTML) || "");
-        const S = i.value;
-        o("input", S);
-      }
+      $ && ($.removeAllRanges(), r.value || ((w = i.value) == null || w.focus(), r.value = $.getRangeAt(0)), r.value.deleteContents());
     }
-    function v() {
+    function _() {
       i.value && (i.value.innerHTML = "", o("update:modelValue", i.value.innerHTML), a.value = !1);
     }
     function y() {
@@ -800,8 +800,8 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         w.innerHTML == "<br>" && (w.innerHTML = "");
       });
     }), t({
-      addText: _,
-      clear: v,
+      addText: v,
+      clear: _,
       focus: y
     }), (g, $) => (openBlock(), createElementBlock("div", {
       class: normalizeClass(["u-editor", { active: a.value }])
@@ -813,14 +813,14 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         contenteditable: "true",
         placeholder: e.placeholder,
         onFocus: m,
-        onInput: d,
-        onBlur: s,
+        onInput: u,
+        onBlur: c,
         onKeydown: withKeys(b, ["enter"]),
         innerHTML: p.value
       }, null, 40, _hoisted_1$8)
     ], 2));
   }
-}), editor_vue_vue_type_style_index_0_scoped_c2926f47_lang = "", editorVue = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-c2926f47"]]), UEditor = withInstall(editorVue), index$2 = "", _hoisted_1$7 = { class: "u-fold" }, _hoisted_2$6 = { class: "action-box select-none" }, __default__$3 = {
+}), editor_vue_vue_type_style_index_0_scoped_b718f331_lang = "", editorVue = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-b718f331"]]), UEditor = withInstall(editorVue), index$2 = "", _hoisted_1$7 = { class: "u-fold" }, _hoisted_2$6 = { class: "action-box select-none" }, __default__$3 = {
   name: "UFold"
 }, _sfc_main$7 = /* @__PURE__ */ defineComponent({
   ...__default__$3,
@@ -831,7 +831,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   setup(e) {
     const t = e;
     useCssVars((l) => ({
-      "6c257a97": unref(o)
+      10699892: unref(o)
     }));
     const o = computed(() => {
       let l = Math.trunc(Number(t.line));
@@ -859,12 +859,12 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         r.value && e.unfold ? (openBlock(), createElementBlock("div", {
           key: 0,
           class: "expand-btn",
-          onClick: a[0] || (a[0] = (c) => n.value = !n.value)
+          onClick: a[0] || (a[0] = (s) => n.value = !n.value)
         }, toDisplayString(n.value ? "\u5C55\u5F00" : "\u6536\u8D77"), 1)) : createCommentVNode("", !0)
       ])
     ]));
   }
-}), fold_vue_vue_type_style_index_0_scoped_9df778e5_lang = "", foldVue = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-9df778e5"]]), UFold = withInstall(foldVue), _hoisted_1$6 = {
+}), fold_vue_vue_type_style_index_0_scoped_6d562e7b_lang = "", foldVue = /* @__PURE__ */ _export_sfc(_sfc_main$7, [["__scopeId", "data-v-6d562e7b"]]), UFold = withInstall(foldVue), _hoisted_1$6 = {
   key: 1,
   "aria-hidden": "true"
 }, _hoisted_2$5 = ["xlink:href"], __default__$2 = {
@@ -890,7 +890,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       ]))
     ], 4));
   }
-}), icon_vue_vue_type_style_index_0_scoped_b823a48c_lang = "", iconVue = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-b823a48c"]]), UIcon = withInstall(iconVue), _withScopeId$4 = (e) => (pushScopeId("data-v-54bea938"), e = e(), popScopeId(), e), _hoisted_1$5 = { class: "u-emoji" }, _hoisted_2$4 = { class: "face-tooltip-head select-none" }, _hoisted_3$4 = ["onClick"], _hoisted_4$4 = ["src"], _hoisted_5$4 = { class: "emoji-body select-none" }, _hoisted_6$4 = { style: { padding: "0 5px" } }, _hoisted_7$2 = ["onClick"], _hoisted_8$2 = { class: "emoji-btn select-none" }, _hoisted_9$2 = { key: 0 }, _hoisted_10$2 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("svg", {
+}), icon_vue_vue_type_style_index_0_scoped_8c604f4f_lang = "", iconVue = /* @__PURE__ */ _export_sfc(_sfc_main$6, [["__scopeId", "data-v-8c604f4f"]]), UIcon = withInstall(iconVue), _withScopeId$4 = (e) => (pushScopeId("data-v-6be45d65"), e = e(), popScopeId(), e), _hoisted_1$5 = { class: "u-emoji" }, _hoisted_2$4 = { class: "face-tooltip-head select-none" }, _hoisted_3$4 = ["onClick"], _hoisted_4$4 = ["src"], _hoisted_5$3 = { class: "emoji-body select-none" }, _hoisted_6$3 = { style: { padding: "0 5px" } }, _hoisted_7$2 = ["onClick"], _hoisted_8$2 = { class: "emoji-btn select-none" }, _hoisted_9$1 = { key: 0 }, _hoisted_10$1 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("svg", {
   width: "16",
   height: "16",
   viewBox: "0 0 16 16",
@@ -905,7 +905,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     d: "M8.00002 0.666504C12.0501 0.666504 15.3334 3.94975 15.3334 7.99984C15.3334 12.0499 12.0501 15.3332 8.00002 15.3332C3.94993 15.3332 0.666687 12.0499 0.666687 7.99984C0.666687 3.94975 3.94993 0.666504 8.00002 0.666504ZM8 2C4.68629 2 2 4.68629 2 8C2 11.3137 4.68629 14 8 14C11.3137 14 14 11.3137 14 8C14 4.68629 11.3137 2 8 2ZM10.6667 5.66667V7.66667H9.33333V5.66667H10.6667ZM6.66667 5.66667V7.66667H5.33333V5.66667H6.66667ZM10.0767 9.33333H11.0495C11.1804 9.33333 11.2866 9.43951 11.2866 9.57048C11.2866 9.60754 11.2779 9.64409 11.2612 9.67718L11.244 9.71053C10.6294 10.8739 9.40726 11.6667 7.99998 11.6667C6.61523 11.6667 5.40977 10.8991 4.7859 9.76612L4.73786 9.67593C4.67845 9.56052 4.72385 9.4188 4.83926 9.35939C4.87253 9.34226 4.90941 9.33333 4.94683 9.33333H5.92347C6.02396 9.33332 6.11908 9.37865 6.18238 9.4567C6.26207 9.55496 6.32833 9.62955 6.38117 9.68046C6.80074 10.0847 7.37133 10.3333 7.99998 10.3333C8.63289 10.3333 9.20694 10.0814 9.62728 9.67224C9.67791 9.62296 9.74135 9.55121 9.8176 9.45698C9.88089 9.37877 9.97611 9.33333 10.0767 9.33333Z"
   })
 ], -1)), _hoisted_11$1 = /* @__PURE__ */ _withScopeId$4(() => /* @__PURE__ */ createElementVNode("span", null, "\u8868\u60C5", -1)), _hoisted_12 = [
-  _hoisted_10$2,
+  _hoisted_10$1,
   _hoisted_11$1
 ], __default__$1 = {
   name: "UEmoji"
@@ -918,8 +918,8 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   emits: ["addEmoji"],
   setup(e, { emit: t }) {
     const o = e, n = ref(0), r = ref(0), i = ref(new Array(2)), { emojiList: p, faceList: l } = o.emoji;
-    function a(u) {
-      switch (n.value = u, u) {
+    function a(d) {
+      switch (n.value = d, d) {
         case 0:
           r.value = 0;
           break;
@@ -928,55 +928,55 @@ const storage = store_legacy, debounce = (e, t = 200) => {
           break;
       }
     }
-    function c() {
+    function s() {
       i.value[0] = p[0];
     }
-    return (u, m) => (openBlock(), createElementBlock("div", _hoisted_1$5, [
+    return (d, m) => (openBlock(), createElementBlock("div", _hoisted_1$5, [
       createVNode(unref(ElPopover), {
         placement: e.placement,
         "popper-class": "emoji-popover",
         width: 250,
         trigger: "click",
-        onBeforeEnter: c
+        onBeforeEnter: s
       }, {
         reference: withCtx(() => [
           createElementVNode("div", _hoisted_8$2, [
-            u.$slots.default ? renderSlot(u.$slots, "default", { key: 1 }, void 0, !0) : (openBlock(), createElementBlock("div", _hoisted_9$2, _hoisted_12))
+            d.$slots.default ? renderSlot(d.$slots, "default", { key: 1 }, void 0, !0) : (openBlock(), createElementBlock("div", _hoisted_9$1, _hoisted_12))
           ])
         ]),
         default: withCtx(() => [
           createElementVNode("div", _hoisted_2$4, [
-            (openBlock(!0), createElementBlock(Fragment, null, renderList(unref(l), (s, d) => (openBlock(), createElementBlock("label", {
-              key: d,
-              class: normalizeClass(n.value == d ? "active" : ""),
-              onClick: (_) => a(d)
+            (openBlock(!0), createElementBlock(Fragment, null, renderList(unref(l), (c, u) => (openBlock(), createElementBlock("label", {
+              key: u,
+              class: normalizeClass(n.value == u ? "active" : ""),
+              onClick: (v) => a(u)
             }, [
               createElementVNode("img", {
-                src: s,
+                src: c,
                 alt: ""
               }, null, 8, _hoisted_4$4)
             ], 10, _hoisted_3$4))), 128))
           ]),
-          createElementVNode("div", _hoisted_5$4, [
+          createElementVNode("div", _hoisted_5$3, [
             createElementVNode("div", {
               class: "emjio-container",
               style: normalizeStyle({ transform: `translateX(${r.value}%)` })
             }, [
-              (openBlock(!0), createElementBlock(Fragment, null, renderList(i.value, (s, d) => (openBlock(), createElementBlock("div", {
-                key: d,
+              (openBlock(!0), createElementBlock(Fragment, null, renderList(i.value, (c, u) => (openBlock(), createElementBlock("div", {
+                key: u,
                 class: "emoji-wrapper"
               }, [
                 createVNode(unref(ElScrollbar), null, {
                   default: withCtx(() => [
-                    createElementVNode("div", _hoisted_6$4, [
-                      (openBlock(!0), createElementBlock(Fragment, null, renderList(s, (_, v) => (openBlock(), createElementBlock("span", {
-                        key: v,
+                    createElementVNode("div", _hoisted_6$3, [
+                      (openBlock(!0), createElementBlock(Fragment, null, renderList(c, (v, _) => (openBlock(), createElementBlock("span", {
+                        key: _,
                         class: "emoji-item",
-                        onClick: (y) => u.$emit("addEmoji", v)
+                        onClick: (y) => d.$emit("addEmoji", _)
                       }, [
                         createVNode(unref(ElImage), {
-                          src: _,
-                          title: String(v),
+                          src: v,
+                          title: String(_),
                           class: "emoji",
                           style: { width: "24px", height: "24px", margin: "5px" },
                           lazy: ""
@@ -994,7 +994,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       }, 8, ["placement"])
     ]));
   }
-}), emoji_vue_vue_type_style_index_0_lang = "", emoji_vue_vue_type_style_index_1_scoped_54bea938_lang = "", emojiVue = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-54bea938"]]), InjectionEmojiApi = Symbol(), UEmoji = withInstall(emojiVue), useEmojiParse = (e, t) => {
+}), emoji_vue_vue_type_style_index_0_lang = "", emoji_vue_vue_type_style_index_1_scoped_6be45d65_lang = "", emojiVue = /* @__PURE__ */ _export_sfc(_sfc_main$5, [["__scopeId", "data-v-6be45d65"]]), InjectionEmojiApi = Symbol(), UEmoji = withInstall(emojiVue), useEmojiParse = (e, t) => {
   const o = /\[.+?\]/g;
   return t = t.replace(o, (n) => {
     const r = e[n];
@@ -1009,17 +1009,24 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       "/>"
     ].join("") : n;
   }), t;
-}, _withScopeId$3 = (e) => (pushScopeId("data-v-89fc8165"), e = e(), popScopeId(), e), _hoisted_1$4 = { class: "operation-list select-none" }, _hoisted_2$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("svg", {
-  viewBox: "0 0 1127 1024",
-  version: "1.1",
-  xmlns: "http://www.w3.org/2000/svg",
-  "p-id": "1612"
-}, [
-  /* @__PURE__ */ createElementVNode("path", {
-    d: "M1108.468296 824.890547C1159.055032 910.219597 1097.227863 1024 990.429373 1024L130.432879 1024C29.258031 1024-32.574625 910.219597 18.012112 824.890547L450.825613 68.266574C473.306472 22.754136 518.276424 0 563.240888 0 608.209469 0 653.173934 22.754136 675.660283 68.266574L1108.468296 824.890547 1108.468296 824.890547 1108.468296 824.890547 1108.468296 824.890547ZM1020.384123 877.110641 1019.583053 875.735153 586.77504 119.111177 583.854223 113.62523C580.333998 106.500274 573.244216 102.4 563.240888 102.4 553.240806 102.4 546.151071 106.500212 542.636068 113.61633L539.710577 119.111663 106.096287 877.110641C95.301134 895.319767 109.937021 921.6 130.432879 921.6L990.429373 921.6C1016.30634 921.6 1031.298263 895.520476 1020.384123 877.110641L1020.384123 877.110641 1020.384123 877.110641 1020.384123 877.110641ZM558.08319 307.2C532.482248 307.2 512 322.819385 512 342.344809L512 579.251379C512 598.776801 532.482248 614.4 558.08319 614.4L568.321812 614.4C593.922749 614.4 614.4 598.776801 614.4 579.251379L614.4 342.344809C614.4 322.819385 593.922749 307.2 568.321812 307.2L558.08319 307.2 558.08319 307.2 558.08319 307.2 558.08319 307.2ZM512 766.885176C512 780.001705 517.522432 793.032632 526.999818 802.305669 536.477199 811.577487 549.797038 816.975247 563.200625 816.975247 576.602962 816.975247 589.927798 811.577487 599.405184 802.305669 608.882565 793.032632 614.4 780.001705 614.4 766.885176 614.4 753.772319 608.882565 740.741391 599.405184 731.469573 589.927798 722.19776 576.602962 716.8 563.200625 716.8 549.797038 716.8 536.477199 722.19776 526.999818 731.469573 517.522432 740.741391 512 753.772319 512 766.885176L512 766.885176 512 766.885176 512 766.885176Z",
-    "p-id": "1613"
-  })
-], -1)), _hoisted_3$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", null, "\u4E3E\u62A5", -1)), _hoisted_4$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("svg", {
+}, useLevel = (e) => {
+  switch (e) {
+    case 1:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="831"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#8CDBF4" p-id="832"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="833"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m950.857143-365.714285l73.142857-73.142858v146.285715h-73.142857z m73.142857-73.142858h146.285715v146.285715h-146.285715z m0 146.285715h146.285715v438.857143h-146.285715z" fill="#FFFFFF"></path></svg>';
+    case 2:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="765"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#6ECEFF" p-id="766"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="767"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m877.714286-438.857143h365.714286v146.285715h-365.714286z m219.428572 146.285715h146.285714v146.285714h-146.285714z m-219.428572 292.571428V512h146.285714v146.285714z" fill="#FFFFFF" p-id="768"></path><path d="M1097.142857 585.142857V438.857143h365.714286v146.285714z m0 73.142857h365.714286v146.285715h-365.714286z" fill="#FFFFFF"></path></svg>';
+    case 3:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="799"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#599DFF" p-id="800"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="801"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m877.714286-438.857143h365.714286v146.285715h-365.714286z m219.428572 146.285715h146.285714v73.142857h-146.285714z m0 219.428571h146.285714v73.142857h-146.285714z m-146.285715-146.285714h292.571429v146.285714h-292.571429z m-73.142857 219.428571h365.714286v146.285715h-365.714286z" fill="#FFFFFF"></path></svg>';
+    case 4:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="815"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#34D19B" p-id="816"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="817"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m975.213715-365.714285L1243.428571 219.428571v219.428572h-146.285714zM1097.142857 438.857143h146.285714v292.571428h-146.285714z m146.285714 146.285714h73.142858v146.285714h-73.142858z m0-365.714286h73.142858v146.285715h-73.142858z m73.142858 0h146.285714v585.142858h-146.285714z" fill="#FFFFFF"></path></svg>';
+    case 5:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="782"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#FFA000" p-id="783"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="784"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m1097.142858-73.142857h146.285714v219.428572h-146.285714z m-219.428572-365.714286h365.714286v146.285715h-365.714286z m0 438.857143h219.428572v146.285715h-219.428572z m73.142857-219.428571h219.428572v146.285714h-219.428572z" fill="#FFFFFF" p-id="785"></path><path d="M1316.571429 438.857143h146.285714v146.285714h-146.285714z m-219.428572-73.142857h146.285714v219.428571h-146.285714z" fill="#FFFFFF"></path></svg>';
+    case 6:
+      return '<svg viewBox="0 0 1682 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="748"><path d="M219.428571 73.142857h1243.428572a146.285714 146.285714 0 0 1 146.285714 146.285714v585.142858a146.285714 146.285714 0 0 1-146.285714 146.285714H219.428571a146.285714 146.285714 0 0 1-146.285714-146.285714V219.428571a146.285714 146.285714 0 0 1 146.285714-146.285714z" fill="#F36262" p-id="749"></path><path d="M219.428571 292.571429h146.285715v512H219.428571z m365.714286 146.285714h146.285714l146.285715 365.714286h-146.285715z" fill="#FFFFFF" p-id="750"></path><path d="M1024 438.857143h-146.285714l-146.285715 365.714286h146.285715zM219.428571 658.285714h365.714286v146.285715H219.428571z m1097.142858-146.285714h146.285714v292.571429h-146.285714z m-73.142858-292.571429h146.285715v146.285715h-146.285715z m-146.285714 146.285715h146.285714v438.857143h-146.285714z" fill="#FFFFFF" p-id="751"></path><path d="M1243.428571 438.857143h219.428572v146.285714h-219.428572z m-48.786285-170.642286L1243.428571 219.428571v146.285715h-146.285714zM1243.428571 658.285714h146.285715v146.285715h-146.285715z" fill="#FFFFFF"></path></svg>';
+    default:
+      return "";
+  }
+}, _withScopeId$3 = (e) => (pushScopeId("data-v-c39f9ddd"), e = e(), popScopeId(), e), _hoisted_1$4 = { class: "operation-list select-none" }, _hoisted_2$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("svg", {
   viewBox: "0 0 1024 1024",
   version: "1.1",
   xmlns: "http://www.w3.org/2000/svg",
@@ -1029,7 +1036,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     d: "M607.897867 768.043004c-17.717453 0-31.994625-14.277171-31.994625-31.994625L575.903242 383.935495c0-17.717453 14.277171-31.994625 31.994625-31.994625s31.994625 14.277171 31.994625 31.994625l0 351.94087C639.892491 753.593818 625.61532 768.043004 607.897867 768.043004zM415.930119 768.043004c-17.717453 0-31.994625-14.277171-31.994625-31.994625L383.935495 383.935495c0-17.717453 14.277171-31.994625 31.994625-31.994625 17.717453 0 31.994625 14.277171 31.994625 31.994625l0 351.94087C447.924744 753.593818 433.647573 768.043004 415.930119 768.043004zM928.016126 223.962372l-159.973123 0L768.043004 159.973123c0-52.980346-42.659499-95.983874-95.295817-95.983874L351.94087 63.989249c-52.980346 0-95.983874 43.003528-95.983874 95.983874l0 63.989249-159.973123 0c-17.717453 0-31.994625 14.277171-31.994625 31.994625s14.277171 31.994625 31.994625 31.994625l832.032253 0c17.717453 0 31.994625-14.277171 31.994625-31.994625S945.73358 223.962372 928.016126 223.962372zM319.946246 159.973123c0-17.545439 14.449185-31.994625 31.994625-31.994625l320.806316 0c17.545439 0 31.306568 14.105157 31.306568 31.994625l0 63.989249L319.946246 223.962372 319.946246 159.973123 319.946246 159.973123zM736.048379 960.010751 288.123635 960.010751c-52.980346 0-95.983874-43.003528-95.983874-95.983874L192.139761 383.591466c0-17.717453 14.277171-31.994625 31.994625-31.994625s31.994625 14.277171 31.994625 31.994625l0 480.435411c0 17.717453 14.449185 31.994625 31.994625 31.994625l448.096758 0c17.717453 0 31.994625-14.277171 31.994625-31.994625L768.215018 384.795565c0-17.717453 14.277171-31.994625 31.994625-31.994625s31.994625 14.277171 31.994625 31.994625l0 479.231312C832.032253 916.835209 789.028725 960.010751 736.048379 960.010751z",
     "p-id": "1751"
   })
-], -1)), _hoisted_5$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", null, "\u5220\u9664", -1)), _hoisted_6$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("svg", {
+], -1)), _hoisted_3$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("span", null, "\u5220\u9664", -1)), _hoisted_4$3 = /* @__PURE__ */ _withScopeId$3(() => /* @__PURE__ */ createElementVNode("svg", {
   viewBox: "0 0 1024 1024",
   version: "1.1",
   xmlns: "http://www.w3.org/2000/svg"
@@ -1049,20 +1056,17 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     const t = e;
     ref(!1);
     const o = ref(!1), n = ref(), { user: r, report: i, remove: p } = inject(InjectionContentBox), l = () => {
-      var u;
-      (u = n.value) == null || u.hide();
+      var s;
+      (s = n.value) == null || s.hide();
     }, a = () => {
-      o.value = !0, l(), i(t.id, () => {
-        o.value = !1;
-      });
-    }, c = () => {
       o.value = !0, l(), p(t.id, t.parentId, () => {
         o.value = !1;
       });
     };
-    return (u, m) => {
-      const s = resolveComponent("u-icon");
-      return openBlock(), createBlock(unref(ElPopover), {
+    return (s, d) => {
+      const m = resolveComponent("u-icon");
+      return unref(r).id == e.uid ? (openBlock(), createBlock(unref(ElPopover), {
+        key: 0,
         ref_key: "popoverRef",
         ref: n,
         placement: "bottom-end",
@@ -1073,9 +1077,9 @@ const storage = store_legacy, debounce = (e, t = 200) => {
           createElementVNode("div", {
             class: normalizeClass(["operation-warp", { "operation-parent": e.parentId == null }])
           }, [
-            createVNode(s, null, {
+            createVNode(m, null, {
               default: withCtx(() => [
-                _hoisted_6$3
+                _hoisted_4$3
               ]),
               _: 1
             })
@@ -1083,38 +1087,25 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         ]),
         default: withCtx(() => [
           createElementVNode("ul", _hoisted_1$4, [
-            unref(r).id != e.uid ? (openBlock(), createElementBlock("li", {
-              key: 0,
-              class: normalizeClass([{ active: o.value }, "operation-option"]),
+            createElementVNode("li", {
+              class: normalizeClass(["operation-option", { active: o.value }]),
               onClick: a
             }, [
-              createVNode(s, null, {
+              createVNode(m, null, {
                 default: withCtx(() => [
                   _hoisted_2$3
                 ]),
                 _: 1
               }),
               _hoisted_3$3
-            ], 2)) : (openBlock(), createElementBlock("li", {
-              key: 1,
-              class: normalizeClass(["operation-option", { active: o.value }]),
-              onClick: c
-            }, [
-              createVNode(s, null, {
-                default: withCtx(() => [
-                  _hoisted_4$3
-                ]),
-                _: 1
-              }),
-              _hoisted_5$3
-            ], 2))
+            ], 2)
           ])
         ]),
         _: 1
-      }, 512);
+      }, 512)) : createCommentVNode("", !0);
     };
   }
-}), operation_vue_vue_type_style_index_0_lang = "", operation_vue_vue_type_style_index_1_scoped_89fc8165_lang = "", Operation = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-89fc8165"]]), _withScopeId$2 = (e) => (pushScopeId("data-v-f3b22390"), e = e(), popScopeId(), e), _hoisted_1$3 = { class: "content" }, _hoisted_2$2 = { class: "user-box" }, _hoisted_3$2 = {
+}), operation_vue_vue_type_style_index_0_lang = "", operation_vue_vue_type_style_index_1_scoped_c39f9ddd_lang = "", Operation = /* @__PURE__ */ _export_sfc(_sfc_main$4, [["__scopeId", "data-v-c39f9ddd"]]), _withScopeId$2 = (e) => (pushScopeId("data-v-be958a7c"), e = e(), popScopeId(), e), _hoisted_1$3 = { class: "content" }, _hoisted_2$2 = { class: "user-box" }, _hoisted_3$2 = {
   class: "address",
   style: { color: "#939393", "font-size": "12px" }
 }, _hoisted_4$2 = { class: "time" }, _hoisted_5$2 = ["innerHTML"], _hoisted_6$2 = { class: "action-box select-none" }, _hoisted_7$1 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("svg", {
@@ -1140,7 +1131,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     d: "M668.928 166.912c-20.48-53.504-47.9744-84.7872-82.0224-94.9248-33.5872-10.0352-61.952 4.096-76.032 13.9776-27.5456 19.3536-41.216 49.664-50.0224 74.1376-3.3792 9.3184-6.4512 19.0976-9.216 27.9552l-2.6624 8.3968a227.8912 227.8912 0 0 1-10.3936 27.9552c-25.344 52.9408-47.4112 84.5312-66.7648 104.96-18.944 19.968-36.4544 30.464-55.1936 39.7824a45.3632 45.3632 0 0 0-25.088 40.5504l-0.1024 480.7168c0 24.9344 20.2752 45.2096 45.2096 45.2096h423.0656c21.7088 0 38.144-6.912 50.0224-16.9984a72.192 72.192 0 0 0 14.4896-16.896l0.2048-0.2048 0.0512-0.1536 0.8192-1.024 1.2288-1.8944c39.424-63.7952 66.7648-114.688 88.2176-175.616 24.4224-69.4784 36.8128-129.6896 42.0352-176.64 5.12-45.6704 3.7888-81.664-1.5872-101.376a77.9776 77.9776 0 0 0-45.568-52.3264 116.5824 116.5824 0 0 0-45.4144-8.6016l-192.8192-2.6624c28.1088-115.0976 10.0864-181.6064-2.4576-214.3744zM64.0512 413.9008a45.2096 45.2096 0 0 1 45.1584-47.36H176.128c24.9344 0 45.2096 20.2752 45.2096 45.2096v480.6144a45.2096 45.2096 0 0 1-45.2096 45.2096h-44.288a45.2096 45.2096 0 0 1-45.1584-43.0592L64 413.952z",
     "p-id": "1535"
   })
-], -1)), _hoisted_9$1 = { key: 2 }, _hoisted_10$1 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("svg", {
+], -1)), _hoisted_9 = { key: 2 }, _hoisted_10 = /* @__PURE__ */ _withScopeId$2(() => /* @__PURE__ */ createElementVNode("svg", {
   viewBox: "0 0 1024 1024",
   version: "1.1",
   xmlns: "http://www.w3.org/2000/svg",
@@ -1163,37 +1154,37 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     const t = e, o = reactive({
       active: !1,
       visible: !1
-    }), n = ref(), r = ref(), { allEmoji: i } = inject(InjectionEmojiApi), { like: p, user: l, isUserInfo: a, getUser: c } = inject(InjectionContentBox);
-    function u() {
+    }), n = ref(), r = ref(), { allEmoji: i } = inject(InjectionEmojiApi), { like: p, user: l, isUserInfo: a, getUser: s } = inject(InjectionContentBox);
+    function d() {
       o.active = !o.active, o.active && nextTick(() => {
-        var d;
-        (d = n.value) == null || d.focus();
+        var u;
+        (u = n.value) == null || u.focus();
       });
     }
-    function m(d) {
-      var v;
-      const _ = d.target;
-      (v = r.value) != null && v.contains(_) || (o.active = !1);
+    function m(u) {
+      var _;
+      const v = u.target;
+      (_ = r.value) != null && _.contains(v) || (o.active = !1);
     }
-    const s = computed(() => useEmojiParse(i, t.data.content));
-    return (d, _) => (openBlock(), createElementBlock("div", {
+    const c = computed(() => useEmojiParse(i, t.data.content));
+    return (u, v) => (openBlock(), createElementBlock("div", {
       class: normalizeClass(["comment", { small: e.small }])
     }, [
       createElementVNode("div", _hoisted_1$3, [
         createElementVNode("div", _hoisted_2$2, [
-          createElementVNode("span", _hoisted_3$2, "\u6E38\u5BA2 \u6765\u81EA" + toDisplayString(e.data.address), 1),
+          createElementVNode("span", _hoisted_3$2, toDisplayString(e.data.username) + "\xA0\xA0\u6765\u81EA" + toDisplayString(e.data.address), 1),
           createElementVNode("time", _hoisted_4$2, toDisplayString(e.data.createTime), 1)
         ]),
         createVNode(unref(UFold), { unfold: "" }, {
           default: withCtx(() => [
-            createElementVNode("div", { innerHTML: unref(s) }, null, 8, _hoisted_5$2)
+            createElementVNode("div", { innerHTML: unref(c) }, null, 8, _hoisted_5$2)
           ]),
           _: 1
         }),
         createElementVNode("div", _hoisted_6$2, [
           createElementVNode("div", {
             class: "item",
-            onClick: _[0] || (_[0] = (v) => unref(p)(e.data.id))
+            onClick: v[0] || (v[0] = (_) => unref(p)(e.data.id))
           }, [
             unref(l).likeIds.indexOf(e.data.id) == -1 ? (openBlock(), createBlock(unref(UIcon), { key: 0 }, {
               default: withCtx(() => [
@@ -1209,17 +1200,17 @@ const storage = store_legacy, debounce = (e, t = 200) => {
               ]),
               _: 1
             })),
-            e.data.like != 0 ? (openBlock(), createElementBlock("span", _hoisted_9$1, toDisplayString(e.data.like), 1)) : createCommentVNode("", !0)
+            e.data.like != 0 ? (openBlock(), createElementBlock("span", _hoisted_9, toDisplayString(e.data.like), 1)) : createCommentVNode("", !0)
           ]),
           createElementVNode("div", {
             ref_key: "btnRef",
             ref: r,
             class: normalizeClass(["item", { active: o.active }]),
-            onClick: u
+            onClick: d
           }, [
             createVNode(unref(UIcon), null, {
               default: withCtx(() => [
-                _hoisted_10$1
+                _hoisted_10
               ]),
               _: 1
             }),
@@ -1241,20 +1232,20 @@ const storage = store_legacy, debounce = (e, t = 200) => {
             "content-btn": "\u53D1\u5E03",
             style: { "margin-top": "12px" },
             onHide: m,
-            onClose: _[1] || (_[1] = (v) => o.active = !1)
+            onClose: v[1] || (v[1] = (_) => o.active = !1)
           }, null, 8, ["parent-id", "placeholder", "replay"])
         ])) : createCommentVNode("", !0),
-        renderSlot(d.$slots, "default", {}, void 0, !0)
+        renderSlot(u.$slots, "default", {}, void 0, !0)
       ])
     ], 2));
   }
-}), contentBox_vue_vue_type_style_index_0_scoped_f3b22390_lang = "", ContentBox = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-f3b22390"]]), _withScopeId$1 = (e) => (pushScopeId("data-v-5aece8eb"), e = e(), popScopeId(), e), _hoisted_1$2 = {
+}), contentBox_vue_vue_type_style_index_0_scoped_be958a7c_lang = "", ContentBox = /* @__PURE__ */ _export_sfc(_sfc_main$3, [["__scopeId", "data-v-be958a7c"]]), _withScopeId$1 = (e) => (pushScopeId("data-v-204fac23"), e = e(), popScopeId(), e), _hoisted_1$2 = {
   key: 0,
   class: "reply-box"
 }, _hoisted_2$1 = { class: "reply-list" }, _hoisted_3$1 = {
   key: 0,
   class: "fetch-more"
-}, _hoisted_4$1 = { key: 0 }, _hoisted_5$1 = { key: 1 }, _hoisted_6$1 = { key: 0 }, _hoisted_7 = /* @__PURE__ */ createTextVNode(" \u70B9\u51FB\u67E5\u770B "), _hoisted_8 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("svg", {
+}, _hoisted_4$1 = { key: 0 }, _hoisted_5$1 = { key: 1 }, _hoisted_6$1 = { key: 0 }, _hoisted_7 = /* @__PURE__ */ _withScopeId$1(() => /* @__PURE__ */ createElementVNode("svg", {
   width: "12",
   height: "12",
   viewBox: "0 0 12 12",
@@ -1268,10 +1259,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
     "clip-rule": "evenodd",
     d: "M5.99976 7.93206L10.0656 3.86619C10.1633 3.76856 10.3215 3.76856 10.4192 3.86619L10.7727 4.21975C10.8704 4.31738 10.8704 4.47567 10.7727 4.5733L6.35331 8.99272C6.15805 9.18798 5.84147 9.18798 5.6462 8.99272L1.22679 4.5733C1.12916 4.47567 1.12916 4.31738 1.22679 4.21975L1.58034 3.86619C1.67797 3.76856 1.83626 3.76856 1.93389 3.86619L5.99976 7.93206Z"
   })
-], -1)), _hoisted_9 = [
-  _hoisted_7,
-  _hoisted_8
-], _hoisted_10 = {
+], -1)), _hoisted_8 = {
   key: 1,
   class: "fetch-more"
 }, _sfc_main$2 = /* @__PURE__ */ defineComponent({
@@ -1287,41 +1275,41 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       pageNum: 1,
       pageSize: 5
     }), { replyPage: n, showSize: r, page: i, comments: p } = inject(InjectionReply), l = computed(() => {
-      let s = {
+      let c = {
         total: 0,
         length: 0,
         list: []
       };
-      if (t.data && (s = {
+      if (t.data && (c = {
         total: t.data.total,
         length: t.data.list.length,
         list: t.data.list
-      }), i && (s.list = s.list.slice(0, o.pageSize)), !o.over) {
-        let d = s.list.slice(0, r);
-        s.list = d;
+      }), i && (c.list = c.list.slice(0, o.pageSize)), !o.over) {
+        let u = c.list.slice(0, r);
+        c.list = u;
       }
-      return s;
+      return c;
     }), a = () => {
       o.over = !0;
-    }, c = (s) => {
-      p.value.forEach((d) => {
-        d.id == t.parentId && d.reply && (d.reply.list = s);
+    }, s = (c) => {
+      p.value.forEach((u) => {
+        u.id == t.parentId && u.reply && (u.reply.list = c);
       });
-    }, u = (s) => {
-      o.pageNum = s, n(t.parentId, s, o.pageSize, (d) => c(d));
-    }, m = (s) => {
-      o.pageSize = s, n(t.parentId, o.pageNum, s, (d) => c(d));
+    }, d = (c) => {
+      o.pageNum = c, n(t.parentId, c, o.pageSize, (u) => s(u));
+    }, m = (c) => {
+      o.pageSize = c, n(t.parentId, o.pageNum, c, (u) => s(u));
     };
-    return (s, d) => unref(l).length > 0 ? (openBlock(), createElementBlock("div", _hoisted_1$2, [
+    return (c, u) => unref(l).length > 0 ? (openBlock(), createElementBlock("div", _hoisted_1$2, [
       createElementVNode("div", _hoisted_2$1, [
-        (openBlock(!0), createElementBlock(Fragment, null, renderList(unref(l).list, (_, v) => (openBlock(), createBlock(ContentBox, {
-          key: v,
+        (openBlock(!0), createElementBlock(Fragment, null, renderList(unref(l).list, (v, _) => (openBlock(), createBlock(ContentBox, {
+          key: _,
           "parent-id": e.parentId,
-          data: _,
+          data: v,
           small: ""
         }, {
           userInfo: withCtx(() => [
-            renderSlot(s.$slots, "userInfo", {}, void 0, !0)
+            renderSlot(c.$slots, "userInfo", {}, void 0, !0)
           ]),
           _: 2
         }, 1032, ["parent-id", "data"]))), 128)),
@@ -1332,11 +1320,14 @@ const storage = store_legacy, debounce = (e, t = 200) => {
               createElementVNode("span", {
                 class: "fetch-more-comment select-none",
                 onClick: a
-              }, _hoisted_9)
+              }, [
+                createTextVNode(" \u70B9\u51FB\u67E5\u770B "),
+                _hoisted_7
+              ])
             ]))
           ]))
         ])) : createCommentVNode("", !0),
-        o.over ? (openBlock(), createElementBlock("div", _hoisted_10, [
+        o.over ? (openBlock(), createElementBlock("div", _hoisted_8, [
           unref(i) ? (openBlock(), createBlock(unref(ElPagination), {
             key: 0,
             small: "",
@@ -1344,14 +1335,14 @@ const storage = store_legacy, debounce = (e, t = 200) => {
             layout: "total, prev, pager, next",
             total: unref(l).total,
             "page-size": o.pageSize,
-            onCurrentChange: u,
+            onCurrentChange: d,
             onSizeChange: m
           }, null, 8, ["total", "page-size"])) : createCommentVNode("", !0)
         ])) : createCommentVNode("", !0)
       ])
     ])) : createCommentVNode("", !0);
   }
-}), replyBox_vue_vue_type_style_index_0_scoped_5aece8eb_lang = "", ReplyBox = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-5aece8eb"]]), _hoisted_1$1 = {
+}), replyBox_vue_vue_type_style_index_0_scoped_204fac23_lang = "", ReplyBox = /* @__PURE__ */ _export_sfc(_sfc_main$2, [["__scopeId", "data-v-204fac23"]]), _hoisted_1$1 = {
   key: 0,
   class: "comment-list"
 }, _sfc_main$1 = /* @__PURE__ */ defineComponent({
@@ -1384,7 +1375,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       }, 1032, ["parent-id", "data"]))), 128))
     ])) : createCommentVNode("", !0);
   }
-}), _withScopeId = (e) => (pushScopeId("data-v-2e3ca3a6"), e = e(), popScopeId(), e), _hoisted_1 = { class: "u-comment" }, _hoisted_2 = { class: "comment-form" }, _hoisted_3 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("div", { class: "header" }, [
+}), _withScopeId = (e) => (pushScopeId("data-v-cbce0b7c"), e = e(), popScopeId(), e), _hoisted_1 = { class: "u-comment" }, _hoisted_2 = { class: "comment-form" }, _hoisted_3 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("div", { class: "header" }, [
   /* @__PURE__ */ createElementVNode("span", { class: "header-title" }, "\u8BC4\u8BBA")
 ], -1)), _hoisted_4 = { class: "content" }, _hoisted_5 = { class: "comment-list-wrapper" }, _hoisted_6 = /* @__PURE__ */ _withScopeId(() => /* @__PURE__ */ createElementVNode("div", { class: "title" }, "\u5168\u90E8\u8BC4\u8BBA", -1)), __default__ = {
   name: "UComment"
@@ -1397,40 +1388,30 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   },
   emits: ["submit", "like", "replyPage", "getUser", "report", "remove"],
   setup(e, { emit: t }) {
-    const o = e, n = useSlots(), r = toRef(o.config, "comments"), i = (c) => {
-      t("submit", c.content, c.parentId, (u) => {
-        if (c.finish(), c.parentId) {
-          let m = r.value.find((s) => s.id == c.parentId);
-          if (m) {
-            let s = m.reply;
-            s ? (s.list.unshift(u), s.total++) : m.reply = {
-              total: 1,
-              list: [u]
-            };
-          }
-        } else
-          r.value.unshift(u);
+    const o = e, n = useSlots(), r = toRef(o.config, "comments"), i = (s) => {
+      t("submit", s.content, s.parentId, (d) => {
+        s.finish();
       });
-    }, p = (c) => {
-      const u = (s, d) => {
-        let _ = null;
-        r.value.forEach((v) => {
+    }, p = (s) => {
+      const d = (c, u) => {
+        let v = null;
+        r.value.forEach((_) => {
           var y;
-          v.id != s ? _ = (y = v.reply) == null ? void 0 : y.list.find((b) => b.id == s) : _ = v, _ && (_.like += d);
+          _.id != c ? v = (y = _.reply) == null ? void 0 : y.list.find((b) => b.id == c) : v = _, v && (v.like += u);
         });
       };
       let m = o.config.user.likeIds;
-      t("like", c, () => {
-        if (m.indexOf(c) == -1)
-          m.push(c), u(c, 1);
+      t("like", s, () => {
+        if (m.indexOf(s) == -1)
+          m.push(s), d(s, 1);
         else {
-          let s = m.findIndex((d) => d == c);
-          s != -1 && m.splice(s, 1), u(c, -1);
+          let c = m.findIndex((u) => u == s);
+          c != -1 && m.splice(c, 1), d(s, -1);
         }
       });
     }, l = {
-      replyPage: (c, u, m, s) => {
-        t("replyPage", { parentId: c, pageNum: u, pageSize: m, finish: s });
+      replyPage: (s, d, m, c) => {
+        t("replyPage", { parentId: s, pageNum: d, pageSize: m, finish: c });
       },
       showSize: o.showSize,
       page: o.page,
@@ -1439,22 +1420,22 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       user: o.config.user,
       like: p,
       isUserInfo: n.userInfo != null,
-      getUser: (c, u) => t("getUser", c, u),
-      report: (c, u) => t("report", c, u),
-      remove: (c, u, m) => t("remove", c, () => {
-        if (m(), u) {
-          let s = r.value.find((_) => _.id == u), d = s == null ? void 0 : s.reply;
-          if (d) {
-            let _ = d.list.findIndex((v) => v.id == c);
-            _ != -1 && (d.list.splice(_, 1), d.total--);
+      getUser: (s, d) => t("getUser", s, d),
+      report: (s, d) => t("report", s, d),
+      remove: (s, d, m) => t("remove", s, () => {
+        if (m(), d) {
+          let c = r.value.find((v) => v.id == d), u = c == null ? void 0 : c.reply;
+          if (u) {
+            let v = u.list.findIndex((_) => _.id == s);
+            v != -1 && (u.list.splice(v, 1), u.total--);
           }
         } else {
-          let s = r.value.findIndex((d) => d.id == c);
-          s != -1 && r.value.splice(s, 1);
+          let c = r.value.findIndex((u) => u.id == s);
+          c != -1 && r.value.splice(c, 1);
         }
       })
     };
-    return provide(InjectionCommentFun, i), provide(InjectionEmojiApi, o.config.emoji), provide(InjectionReply, l), provide(InjectionContentBox, a), (c, u) => (openBlock(), createElementBlock("div", _hoisted_1, [
+    return provide(InjectionCommentFun, i), provide(InjectionEmojiApi, o.config.emoji), provide(InjectionReply, l), provide(InjectionContentBox, a), (s, d) => (openBlock(), createElementBlock("div", _hoisted_1, [
       createElementVNode("div", _hoisted_2, [
         _hoisted_3,
         createElementVNode("div", _hoisted_4, [
@@ -1465,19 +1446,19 @@ const storage = store_legacy, debounce = (e, t = 200) => {
         ])
       ]),
       createElementVNode("div", _hoisted_5, [
-        renderSlot(c.$slots, "list-title", {}, () => [
+        renderSlot(s.$slots, "list-title", {}, () => [
           _hoisted_6
         ], !0),
         createVNode(_sfc_main$1, { data: unref(r) }, {
           userInfo: withCtx(() => [
-            renderSlot(c.$slots, "userInfo", {}, void 0, !0)
+            renderSlot(s.$slots, "userInfo", {}, void 0, !0)
           ]),
           _: 3
         }, 8, ["data"])
       ])
     ]));
   }
-}), comment_vue_vue_type_style_index_0_scoped_2e3ca3a6_lang = "", commentVue = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-2e3ca3a6"]]), InjectionCommentFun = Symbol(), InjectionReply = Symbol(), InjectionContentBox = Symbol(), UComment = withInstall(commentVue), components = [
+}), comment_vue_vue_type_style_index_0_scoped_cbce0b7c_lang = "", commentVue = /* @__PURE__ */ _export_sfc(_sfc_main, [["__scopeId", "data-v-cbce0b7c"]]), InjectionCommentFun = Symbol(), InjectionReply = Symbol(), InjectionContentBox = Symbol(), UComment = withInstall(commentVue), components = [
   UComment,
   UEditor,
   UFold,
@@ -1491,14 +1472,16 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   }
 };
 export {
-  I as ElAvatar,
-  N as ElButton,
-  V as ElCarousel,
-  A as ElImage,
-  O as ElInput,
-  L as ElPagination,
-  F as ElPopover,
-  z as ElScrollbar,
+  F as ElAvatar,
+  C as ElButton,
+  B as ElCarousel,
+  I as ElDialog,
+  N as ElImage,
+  z as ElInput,
+  V as ElPagination,
+  A as ElPopover,
+  M as ElScrollbar,
+  O as ElTag,
   InjectionCommentFun,
   InjectionContentBox,
   InjectionEmojiApi,
@@ -1528,5 +1511,6 @@ export {
   throttle,
   useBrowser,
   useEmojiParse,
+  useLevel,
   withInstall
 };

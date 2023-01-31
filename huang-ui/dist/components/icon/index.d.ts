@@ -14,11 +14,7 @@ export declare const UIcon: import('../../util').SFCWithInstall<import("vue").De
         required: false;
     };
 }, {
-    props: {
-        name?: string | undefined;
-        size?: string | number | undefined;
-        color?: string | undefined;
-    };
+    props: any;
     name: import("vue").ComputedRef<string>;
     style: import("vue").ComputedRef<{
         fontSize: string | number | undefined;

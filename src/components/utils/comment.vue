@@ -14,6 +14,8 @@
 import { reactive } from 'vue'
 import emoji from '@/assets/js/emoji'
 import commentApi from '@/api/comment'
+import { cloneDeep } from 'huang-ui'
+import { timeAgo } from '@/utils/datetime'
 
 export default {
   name: 'comment',
@@ -36,6 +38,7 @@ export default {
         emoji: emoji,
         comments: []
       }),
+      comments: [],
       visitor: JSON.parse(window.localStorage.getItem("huang-blog-temp-visitor"))
     }
   },
@@ -44,7 +47,9 @@ export default {
       try {
         commentApi.queryCommentsTree(this.postId).then(response => {
           if(response.code === 1){
+            this.handleTimeChange(response.data)
             this.config.comments = response.data
+            this.comments = this.cloneDeep(this.config.comments)
           }else {
             this.$message.error(response.msg)
           }
@@ -69,27 +74,33 @@ export default {
         commentApi.add(comment).then(response => {
           if(response.code !== 1){
             this.$message.error(response.msg)
+          }else {
+            this.$message.info('评论成功!(待Huang审核通过后即可查看)')
           }
         })
       } catch (error) {
         this.$message.error(error)
       }finally {
         finish(comment)
-        this.$message.info('评论成功!(待Huang审核通过后即可查看)')
       }
     },
     removeComment(id,finish){
       try {
-        commentApi.del(id).then(response => {
+        commentApi.del({
+          id: id,
+          uid: this.visitor.id
+        }).then(response => {
+          this.handleListComments()
           if(response.code !== 1){
             this.$message.error(response.msg)
+          }else {
+            this.$message.info('删除评论成功!')
           }
         })
       } catch (error) {
         this.$message.error(error)
       }finally {
         finish()
-        this.$message.info('删除评论成功!')
       }
     },
     page(pageNum, pageSize, arr){
@@ -98,14 +109,11 @@ export default {
     },
     //回复分页
     replyPage({parentId, pageNum, pageSize,finish}){
-      console.log(parentId,pageNum,pageSize)
       let replyList = []
-      //replyList
-      this.config.comments.filter(item => item.id === parentId).forEach(item => {
+      this.comments.filter(item => item.id === parentId).forEach(item => {
           replyList = item.reply.list
       })
       let tmp = this.page(pageNum, pageSize, replyList)
-      console.log(tmp)
       setTimeout(() => {
         finish(tmp)
       }, 200)
@@ -126,6 +134,39 @@ export default {
       }finally {
         finish()
       }
+    },
+    handleTimeChange(data){
+      if(data){
+        for (let i = 0; i < data.length; i++) {
+          data[i].createTime = timeAgo(data[i].createTime)
+          if(data[i].reply){
+            this.handleTimeChange(data[i].reply)
+          }
+        }
+      }
+    },
+    cloneDeep(data) {
+      // 判断传入的值类型
+      if (!data) {
+        return data
+      }
+      if (typeof data !== 'object') return data
+      if (data.constructor === Date) return new Date(data)
+      if (data.constructor === RegExp) return new RegExp(data)
+
+      // 开始克隆
+      const clone = Array.isArray(data) ? [] : {}
+      for (let key in data) {
+        // 不克隆原型链上的属性和方法
+        if (data.hasOwnProperty(key)) {
+          if (typeof data[key] === 'object') {
+            clone[key] = cloneDeep(data[key])
+          } else {
+            clone[key] = data[key]
+          }
+        }
+      }
+      return clone
     }
   }
 }

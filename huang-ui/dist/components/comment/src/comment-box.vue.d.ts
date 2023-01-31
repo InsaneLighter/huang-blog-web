@@ -1,4 +1,3 @@
-import { isEmpty } from '../../../util';
 import { nextTick } from 'vue';
 import { CommentSubmitParam } from '../../../index';
 export interface CommentBoxApi {
@@ -22,12 +21,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         required: false;
     };
 }, {
-    props: {
-        placeholder: string;
-        contentBtn: string;
-        parentId?: string | undefined;
-        replay?: string | undefined;
-    };
+    props: any;
     content: import("vue").Ref<string>;
     action: import("vue").Ref<boolean>;
     disabled: import("vue").Ref<boolean>;
@@ -66,8 +60,8 @@ declare const _sfc_main: import("vue").DefineComponent<{
         $slots: Readonly<{
             [name: string]: import("vue").Slot | undefined;
         }>;
-        $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}>> | null;
-        $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}>> | null;
+        $root: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
+        $parent: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null;
         $emit: (event: "submit" | "update:modelValue" | "input" | "focus" | "blur", ...args: any[]) => void;
         $el: any;
         $options: import("vue").ComponentOptionsBase<Readonly<import("vue").ExtractPropTypes<{
@@ -91,11 +85,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
             onFocus?: ((...args: any[]) => any) | undefined;
             onBlur?: ((...args: any[]) => any) | undefined;
         }, {
-            props: {
-                placeholder?: string | undefined;
-                modelValue: string;
-                minHeight: number;
-            };
+            props: any;
             range: import("vue").Ref<Range | undefined>;
             editorRef: import("vue").Ref<HTMLDivElement | undefined>;
             text: import("vue").Ref<any>;
@@ -119,7 +109,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
             keyDown: (e: KeyboardEvent) => void;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, ("submit" | "update:modelValue" | "input" | "focus" | "blur")[], string, {
             minHeight: number;
-        }> & {
+        }, {}, string> & {
             beforeCreate?: ((() => void) | (() => void)[]) | undefined;
             created?: ((() => void) | (() => void)[]) | undefined;
             beforeMount?: ((() => void) | (() => void)[]) | undefined;
@@ -134,11 +124,11 @@ declare const _sfc_main: import("vue").DefineComponent<{
             unmounted?: ((() => void) | (() => void)[]) | undefined;
             renderTracked?: (((e: import("vue").DebuggerEvent) => void) | ((e: import("vue").DebuggerEvent) => void)[]) | undefined;
             renderTriggered?: (((e: import("vue").DebuggerEvent) => void) | ((e: import("vue").DebuggerEvent) => void)[]) | undefined;
-            errorCaptured?: (((err: unknown, instance: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}>> | null, info: string) => boolean | void) | ((err: unknown, instance: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}>> | null, info: string) => boolean | void)[]) | undefined;
+            errorCaptured?: (((err: unknown, instance: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null, info: string) => boolean | void) | ((err: unknown, instance: import("vue").ComponentPublicInstance<{}, {}, {}, {}, {}, {}, {}, {}, false, import("vue").ComponentOptionsBase<any, any, any, any, any, any, any, any, any, {}, {}, string>, {}> | null, info: string) => boolean | void)[]) | undefined;
         };
         $forceUpdate: () => void;
         $nextTick: typeof nextTick;
-        $watch(source: string | Function, cb: Function, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
+        $watch<T extends string | ((...args: any) => any)>(source: T, cb: T extends (...args: any) => infer R ? (args_0: R, args_1: R) => any : (...args: any) => any, options?: import("vue").WatchOptions<boolean> | undefined): import("vue").WatchStopHandle;
     } & Readonly<import("vue").ExtractPropTypes<{
         placeholder: {
             type: StringConstructor;
@@ -160,11 +150,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         onFocus?: ((...args: any[]) => any) | undefined;
         onBlur?: ((...args: any[]) => any) | undefined;
     } & import("vue").ShallowUnwrapRef<{
-        props: {
-            placeholder?: string | undefined;
-            modelValue: string;
-            minHeight: number;
-        };
+        props: any;
         range: import("vue").Ref<Range | undefined>;
         editorRef: import("vue").Ref<HTMLDivElement | undefined>;
         text: import("vue").Ref<any>;
@@ -186,8 +172,9 @@ declare const _sfc_main: import("vue").DefineComponent<{
         clear: () => void;
         focus: () => void;
         keyDown: (e: KeyboardEvent) => void;
-    }> & {} & import("vue").ComponentCustomProperties) | undefined>;
+    }> & {} & import("vue").ComponentCustomProperties & {}) | undefined>;
     popperRef: import("vue").Ref<any>;
+    input: (e: Event) => void;
     emit: {
         (e: 'hide', event: Event): void;
         (e: 'close'): void;
@@ -197,11 +184,10 @@ declare const _sfc_main: import("vue").DefineComponent<{
     onSubmit: () => void;
     onClickOutside: (event: Event) => void;
     onFocus: () => void;
-    isEmpty: typeof isEmpty;
-    vClickOutside: import("vue").ObjectDirective<any, any>;
-    ElButton: import("element-plus/es/utils").SFCWithInstall<import("vue").DefineComponent<{
+    readonly vClickOutside: import("vue").ObjectDirective<any, any>;
+    readonly ElButton: import("element-plus/es/utils").SFCWithInstall<import("vue").DefineComponent<{
         readonly size: {
-            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
             readonly required: false;
             readonly validator: ((val: unknown) => boolean) | undefined;
             __epPropKey: true;
@@ -230,7 +216,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     }, {
         props: Readonly<import("@vue/shared").LooseRequired<Readonly<import("vue").ExtractPropTypes<{
             readonly size: {
-                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
                 readonly required: false;
                 readonly validator: ((val: unknown) => boolean) | undefined;
                 __epPropKey: true;
@@ -260,11 +246,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
             onClick?: ((evt: MouseEvent) => any) | undefined;
         }>>;
         emit: (event: "click", evt: MouseEvent) => void;
-        slots: Readonly<{
-            [name: string]: import("vue").Slot | undefined;
-        }>;
-        buttonGroupContext: import("element-plus").ButtonGroupContext | undefined;
-        globalConfig: import("vue").Ref<import("element-plus").ButtonConfigContext | undefined>;
+        buttonStyle: import("vue").ComputedRef<Record<string, string>>;
         ns: {
             namespace: import("vue").Ref<string>;
             b: (blockSuffix?: string | undefined) => string;
@@ -283,18 +265,15 @@ declare const _sfc_main: import("vue").DefineComponent<{
             cssVarBlock: (object: Record<string, string>) => Record<string, string>;
             cssVarBlockName: (name: string) => string;
         };
-        form: import("element-plus").FormContext | undefined;
-        _size: import("vue").ComputedRef<"" | "small" | "default" | "large">;
-        _disabled: import("vue").ComputedRef<boolean>;
         _ref: import("vue").Ref<HTMLButtonElement | undefined>;
+        _size: import("vue").ComputedRef<"" | "default" | "small" | "large">;
         _type: import("vue").ComputedRef<"" | "default" | "text" | "primary" | "success" | "warning" | "info" | "danger">;
-        autoInsertSpace: import("vue").ComputedRef<import("element-plus/es/utils").EpPropMergeType<BooleanConstructor, unknown, unknown>>;
+        _disabled: import("vue").ComputedRef<boolean>;
         shouldAddSpace: import("vue").ComputedRef<boolean>;
-        buttonStyle: import("vue").ComputedRef<Record<string, string>>;
         handleClick: (evt: MouseEvent) => void;
         ElIcon: import("element-plus/es/utils").SFCWithInstall<import("vue").DefineComponent<{
             readonly size: {
-                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>>;
+                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => string | number) | (() => string | number) | ((new (...args: any[]) => string | number) | (() => string | number))[], unknown, unknown>>;
                 readonly required: false;
                 readonly validator: ((val: unknown) => boolean) | undefined;
                 __epPropKey: true;
@@ -308,7 +287,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         }, {
             props: Readonly<import("@vue/shared").LooseRequired<Readonly<import("vue").ExtractPropTypes<{
                 readonly size: {
-                    readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>>;
+                    readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => string | number) | (() => string | number) | ((new (...args: any[]) => string | number) | (() => string | number))[], unknown, unknown>>;
                     readonly required: false;
                     readonly validator: ((val: unknown) => boolean) | undefined;
                     __epPropKey: true;
@@ -320,7 +299,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
                     __epPropKey: true;
                 };
             }>> & {
-                [x: string & `on${string}`]: ((...args: any[]) => any) | ((...args: unknown[]) => any) | undefined;
+                [x: `on${string}`]: ((...args: any[]) => any) | ((...args: unknown[]) => any) | undefined;
             }>>;
             ns: {
                 namespace: import("vue").Ref<string>;
@@ -343,7 +322,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
             style: import("vue").ComputedRef<import("vue").CSSProperties>;
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             readonly size: {
-                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => (string | number) & {}) | (() => string | number) | ((new (...args: any[]) => (string | number) & {}) | (() => string | number))[], unknown, unknown>>;
+                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<(new (...args: any[]) => string | number) | (() => string | number) | ((new (...args: any[]) => string | number) | (() => string | number))[], unknown, unknown>>;
                 readonly required: false;
                 readonly validator: ((val: unknown) => boolean) | undefined;
                 __epPropKey: true;
@@ -359,7 +338,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
         click: (evt: MouseEvent) => boolean;
     }, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
         readonly size: {
-            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+            readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
             readonly required: false;
             readonly validator: ((val: unknown) => boolean) | undefined;
             __epPropKey: true;
@@ -405,7 +384,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
     }>> & {
         ButtonGroup: import("vue").DefineComponent<{
             readonly size: {
-                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
                 readonly required: false;
                 readonly validator: ((val: unknown) => boolean) | undefined;
                 __epPropKey: true;
@@ -414,14 +393,14 @@ declare const _sfc_main: import("vue").DefineComponent<{
         }, {
             props: Readonly<import("@vue/shared").LooseRequired<Readonly<import("vue").ExtractPropTypes<{
                 readonly size: {
-                    readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+                    readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
                     readonly required: false;
                     readonly validator: ((val: unknown) => boolean) | undefined;
                     __epPropKey: true;
                 };
                 readonly type: import("element-plus/es/utils").EpPropFinalized<StringConstructor, "" | "default" | "text" | "primary" | "success" | "warning" | "info" | "danger", unknown, "", boolean>;
             }>> & {
-                [x: string & `on${string}`]: ((...args: any[]) => any) | ((...args: unknown[]) => any) | undefined;
+                [x: `on${string}`]: ((...args: any[]) => any) | ((...args: unknown[]) => any) | undefined;
             }>>;
             ns: {
                 namespace: import("vue").Ref<string>;
@@ -443,7 +422,7 @@ declare const _sfc_main: import("vue").DefineComponent<{
             };
         }, unknown, {}, {}, import("vue").ComponentOptionsMixin, import("vue").ComponentOptionsMixin, Record<string, any>, string, import("vue").VNodeProps & import("vue").AllowedComponentProps & import("vue").ComponentCustomProps, Readonly<import("vue").ExtractPropTypes<{
             readonly size: {
-                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "small" | "default" | "large", never>>;
+                readonly type: import("vue").PropType<import("element-plus/es/utils").EpPropMergeType<StringConstructor, "" | "default" | "small" | "large", never>>;
                 readonly required: false;
                 readonly validator: ((val: unknown) => boolean) | undefined;
                 __epPropKey: true;

@@ -15,11 +15,7 @@ export declare const UEditor: import('../../util').SFCWithInstall<import("vue").
         default: number;
     };
 }, {
-    props: {
-        placeholder?: string | undefined;
-        modelValue: string;
-        minHeight: number;
-    };
+    props: any;
     range: import("vue").Ref<Range | undefined>;
     editorRef: import("vue").Ref<HTMLDivElement | undefined>;
     text: import("vue").Ref<any>;
