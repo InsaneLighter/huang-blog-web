@@ -13,43 +13,36 @@
 <script>
 import { reactive } from 'vue'
 import emoji from '@/assets/js/emoji'
-import {mapGetters} from "vuex";
 import commentApi from '@/api/comment'
-let temp_id = 100
 
 export default {
   name: 'comment',
-  computed: {
-    ...mapGetters([
-      'user'
-    ])
+  props:{
+    postId: String
+  },
+  created () {
+    this.config.user.id = this.visitor.id
+    this.config.user.likeIds = this.visitor.likeids?this.visitor.likeids.split(","):[]
+    this.handleListComments()
   },
   data(){
     return {
       config: reactive({
         user: {
-          // id: this.user.id,
-          id: 0,
+          id: -1,
           // 评论id数组 建议:存储方式用户id和文章id和评论id组成关系,根据用户id和文章id来获取对应点赞评论id,然后加入到数组中返回
-          // likeIds: this.user.likes?this.user.likes.split(","):[]
           likeIds: []
         },
         emoji: emoji,
         comments: []
-      })
+      }),
+      visitor: JSON.parse(window.localStorage.getItem("huang-blog-temp-visitor"))
     }
-  },
-  props:{
-    postId: String
-  },
-  created () {
-    this.handleListComments()
   },
   methods: {
     async handleListComments() {
       try {
         commentApi.queryCommentsTree(this.postId).then(response => {
-          debugger
           if(response.code === 1){
             this.config.comments = response.data
           }else {
@@ -61,15 +54,16 @@ export default {
       }
     },
     submit(content, parentId, finish){
-      console.log(content, parentId)
       let comment = {
         parentId: parentId,
-        uid: this.user.id,
-        username: this.user.username,
-        address: this.user.address,
+        uid: this.visitor.id,
+        username: this.visitor.username,
+        address: this.visitor.address,
         content: content,
         like: 0,
-        reply: null
+        reply: null,
+        postId: this.postId,
+        status: 0
       }
       try {
         commentApi.add(comment).then(response => {
@@ -81,7 +75,7 @@ export default {
         this.$message.error(error)
       }finally {
         finish(comment)
-        this.$message.info('评论成功!')
+        this.$message.info('评论成功!(待Huang审核通过后即可查看)')
       }
     },
     removeComment(id,finish){
@@ -107,10 +101,8 @@ export default {
       console.log(parentId,pageNum,pageSize)
       let replyList = []
       //replyList
-      this.comments.forEach(item => {
-        if (item.id === parentId) {
-          replyList = item.reply
-        }
+      this.config.comments.filter(item => item.id === parentId).forEach(item => {
+          replyList = item.reply.list
       })
       let tmp = this.page(pageNum, pageSize, replyList)
       console.log(tmp)
@@ -121,8 +113,11 @@ export default {
     // 点赞按钮事件
     like(id, finish){
       try {
-        commentApi.like({uid: "0",id:id}).then(response => {
-          if(response.code !== 1){
+        commentApi.like({uid: this.visitor.id,id:id}).then(response => {
+          if(response.code === 1){
+            this.visitor = response.data
+            window.localStorage.setItem("huang-blog-temp-visitor",JSON.stringify(this.visitor))
+          }else {
             this.$message.error(response.msg)
           }
         })

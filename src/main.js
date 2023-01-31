@@ -31,7 +31,6 @@ VueMarkdownEditor.use(createCopyCodePlugin());
 import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index';
 VueMarkdownEditor.use(createLineNumbertPlugin());
 
-//用户信息获取
 import './api/visitor'
 
 const app = createApp(App);
