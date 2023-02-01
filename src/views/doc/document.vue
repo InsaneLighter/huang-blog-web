@@ -18,8 +18,10 @@
       <div v-else>
         <div class="articleContent">
           <div class="articleHead">
-            <div class="articleTitle">{{article.title}}</div>
-            <div class="articleDesc">{{handleDateTrans(article.createTime)}}&nbsp;&nbsp;&nbsp;&nbsp;阅读&nbsp;&nbsp;{{article.visit}}</div>
+            <div class="articleTitle">{{ article.title }}</div>
+            <div class="articleDesc">
+              {{ handleDateTrans(article.createTime) }}&nbsp;&nbsp;&nbsp;&nbsp;阅读&nbsp;&nbsp;{{ article.visit || 0 }}
+            </div>
           </div>
           <a-divider/>
           <v-md-editor v-model="article.content"
@@ -35,20 +37,21 @@
 </template>
 
 <script>
-import "css/articles.css";
-import rightTopNavBar from "@/components/rightTopNavBar";
+import 'css/articles.css'
+import rightTopNavBar from '@/components/rightTopNavBar'
 import globalHeader from '@/components/globalHeader'
 import postApi from '@/api/post'
 import Comment from '@/components/utils/comment'
-import {timeAgo} from '@/utils/datetime'
+import { timeAgo } from '@/utils/datetime'
+
 export default {
-  name: "document",
+  name: 'document',
   components: {
     Comment,
     rightTopNavBar,
     globalHeader
   },
-  data() {
+  data () {
     return {
       isLoading: false,
       article: {
@@ -59,23 +62,27 @@ export default {
       }
     }
   },
-  created() {
+  created () {
     this.handleLoadData()
+    this.handleIncrVisit()
   },
   methods: {
-    handleDateTrans(datetime){
+    handleIncrVisit () {
+      postApi.incrVisit(this.$route.params.id)
+    },
+    handleDateTrans (datetime) {
       return timeAgo(datetime)
     },
-    handleCopyCodeSuccess(){
-      this.$message.success("代码复制成功")
+    handleCopyCodeSuccess () {
+      this.$message.success('代码复制成功')
     },
-    handleLoadData(){
+    handleLoadData () {
       this.isLoading = true
       try {
         postApi.detail(this.$route.params.id).then(response => {
-          if(response.code === 1){
+          if (response.code === 1) {
             this.article = response.data
-          }else {
+          } else {
             this.$message.error(response.msg)
           }
         }).finally(() => {
@@ -86,7 +93,7 @@ export default {
       }
     }
   }
-};
+}
 </script>
 
 <style lang="less" scoped>
@@ -94,9 +101,11 @@ export default {
   text-align: left;
   margin: 10px auto;
 }
+
 :deep(.v-md-editor--preview) {
   box-shadow: 0 0 5px 1px #d4d4d4;
 }
+
 .backStep {
   position: fixed;
   top: 15%;
@@ -116,19 +125,24 @@ export default {
     margin-left: 5px
   }
 }
+
 :deep(.comment-view) {
   width: 60vw;
   margin: 0 auto;
 }
+
 :deep(.v-md-editor--preview) {
   box-shadow: none;
 }
+
 :deep(.ant-divider-horizontal) {
   margin: 0
 }
-:deep(.u-comment){
+
+:deep(.u-comment) {
   margin-top: .5rem;
 }
+
 .skeleton {
   padding: 0 10px;
   background-color: #fff;

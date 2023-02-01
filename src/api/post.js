@@ -21,5 +21,18 @@ export function detail(postId) {
     method: 'get'
   })
 }
+export function incrVisit(postId) {
+  return service({
+    url: 'api/front/post/visit/' + postId,
+    method: 'get'
+  })
+}
 
-export default {category, list, detail}
+export function like(data) {
+  return service({
+    url: 'api/front/post/like',
+    method: 'post',
+    data
+  })
+}
+export default {category, list, detail, incrVisit,like }

@@ -53,19 +53,19 @@ export default {
       menuPages: [
         {
           index: 'div_index1',
-          name: '不用看~是首页',
+          name: '这里是首页',
           alias: 'HOME',
           target: '/home'
         },
         {
           index: 'div_index2',
-          name: '这个是关于Java的',
+          name: '学习内容',
           alias: 'JAVA',
           target: '/doc'
         },
         {
           index: 'div_index3',
-          name: '一些有意义的笔记',
+          name: '生活琐事',
           alias: 'Notes',
           target: '/note'
         },
@@ -77,7 +77,7 @@ export default {
         },
         {
           index: 'div_index5',
-          name: '一个眼睛里慢慢有光的我',
+          name: '关于我吧',
           alias: 'ME',
           target: '/me'
         }

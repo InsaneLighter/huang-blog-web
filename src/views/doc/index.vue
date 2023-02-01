@@ -68,6 +68,13 @@
               <a-list-item key="item.title">
                 <template #actions>
                   <span>
+                    <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
+                               :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646',verticalAlign: 'middle'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)',verticalAlign: 'middle'}"/>
+                    <span style="vertical-align: middle">
+                      {{ item.likes }}
+                    </span>
+                  </span>
+                  <span>
                     <component :is="'eyeOutlined'"
                                :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
                     <span style="vertical-align: middle">
@@ -75,21 +82,14 @@
                     </span>
                   </span>
                   <span>
-                    <component :is="'LikeOutlined'" @click="isLiked(item.id)?removeLike(item):handleLike(item)"
-                               :style="isLiked(item.id)?{marginRight: '8px',cursor:'pointer',color: '#464646',verticalAlign: 'middle'}:{marginRight: '8px',cursor:'pointer',color: 'rgba(0, 0, 0, 0.45)',verticalAlign: 'middle'}" />
-                    <span style="vertical-align: middle">
-                      {{ item.likes }}
-                    </span>
-                  </span>
-                  <span>
                     <component :is="'MessageOutlined'" @click=""
                                :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
                      <span style="vertical-align: middle">
-                      {{ item.commentCount }}
+                      {{ item.comments || 0 }}
                     </span>
                   </span>
                 </template>
-                <template #extra >
+                <template #extra>
                   <img
                     width="272"
                     alt="logo"
@@ -149,15 +149,17 @@ export default {
       totalCount: 0,
       isLoading: false,
       articles: [],
-      categories: []
+      categories: [],
+      page: 1
     }
   },
   computed: {
-    pagination(){
+    pagination () {
       return {
         onChange: (page) => {
           this.loadData(page)
         },
+        current: this.page,
         pageSize: this.params.size,
         total: this.totalCount,
         hideOnSinglePage: true
@@ -198,9 +200,11 @@ export default {
     jumpToPage (target) {
       this.$router.push(target)
     },
-    loadData () {
+    loadData (page = 1) {
+      this.page = page
+      this.params.page = page - 1
       this.isLoading = true
-      var dateArr = this.date
+      var dateArr = this.date || []
       this.params.startDate = dateArr.length > 0 && dateArr[0] ? dayjs(dateArr[0]).format('YYYY-MM-DD') : ''
       this.params.endDate = dateArr.length > 0 && dateArr[1] ? dayjs(dateArr[1]).format('YYYY-MM-DD') : ''
       try {
@@ -218,12 +222,17 @@ export default {
         this.$message.error('Failed to load articles', e)
       }
     },
-    handleLike(item){
-      item.likes+=1
-      window.localStorage.setItem("huang_blog_articles_like"+item.id,"1")
+    handleLike (item) {
+      item.likes += 1
+      let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
+      likesArr.push(item.id)
+      window.localStorage.setItem('huang_blog_articles_like', JSON.stringify(likesArr))
       try {
-        journalApi.like({id:item.id,like:true}).then(response => {
-          if(response.code !== 1){
+        postApi.like({
+          id: item.id,
+          like: true
+        }).then(response => {
+          if (response.code !== 1) {
             this.$message.error(response.msg)
           }
         })
@@ -231,12 +240,17 @@ export default {
         this.message.error('Failed to like articles', e)
       }
     },
-    removeLike(item){
-      item.likes-=1
-      window.localStorage.removeItem("huang_blog_articles_like"+item.id)
+    removeLike (item) {
+      item.likes -= 1
+      let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
+      likesArr = likesArr.filter(ele => ele !== item.id)
+      window.localStorage.setItem('huang_blog_articles_like', JSON.stringify(likesArr))
       try {
-        journalApi.like({id:item.id,like:false}).then(response => {
-          if(response.code !== 1){
+        postApi.like({
+          id: item.id,
+          like: false
+        }).then(response => {
+          if (response.code !== 1) {
             this.$message.error(response.msg)
           }
         })
@@ -244,8 +258,9 @@ export default {
         this.message.error('Failed to unlike articless', e)
       }
     },
-    isLiked(id){
-      return window.localStorage.getItem("huang_blog_articles_like" + id) === "1";
+    isLiked (id) {
+      let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
+      return likesArr.indexOf(id) > -1
     }
   }
 }
@@ -274,13 +289,21 @@ export default {
 :deep(.ant-divider-horizontal) {
   margin: 0
 }
+
 :deep(.ant-list-item-meta-content) {
   height: 8rem;
 }
+
 :deep(.ant-list-item-meta-content:hover) {
   cursor: pointer;
 }
+
 :deep(.ant-list-item-extra:hover) {
   cursor: pointer;
+}
+
+:deep(.ant-list-pagination) {
+  padding-right: 20px;
+  padding-bottom: 20px;
 }
 </style>

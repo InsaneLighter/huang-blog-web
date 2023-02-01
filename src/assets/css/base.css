@@ -256,7 +256,7 @@ input {
 }
 
 .index_dh {
-    position: fixed;
+    position: absolute;
     top: 2rem;
     right: -10rem;
     z-index: 1000;
