@@ -195,9 +195,9 @@ export default {
 }
 
 .backStep {
-  position: fixed;
+  position: absolute;
   top: 15%;
-  left: 15%;
+  left: 14%;
   font-size: 16px;
   z-index: 999;
 

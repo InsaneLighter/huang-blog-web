@@ -267,9 +267,9 @@ export default {
 </script>
 <style lang="less" scoped>
 .backStep {
-  position: fixed;
-  top: 15%;
-  left: 15%;
+  position: absolute;
+  top: 14%;
+  left: 14%;
   font-size: 16px;
   z-index: 999;
 
