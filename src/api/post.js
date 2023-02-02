@@ -1,9 +1,12 @@
 import {service} from '@/utils/request'
 
-export function category() {
+export function category(keyword) {
   return service({
     url: 'api/front/post/category',
-    method: 'get'
+    method: 'post',
+    data: {
+      keyword: keyword
+    }
   })
 }
 

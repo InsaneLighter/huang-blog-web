@@ -36,9 +36,9 @@
                 label="分类"
               >
                 <a-select
+                  allowClear
                   v-model:value="this.params.category"
                   show-search
-                  placeholder="选择分类"
                   :options="this.categories"
                   :filter-option="filterOption"
                 ></a-select>
@@ -76,14 +76,14 @@
                   </span>
                   <span>
                     <component :is="'eyeOutlined'"
-                               :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
+                               :style="{marginRight: '8px',verticalAlign: 'middle'}"/>
                     <span style="vertical-align: middle">
                       {{ item.visit }}
                     </span>
                   </span>
                   <span>
-                    <component :is="'MessageOutlined'" @click=""
-                               :style="{marginRight: '8px',cursor:'pointer',verticalAlign: 'middle'}"/>
+                    <component :is="'MessageOutlined'"
+                               :style="{marginRight: '8px',verticalAlign: 'middle'}"/>
                      <span style="vertical-align: middle">
                       {{ item.comments || 0 }}
                     </span>
@@ -92,8 +92,9 @@
                 <template #extra>
                   <img
                     width="272"
+                    style="height: 168px"
                     alt="logo"
-                    src="https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png"
+                    :src="item.cover?item.cover:'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'"
                     @click="jumpToPage('/doc/' + item.id)"
                   />
                 </template>
@@ -123,7 +124,6 @@ import postApi from '@/api/post'
 import dayjs from 'dayjs'
 import { datetimeFormat } from '@/utils/datetime'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
-import journalApi from '@/api/journal'
 
 export default {
   name: 'doc',
@@ -168,13 +168,22 @@ export default {
   },
   methods: {
     filterOption (input, option) {
-      return option.value.toLowerCase().indexOf(input.toLowerCase()) >= 0
+      return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
     },
-    getCategory () {
+    doSearchBankNameList(val){
+      this.categories = []
       try {
-        postApi.category().then(response => {
+        postApi.category(val).then(response => {
           if (response.code === 1) {
-            this.categories = response.data
+            if (response.data) {
+              this.categories = response.data.map(item => {
+                return {
+                  label: item.name,
+                  value: item.id
+                }
+              })
+            }
+
           } else {
             this.$message.error(response.msg)
           }
@@ -182,6 +191,27 @@ export default {
       } catch (e) {
         this.$message.error('Failed to load categories', e)
       }
+    },
+    getCategory(){
+        try {
+          postApi.category().then(response => {
+            if (response.code === 1) {
+              if (response.data) {
+                this.categories = response.data.map(item => {
+                  return {
+                    label: item.name,
+                    value: item.id
+                  }
+                })
+              }
+
+            } else {
+              this.$message.error(response.msg)
+            }
+          })
+        } catch (e) {
+          this.$message.error('Failed to load categories', e)
+        }
     },
     chooseCategory (categoryName) {
       let categoryId
@@ -305,5 +335,8 @@ export default {
 :deep(.ant-list-pagination) {
   padding-right: 20px;
   padding-bottom: 20px;
+}
+:deep(.ant-select-clear) {
+  top: 43%
 }
 </style>
