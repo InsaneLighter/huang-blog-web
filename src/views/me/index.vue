@@ -7,10 +7,10 @@
     <!--主页面-->
     <div class="me me_div1">
       <div class="page_content">
-        <div class="div1">Life was a box of chocolate</div>
-        <div class="div2">You never know</div>
-        <div class="div3">What you gonna get</div>
-<!--        <div class="introduce">拨开云雾见天日,守得云开见月明</div>-->
+        <div class="div1">Huang</div>
+        <div class="div2">26</div>
+        <div class="div3">Do what I want</div>
+        <div class="introduce">我说我依然很期待以后的故事~</div>
       </div>
     </div>
     <!--页面1-->
@@ -25,7 +25,7 @@
     <div id="scrollDown">
       <span id="scrollDownSpan"></span>
     </div>
-    <el-backtop id="backTop">
+    <a-back-top id="backTop">
       <div
         style="
         height: 100%;
@@ -34,13 +34,14 @@
         box-shadow: 0 0 6px rgba(0,0,0, .10);
         text-align: center;
         line-height: 40px;
-        color: rgb(0 0 0 / 12%);
+        color: #555555;
+        font-size: 16px;
         border-radius: 20px;
       "
       >
-        ↑
+        UP
       </div>
-    </el-backtop>
+    </a-back-top>
   </div>
 </template>
 
@@ -119,5 +120,7 @@ export default {
 </script>
 
 <style scoped>
-
+html {
+  overflow-y: hidden;
+}
 </style>

@@ -1,6 +1,6 @@
 import { h, render, defineComponent, ref, inject, resolveComponent, withDirectives, openBlock, createElementBlock, createTextVNode, toDisplayString, createVNode, normalizeClass, Transition, withCtx, unref, createCommentVNode, nextTick, useCssVars, computed, watch, onMounted, createElementVNode, withKeys, onUnmounted, renderSlot, normalizeStyle, Fragment, renderList, pushScopeId, popScopeId, createBlock, reactive, useSlots, toRef, provide } from "vue";
 import { ElButton, ClickOutside, ElPopover, ElScrollbar, ElImage, ElPagination } from "element-plus";
-import { ElAvatar as F, ElButton as C, ElCarousel as B, ElDialog as I, ElImage as N, ElInput as z, ElPagination as V, ElPopover as A, ElScrollbar as M, ElTag as O } from "element-plus";
+import { ElAvatar as B, ElButton as I, ElCarousel as N, ElDialog as z, ElImage as V, ElInput as A, ElPagination as M, ElPopover as O, ElScrollbar as L, ElTag as D } from "element-plus";
 function isArray(e) {
   return typeof Array.isArray == "function" ? Array.isArray(e) : Object.prototype.toString.call(e) === "[object Array]";
 }
@@ -754,8 +754,8 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   setup(e, { expose: t, emit: o }) {
     const n = e;
     useCssVars((g) => ({
-      "4631a21c": unref(s),
-      "353f64d4": unref(d)
+      fc6508be: unref(s),
+      "4e9ddb99": unref(d)
     }));
     const r = ref(), i = ref(), p = ref(), l = ref(!1), a = ref(!1), s = computed(() => n.minHeight + "px"), d = computed(() => n.minHeight == 30 ? "4px 10px" : "8px 12px");
     watch(
@@ -776,10 +776,13 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       o("update:modelValue", $), o("input", g);
     }
     function v(g) {
-      var w;
-      debugger;
+      var w, x;
       let $ = window.getSelection();
-      $ && ($.removeAllRanges(), r.value || ((w = i.value) == null || w.focus(), r.value = $.getRangeAt(0)), r.value.deleteContents());
+      if ($) {
+        $.removeAllRanges(), r.value || ((w = i.value) == null || w.focus(), r.value = $.getRangeAt(0)), r.value.deleteContents(), r.value.insertNode(r.value.createContextualFragment(g)), r.value.collapse(!1), $.addRange(r.value), o("update:modelValue", ((x = i.value) == null ? void 0 : x.innerHTML) || "");
+        const S = i.value;
+        o("input", S);
+      }
     }
     function _() {
       i.value && (i.value.innerHTML = "", o("update:modelValue", i.value.innerHTML), a.value = !1);
@@ -820,7 +823,7 @@ const storage = store_legacy, debounce = (e, t = 200) => {
       }, null, 40, _hoisted_1$8)
     ], 2));
   }
-}), editor_vue_vue_type_style_index_0_scoped_b718f331_lang = "", editorVue = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-b718f331"]]), UEditor = withInstall(editorVue), index$2 = "", _hoisted_1$7 = { class: "u-fold" }, _hoisted_2$6 = { class: "action-box select-none" }, __default__$3 = {
+}), editor_vue_vue_type_style_index_0_scoped_b704c381_lang = "", editorVue = /* @__PURE__ */ _export_sfc(_sfc_main$8, [["__scopeId", "data-v-b704c381"]]), UEditor = withInstall(editorVue), index$2 = "", _hoisted_1$7 = { class: "u-fold" }, _hoisted_2$6 = { class: "action-box select-none" }, __default__$3 = {
   name: "UFold"
 }, _sfc_main$7 = /* @__PURE__ */ defineComponent({
   ...__default__$3,
@@ -1472,16 +1475,16 @@ const storage = store_legacy, debounce = (e, t = 200) => {
   }
 };
 export {
-  F as ElAvatar,
-  C as ElButton,
-  B as ElCarousel,
-  I as ElDialog,
-  N as ElImage,
-  z as ElInput,
-  V as ElPagination,
-  A as ElPopover,
-  M as ElScrollbar,
-  O as ElTag,
+  B as ElAvatar,
+  I as ElButton,
+  N as ElCarousel,
+  z as ElDialog,
+  V as ElImage,
+  A as ElInput,
+  M as ElPagination,
+  O as ElPopover,
+  L as ElScrollbar,
+  D as ElTag,
   InjectionCommentFun,
   InjectionContentBox,
   InjectionEmojiApi,

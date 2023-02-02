@@ -171,6 +171,7 @@ export default {
 
 .note_container {
   //height: calc(100vh - 96px);
+  overflow-y: auto;
   padding-top: 10px;
   padding-bottom: 10px;
 }

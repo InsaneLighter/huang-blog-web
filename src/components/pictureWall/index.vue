@@ -5,7 +5,7 @@
     </div>
     <div class="border"></div>
     <div class="text">
-      <span>{{ item.content }}</span>
+<!--      <span>{{ item.content }}</span>-->
     </div>
   </div>
 </template>
