@@ -12,51 +12,42 @@
 
 <script>
 import { pictureWall } from '@/assets/js/pictureWall'
+import meApi from '@/api/me'
 export default {
   name: 'pictureWall',
   data () {
     return {
       pictures: [
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239397649_2023-02-01_364.jpg',
-          content: '一日不见如隔三秋'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675223081638_2023-02-01_614.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        },
-        {
-          url: 'http://150.158.169.154:9003/huang-blog-attachment/huang-blog-attachment_1675239428903_2023-02-01_571.jpg',
-          content: 'No better'
-        }
       ]
     }
   },
   created () {
-    pictureWall()
+    this.loadPicWall()
   },
   mounted () {
     pictureWall()
+  },
+  methods:{
+    loadPicWall(){
+      try {
+        meApi.images().then(response => {
+          if (response.code === 1) {
+            this.pictures = response.data.map(function (item){
+              return {
+                url: item.path,
+                content: item.name
+              }
+            })
+          } else {
+            this.$message.error(response.msg)
+          }
+        }).finally(() => {
+          this.isLoading = false
+        })
+      } catch (e) {
+        this.$message.error('Failed to load data', e)
+      }
+    }
   }
 }
 </script>
@@ -177,7 +168,7 @@ body {
 @media (min-width: 1200px) {
   .box {
     width: 25%;
-    height: 18vw;
+    height: 23vw;
   }
 }
 </style>
