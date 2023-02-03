@@ -163,6 +163,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+html {
+  overflow-y: auto;
+}
 .p1 {
   height: 100px;
   line-height: 100px;
@@ -171,7 +174,6 @@ export default {
 
 .note_container {
   //height: calc(100vh - 96px);
-  overflow-y: auto;
   padding-top: 10px;
   padding-bottom: 10px;
 }

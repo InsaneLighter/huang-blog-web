@@ -1,3 +1,7 @@
+html {
+	overflow-y: hidden;
+}
+
 .me_div1 {
 	height: 100vh;
 	background-color: #000;

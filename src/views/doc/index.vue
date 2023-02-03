@@ -296,6 +296,9 @@ export default {
 }
 </script>
 <style lang="less" scoped>
+html {
+  overflow-y: auto;
+}
 .backStep {
   position: absolute;
   top: 14%;
