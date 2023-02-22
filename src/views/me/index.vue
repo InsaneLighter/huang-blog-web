@@ -2,7 +2,7 @@
   <div class="parentContainer">
     <div class="container">
       <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus"></rightTopNavBar>
+      <rightTopNavBar :menuPages="rightTopMenus" :is-home="'false'"></rightTopNavBar>
     </div>
     <!--主页面-->
     <div class="me me_div1">

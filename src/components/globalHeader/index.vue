@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <!--右上导航栏-->
-    <rightTopNavBar :menuPages="getDynamicMenus(currentPage)"></rightTopNavBar>
+    <rightTopNavBar :menuPages="getDynamicMenus(currentPage)" is-home="false"></rightTopNavBar>
 
     <!--背景图片 title-->
     <div class="main_bg div_news">

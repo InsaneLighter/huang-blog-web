@@ -3,7 +3,8 @@ import {notification} from 'ant-design-vue'
 
 // 创建axios实例
 const service = axios.create({
-  baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/',
+  baseURL: 'https://huanghong.top/',
+  // baseURL: process.env.NODE_ENV === 'production' ? process.env.VUE_APP_BASE_API : '/',
   timeout: 1200000 // 请求超时时间(2分钟)
 })
 

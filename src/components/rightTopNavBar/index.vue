@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--右上导航栏-->
-    <div class="div_js index_dh">
+    <div class="div_js index_dh" :style="isHome?{position: 'absolute'}:{position: 'fixed'}">
       <img src="/static/image/menu.png" width="50" height="25" />
     </div>
 
@@ -32,7 +32,13 @@
 <script>
 export default {
   name: "rightTopNavBar",
-  props: ['menuPages'],
+  props: {
+    menuPages: null,
+    isHome: {
+      type: Boolean,
+      default: true
+    }
+  },
   methods:{
     // 页面跳转
     jumpToPage(target){
