@@ -2,7 +2,7 @@
   <div class="parentContainer">
     <div class="container">
       <!--右上导航栏-->
-      <rightTopNavBar :menuPages="rightTopMenus" :is-home="'false'"></rightTopNavBar>
+      <rightTopNavBar :menuPages="rightTopMenus" :is-home="'true'"></rightTopNavBar>
     </div>
     <!--主页面-->
     <div class="me me_div1">
@@ -49,7 +49,6 @@
 import "css/about.css";
 import { aboutMe } from "js/aboutMe";
 import { navAnimate } from "js/navAnimate";
-import { home } from "js/home";
 import rightTopNavBar from "@/components/rightTopNavBar";
 import pictureWall from "@/components/pictureWall"
 
@@ -62,9 +61,7 @@ export default {
   created() {
   },
   mounted() {
-    // 引入js
     navAnimate();
-    home();
     aboutMe();
   },
   data() {

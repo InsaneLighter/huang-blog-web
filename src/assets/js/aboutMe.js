@@ -115,4 +115,9 @@ export let aboutMe = function () {
   }
 
   init()
+
+  $('.index_dh').delay(300).animate({
+    right: '3%',
+    opacity: '1'
+  }, 800).css("position","absolute")
 }
