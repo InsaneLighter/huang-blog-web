@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--右上导航栏-->
-    <div class="div_js index_dh" :style="isHome?{position: 'absolute'}:{position: 'fixed'}">
+    <div class="div_js index_dh" :style="isHome === 'true' ?{position: 'fixed'}:{position: 'absolute'}">
       <img src="/static/image/menu.png" width="50" height="25" />
     </div>
 
@@ -35,8 +35,8 @@ export default {
   props: {
     menuPages: null,
     isHome: {
-      type: Boolean,
-      default: true
+      type: String,
+      default: "true"
     }
   },
   methods:{

@@ -3,6 +3,15 @@ html, body {
     margin: 0;
     padding: 0;
 }
+.home-html-container {
+    overflow: hidden !important;
+}
+.doc-html-container,.note-html-container,.game-html-container {
+    overflow-y: auto !important;
+}
+.me-html-container {
+    overflow-y: hidden !important;
+}
 body {
     margin: 0 auto;
     padding: 0px;
