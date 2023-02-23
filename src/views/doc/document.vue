@@ -12,10 +12,10 @@
 
     <!-- 文章内容 -->
     <div class="articleContainer">
-      <div class="skeleton" v-if="isLoading">
+      <div class="skeleton" v-show="isLoading">
         <a-skeleton v-for="index of 4" :key="index" active :paragraph="{ rows: 4 }"/>
       </div>
-      <div v-else>
+      <div v-show="!isLoading">
         <div class="articleContent">
           <div class="articleHead">
             <div class="articleTitle">{{ article.title }}</div>
@@ -24,9 +24,20 @@
             </div>
           </div>
           <a-divider/>
-          <v-md-editor v-model="article.content"
-                       mode="preview"
-                       @copy-code-success="handleCopyCodeSuccess"></v-md-editor>
+          <div class="anchor">
+            <div
+              v-for="(anchor,k) in titles"
+              :key="k"
+              :class="{ active: active == k }"
+              :style="{ padding: `3px 0 3px ${anchor.indent * 20 +16}px`}"
+              @click="scrollTo(k)"
+            >
+              <a style="cursor: pointer">{{ anchor.title }}</a>
+            </div>
+          </div>
+          <v-md-preview :text="article.originContent"
+                        @copy-code-success="handleCopyCodeSuccess"
+                        ref="preview"></v-md-preview>
         </div>
         <comment :postId="this.$route.params.id"></comment>
       </div>
@@ -53,6 +64,13 @@ export default {
   },
   data () {
     return {
+      props: {
+        targetOffset: 0,
+        target: ''
+      },
+      target: undefined,
+      active: 0,
+      titles: [],
       isLoading: false,
       article: {
         title: '',
@@ -66,7 +84,49 @@ export default {
     this.handleLoadData()
     this.handleIncrVisit()
   },
+  watch: {
+    article(value) {
+      if (value) {
+        window.removeEventListener("scroll",this.onScroll)
+        window.addEventListener("scroll",this.onScroll)
+      }
+    }
+  },
   methods: {
+    onScroll(){
+      const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      // 所有锚点元素的 offsetTop
+      const offsetTopArr = []
+      anchors.forEach(v => {
+        offsetTopArr.push(v.offsetTop)
+      })
+      let scroll = window.scrollTop
+      // 获取当前文档流的 scrollTop
+      const scrollTop = scroll || document.documentElement.scrollTop || document.body.scrollTop
+      // 定义当前点亮的导航下标
+      offsetTopArr.forEach((v, k) => {
+        if (scrollTop >= v - 50 - this.props.targetOffset) {
+          this.active = k
+        }
+      })
+    },
+    scrollTo(k){
+      debugger
+      const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      let item = anchors.item(k)
+      let offsetTop = item.offsetTop
+      if (this.props.target) {
+        this.target.scrollTo({
+          top: offsetTop - this.props.targetOffset,
+          behavior: 'smooth'
+        })
+      } else {
+        document.documentElement.scrollTo({
+          top: offsetTop - this.props.targetOffset,
+          behavior: 'smooth'
+        })
+      }
+    },
     handleIncrVisit () {
       postApi.incrVisit(this.$route.params.id)
     },
@@ -82,6 +142,22 @@ export default {
         postApi.detail(this.$route.params.id).then(response => {
           if (response.code === 1) {
             this.article = response.data
+            this.isLoading = false
+            this.$nextTick(function () {
+              const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+              const titles = Array.from(anchors).filter((title) => !!title.innerText.trim());
+              if (!titles.length) {
+                this.titles = [];
+                return;
+              }
+              const hTags = Array.from(new Set(titles.map((title) => title.tagName))).sort();
+              this.titles = titles.map((el) => ({
+                title: el.innerText,
+                lineIndex: el.getAttribute('data-v-md-line'),
+                indent: hTags.indexOf(el.tagName),
+                offsetTop: el.offsetTop
+              }));
+            })
           } else {
             this.$message.error(response.msg)
           }
@@ -147,5 +223,41 @@ export default {
   padding: 0 10px;
   background-color: #fff;
   border-radius: 5px;
+}
+.anchor {
+  position: fixed;
+  top: 13%;
+  right: 6%;
+  width: 220px;
+  border-left: 1px solid rgba(60, 60, 60, .12);
+  font-size: 13px;
+  font-weight: 500;
+  font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;;
+}
+.anchor a {
+  color: rgba(60, 60, 60, .7);
+  text-decoration: none;
+}
+.anchor a:hover {
+  cursor: pointer;
+  font-weight: 600;
+  color: #213547;
+}
+.active {
+  //border-left: 1px solid #213547;
+}
+.active a {
+  color: #213547;
+  font-weight: 600;
+}
+
+.active::before{
+  content: '';
+  position: absolute;
+  left: -2px;
+  background-color: #213547;
+  border-radius: 4px;
+  width: 3px;
+  height: 20px;
 }
 </style>
