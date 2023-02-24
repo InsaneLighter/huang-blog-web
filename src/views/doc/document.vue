@@ -24,15 +24,14 @@
             </div>
           </div>
           <a-divider/>
-          <div class="anchor">
+          <div class="anchor" style="display: none">
             <div
               v-for="(anchor,k) in titles"
               :key="k"
               :class="{ active: active == k }"
               :style="{ padding: `3px 0 3px ${anchor.indent * 20 +16}px`}"
-              @click="scrollTo(k)"
             >
-              <a style="cursor: pointer">{{ anchor.title }}</a>
+              <a style="cursor: pointer" @click="scrollTo(k)">{{ anchor.title }}</a>
             </div>
           </div>
           <v-md-preview :text="article.originContent"
@@ -92,9 +91,12 @@ export default {
       }
     }
   },
+  unmounted () {
+    window.removeEventListener("scroll",this.onScroll)
+  },
   methods: {
     onScroll(){
-      const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      const anchors = document.querySelector(".v-md-editor-preview").querySelectorAll('h1,h2,h3,h4,h5,h6');
       // 所有锚点元素的 offsetTop
       const offsetTopArr = []
       anchors.forEach(v => {
@@ -103,16 +105,29 @@ export default {
       let scroll = window.scrollTop
       // 获取当前文档流的 scrollTop
       const scrollTop = scroll || document.documentElement.scrollTop || document.body.scrollTop
+      if(scrollTop < 100){
+        document.querySelector(".anchor").setAttribute("style","display: none !important;");
+      }else {
+        document.querySelector(".anchor").removeAttribute("style");
+      }
       // 定义当前点亮的导航下标
       offsetTopArr.forEach((v, k) => {
         if (scrollTop >= v - 50 - this.props.targetOffset) {
           this.active = k
         }
       })
+      let anchorOffsetTop = this.$el.querySelector(".active").offsetTop
+      if(anchorOffsetTop && anchorOffsetTop > 50){
+        document.querySelector(".anchor").scrollTo(
+          {
+            top: this.$el.querySelector(".active").offsetTop - 300,
+            behavior: 'smooth'
+          }
+        )
+      }
     },
     scrollTo(k){
-      debugger
-      const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+      const anchors = document.querySelector(".v-md-editor-preview").querySelectorAll('h1,h2,h3,h4,h5,h6');
       let item = anchors.item(k)
       let offsetTop = item.offsetTop
       if (this.props.target) {
@@ -144,7 +159,7 @@ export default {
             this.article = response.data
             this.isLoading = false
             this.$nextTick(function () {
-              const anchors = this.$refs.preview.$el.querySelectorAll('h1,h2,h3,h4,h5,h6');
+              const anchors = document.querySelector(".v-md-editor-preview").querySelectorAll('h1,h2,h3,h4,h5,h6');
               const titles = Array.from(anchors).filter((title) => !!title.innerText.trim());
               if (!titles.length) {
                 this.titles = [];
@@ -226,9 +241,11 @@ export default {
 }
 .anchor {
   position: fixed;
-  top: 13%;
+  top: 7%;
   right: 6%;
   width: 220px;
+  height: 82%;
+  overflow-y: auto;
   border-left: 1px solid rgba(60, 60, 60, .12);
   font-size: 13px;
   font-weight: 500;
@@ -260,4 +277,5 @@ export default {
   width: 3px;
   height: 20px;
 }
+//::-webkit-scrollbar { width: 0 !important }
 </style>
