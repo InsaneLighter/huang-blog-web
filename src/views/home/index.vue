@@ -13,7 +13,8 @@
         <dl class="article div_index1">
           <div class="bg"></div>
           <div class="div1">
-              Chasing The Light
+            <div>Chasing the light</div>
+            <JumpWord></JumpWord>
           </div>
         </dl>
         <dl class="article" :class="item.index" v-for="(item,index) in activeMenuPages" :key="item.index">
@@ -42,11 +43,13 @@ import {navAnimate} from 'js/navAnimate';
 import {home} from 'js/home';
 import rightNavBar from '@/components/rightNavBar';
 import rightTopNavBar from '@/components/rightTopNavBar';
+import JumpWord from '@/views/home/JumpWord'
 export default {
   name: 'home',
   components: {
     rightNavBar,
-    rightTopNavBar
+    rightTopNavBar,
+    JumpWord
   },
   data(){
     return {

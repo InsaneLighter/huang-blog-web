@@ -5,7 +5,7 @@ import router from './router'
 import './router/router-permission'
 
 //系统页面禁止缩放及查看开发页面
-// import './assets/js/sys'
+import './assets/js/sys'
 
 //ant design vue
 import Antd from 'ant-design-vue';
@@ -13,7 +13,6 @@ import 'ant-design-vue/dist/antd.css';
 import * as Icons from '@ant-design/icons-vue'
 
 //md-preview
-// import VueMarkdownEditor from '@kangc/v-md-editor';
 import VMdPreview from '@kangc/v-md-editor/lib/preview';
 import '@kangc/v-md-editor/lib/style/preview.css';
 import '@kangc/v-md-editor/lib/style/base-editor.css';

@@ -53,8 +53,8 @@
               </a-form-item>
             </a-col>
             <a-col :span="6">
-              <a-button type="primary" html-type="submit" @click="loadData">查询</a-button>
-              <a-button style="margin: 0 8px" @click="() => formRef.resetFields()">重置</a-button>
+              <a-button type="primary" html-type="submit" @click="loadData(1)">查询</a-button>
+              <a-button style="margin: 0 8px" @click="resetCondition">重置</a-button>
             </a-col>
           </a-row>
         </a-form>
@@ -92,9 +92,9 @@
                 <template #extra>
                   <img
                     width="272"
-                    style="height: 168px"
+                    style="height: 168px;border-radius: 15px"
                     alt="logo"
-                    :src="item.cover?item.cover:'https://gw.alipayobjects.com/zos/rmsportal/mqaQswcyDLcXyDKnZfES.png'"
+                    :src="item.cover?item.cover:'https://huanghong.top/minio/huang-blog-attachment/huang-blog-attachment_1676984667240_2023-02-21_863.jpg'"
                     @click="jumpToPage('/doc/' + item.id)"
                   />
                 </template>
@@ -134,7 +134,7 @@ export default {
   },
   mounted () {
     this.getCategory()
-    this.loadData()
+    this.loadData(1)
   },
   data () {
     return {
@@ -159,7 +159,7 @@ export default {
         onChange: (page) => {
           this.loadData(page)
         },
-        current: this.page,
+        current: this.page || 1,
         pageSize: this.params.size,
         total: this.totalCount,
         hideOnSinglePage: true
@@ -167,6 +167,13 @@ export default {
     }
   },
   methods: {
+    resetCondition(){
+      this.params.keyword = ''
+      this.params.category = ''
+      this.params.startDate = ''
+      this.params.endDate = ''
+      this.date = []
+    },
     filterOption (input, option) {
       return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
     },
