@@ -13,7 +13,7 @@
         <dl class="article div_index1">
           <div class="bg"></div>
           <div class="div1">
-            <div>Chasing the light</div>
+            <div>Chasing The Light</div>
             <JumpWord></JumpWord>
           </div>
         </dl>
