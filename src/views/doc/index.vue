@@ -53,8 +53,10 @@
               </a-form-item>
             </a-col>
             <a-col :span="6">
-              <a-button type="primary" html-type="submit" @click="loadData(1)">查询</a-button>
-              <a-button style="margin: 0 8px" @click="resetCondition">重置</a-button>
+              <!--              <a-button type="primary" html-type="submit" @click="loadData(1)">查询</a-button>-->
+              <button id="customizedButton" @click="loadData(1)">查询</button>
+              <button style="margin: 0 8px" @click="resetCondition">重置</button>
+<!--              <a-button style="margin: 0 8px" @click="resetCondition">重置</a-button>-->
             </a-col>
           </a-row>
         </a-form>
@@ -101,7 +103,8 @@
                 <!--TODO summary 85个字-->
                 <a-list-item-meta :description="item.summary" @click="jumpToPage('/doc/' + item.id)">
                   <template #title>
-                    <div class="article_title">{{ item.title }}<span v-if="item.topPriority === 1" id="topPriority">置顶</span></div>
+                    <div class="article_title">{{ item.title }}<span v-if="item.topPriority === 1"
+                                                                     id="topPriority">置顶</span></div>
                   </template>
                 </a-list-item-meta>
                 {{ item.content }}
@@ -122,7 +125,7 @@ import 'css/articles.css'
 import globalHeader from '@/components/globalHeader'
 import postApi from '@/api/post'
 import dayjs from 'dayjs'
-import { datetimeFormat } from '@/utils/datetime'
+import {datetimeFormat} from '@/utils/datetime'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
 import {addMeta} from "@/utils/addMeta";
 
@@ -131,12 +134,12 @@ export default {
   components: {
     globalHeader
   },
-  mounted () {
+  mounted() {
     this.getCategory()
     this.loadData(1)
-    addMeta("huanghong,个人网站博客内容","huanghong个人网站博客内容")
+    addMeta("huanghong,个人网站博客内容", "huanghong个人网站博客内容")
   },
-  data () {
+  data() {
     return {
       locale: locale,
       date: [],
@@ -154,7 +157,7 @@ export default {
     }
   },
   computed: {
-    pagination () {
+    pagination() {
       return {
         onChange: (page) => {
           this.loadData(page)
@@ -167,38 +170,38 @@ export default {
     }
   },
   methods: {
-    resetCondition(){
+    resetCondition() {
       this.params.keyword = ''
       this.params.category = ''
       this.params.startDate = ''
       this.params.endDate = ''
       this.date = []
     },
-    filterOption (input, option) {
+    filterOption(input, option) {
       return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
     },
-    getCategory(){
-        try {
-          postApi.category().then(response => {
-            if (response.code === 1) {
-              if (response.data) {
-                this.categories = response.data.map(item => {
-                  return {
-                    label: item.name,
-                    value: item.id
-                  }
-                })
-              }
-
-            } else {
-              this.$message.error(response.msg)
+    getCategory() {
+      try {
+        postApi.category().then(response => {
+          if (response.code === 1) {
+            if (response.data) {
+              this.categories = response.data.map(item => {
+                return {
+                  label: item.name,
+                  value: item.id
+                }
+              })
             }
-          })
-        } catch (e) {
-          this.$message.error('Failed to load categories', e)
-        }
+
+          } else {
+            this.$message.error(response.msg)
+          }
+        })
+      } catch (e) {
+        this.$message.error('Failed to load categories', e)
+      }
     },
-    chooseCategory (categoryName) {
+    chooseCategory(categoryName) {
       let categoryId
       this.categories.forEach(item => {
         if (item.name === categoryName) {
@@ -208,14 +211,14 @@ export default {
       this.params.category = categoryId
       this.search()
     },
-    datetimeFormat (date, pattern) {
+    datetimeFormat(date, pattern) {
       return datetimeFormat(date, pattern = 'YYYY-MM-DD HH:mm')
     },
     // more 页面跳转
-    jumpToPage (target) {
+    jumpToPage(target) {
       this.$router.push(target)
     },
-    loadData (page = 1) {
+    loadData(page = 1) {
       this.page = page
       this.params.page = page - 1
       this.isLoading = true
@@ -237,7 +240,7 @@ export default {
         this.$message.error('Failed to load articles', e)
       }
     },
-    handleLike (item) {
+    handleLike(item) {
       item.likes += 1
       let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
       likesArr.push(item.id)
@@ -255,7 +258,7 @@ export default {
         this.message.error('Failed to like articles', e)
       }
     },
-    removeLike (item) {
+    removeLike(item) {
       item.likes -= 1
       let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
       likesArr = likesArr.filter(ele => ele !== item.id)
@@ -273,7 +276,7 @@ export default {
         this.message.error('Failed to unlike articless', e)
       }
     },
-    isLiked (id) {
+    isLiked(id) {
       let likesArr = JSON.parse(window.localStorage.getItem('huang_blog_articles_like')) || []
       return likesArr.indexOf(id) > -1
     }
@@ -321,9 +324,11 @@ export default {
   padding-right: 20px;
   padding-bottom: 20px;
 }
+
 :deep(.ant-select-clear) {
   top: 43%
 }
+
 #topPriority {
   font-size: 14px;
   color: #fff;
@@ -333,4 +338,47 @@ export default {
   border-radius: 5px;
   background-color: #ff4545;
 }
+
+button {
+  height: 32px;
+  width: 60px;
+  line-height: 12px;
+  z-index: 1;
+  position: relative;
+  font-size: inherit;
+  font-family: inherit;
+  padding: 0.5em 1em;
+  outline: none;
+  border: 1px solid #000000;
+  color: white;
+  background-color: #000;
+  overflow: hidden;
+  transition: color 0.4s ease-in-out;
+  border-radius: 5px;
+}
+
+button::before {
+  content: '';
+  z-index: -1;
+  position: absolute;
+  top: 100%;
+  right: 100%;
+  width: 1em;
+  height: 1em;
+  border-radius: 50%;
+  background-color: #fff;
+  transform-origin: center;
+  transform: translate3d(50%, -50%, 0) scale3d(0, 0, 0);
+  transition: transform 0.45s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+  color: #000;
+}
+
+button:hover::before {
+  transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
+}
+
 </style>
