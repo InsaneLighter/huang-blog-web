@@ -51,6 +51,7 @@ import { aboutMe } from "js/aboutMe";
 import { navAnimate } from "js/navAnimate";
 import rightTopNavBar from "@/components/rightTopNavBar";
 import pictureWall from "@/components/pictureWall"
+import {addMeta} from "@/utils/addMeta";
 
 export default {
   name: "me",
@@ -61,6 +62,7 @@ export default {
   created() {
   },
   mounted() {
+    addMeta("自我介绍,关于huanghong","关于huanghong的自我介绍内容")
     navAnimate();
     aboutMe();
   },

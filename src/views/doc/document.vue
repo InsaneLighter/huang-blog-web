@@ -18,7 +18,7 @@
       <div v-show="!isLoading">
         <div class="articleContent">
           <div class="articleHead">
-            <div class="articleTitle">{{ article.title }}</div>
+            <div class="articleTitle">{{ article.title }}<span v-if="article.topPriority === 1" id="topPriority">置顶</span></div>
             <div class="articleDesc">
               {{ handleDateTrans(article.createTime) }}&nbsp;&nbsp;&nbsp;&nbsp;阅读&nbsp;&nbsp;{{ article.visit || 0 }}
             </div>
@@ -44,6 +44,7 @@ import globalHeader from '@/components/globalHeader'
 import postApi from '@/api/post'
 import Comment from '@/components/utils/comment'
 import { timeAgo } from '@/utils/datetime'
+import {addMeta} from "@/utils/addMeta";
 
 const MdCatalog = MdEditor.MdCatalog;
 export default {
@@ -58,16 +59,11 @@ export default {
   data () {
     return {
       scrollElement: document.documentElement,
-      props: {
-        targetOffset: 0,
-        target: ''
-      },
-      target: undefined,
-      active: 0,
-      titles: [],
       isLoading: false,
       article: {
         title: '',
+        summary: '',
+        topPriority: '',
         content: '',
         createTime: '',
         visit: 0
@@ -81,6 +77,7 @@ export default {
   watch: {
     article(value) {
       if (value) {
+        addMeta(this.article.title,this.article.summary)
         document.querySelector(".md-editor-catalog").setAttribute("style","display: none !important;");
         window.removeEventListener("scroll",this.onScroll)
         window.addEventListener("scroll",this.onScroll)
@@ -95,7 +92,6 @@ export default {
       let scroll = window.scrollTop
       // 获取当前文档流的 scrollTop
       const scrollTop = scroll || document.documentElement.scrollTop || document.body.scrollTop
-      debugger
       if(scrollTop < 100){
         document.querySelector(".md-editor-catalog").setAttribute("style","display: none !important;");
       }else {
@@ -191,5 +187,14 @@ export default {
 :deep(.md-editor-catalog-active > span) {
   color: #000 !important;
   font-weight: 600 !important;
+}
+#topPriority {
+  font-size: 14px;
+  color: #fff;
+  font-weight: normal;
+  padding: 2px 5px 2px 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-color: #ff4545;
 }
 </style>

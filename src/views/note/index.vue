@@ -57,7 +57,7 @@
 import rightTopNavBar from '@/components/rightTopNavBar'
 import globalHeader from '@/components/globalHeader'
 import journalApi from '@/api/journal'
-
+import {addMeta} from "@/utils/addMeta";
 export default {
   name: 'note',
   components: {
@@ -95,8 +95,9 @@ export default {
       }
     }
   },
-  created () {
+  mounted () {
     this.loadData()
+    addMeta("日志,huanghong的日志内容","关于huanghong的日志内容")
   },
   methods: {
     loadData (page = 1) {

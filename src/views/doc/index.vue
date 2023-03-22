@@ -101,7 +101,7 @@
                 <!--TODO summary 85个字-->
                 <a-list-item-meta :description="item.summary" @click="jumpToPage('/doc/' + item.id)">
                   <template #title>
-                    <div class="article_title">{{ item.title }}</div>
+                    <div class="article_title">{{ item.title }}<span v-if="item.topPriority === 1" id="topPriority">置顶</span></div>
                   </template>
                 </a-list-item-meta>
                 {{ item.content }}
@@ -124,17 +124,17 @@ import postApi from '@/api/post'
 import dayjs from 'dayjs'
 import { datetimeFormat } from '@/utils/datetime'
 import locale from 'ant-design-vue/es/date-picker/locale/zh_CN'
+import {addMeta} from "@/utils/addMeta";
 
 export default {
   name: 'doc',
   components: {
     globalHeader
   },
-  created () {
-  },
   mounted () {
     this.getCategory()
     this.loadData(1)
+    addMeta("huanghong,个人网站博客内容","huanghong个人网站博客内容")
   },
   data () {
     return {
@@ -176,28 +176,6 @@ export default {
     },
     filterOption (input, option) {
       return option.label.toLowerCase().indexOf(input.toLowerCase()) >= 0
-    },
-    doSearchBankNameList(val){
-      this.categories = []
-      try {
-        postApi.category(val).then(response => {
-          if (response.code === 1) {
-            if (response.data) {
-              this.categories = response.data.map(item => {
-                return {
-                  label: item.name,
-                  value: item.id
-                }
-              })
-            }
-
-          } else {
-            this.$message.error(response.msg)
-          }
-        })
-      } catch (e) {
-        this.$message.error('Failed to load categories', e)
-      }
     },
     getCategory(){
         try {
@@ -305,7 +283,7 @@ export default {
 <style lang="less" scoped>
 .backStep {
   position: absolute;
-  top: 14%;
+  top: 15%;
   left: 14%;
   font-size: 16px;
   z-index: 999;
@@ -345,5 +323,14 @@ export default {
 }
 :deep(.ant-select-clear) {
   top: 43%
+}
+#topPriority {
+  font-size: 14px;
+  color: #fff;
+  font-weight: normal;
+  padding: 2px 5px 2px 5px;
+  margin-left: 5px;
+  border-radius: 5px;
+  background-color: #ff4545;
 }
 </style>
