@@ -12,25 +12,7 @@ import Antd from 'ant-design-vue';
 import 'ant-design-vue/dist/antd.css';
 import * as Icons from '@ant-design/icons-vue'
 
-//md-preview
-import VMdPreview from '@kangc/v-md-editor/lib/preview';
-import '@kangc/v-md-editor/lib/style/preview.css';
-import '@kangc/v-md-editor/lib/style/base-editor.css';
-import vuepressTheme from '@kangc/v-md-editor/lib/theme/vuepress.js';
-import '@kangc/v-md-editor/lib/theme/style/vuepress.css';
-
-//代码复制
-import createCopyCodePlugin from '@kangc/v-md-editor/lib/plugins/copy-code/index';
-import '@kangc/v-md-editor/lib/plugins/copy-code/copy-code.css';
-import Prism from 'prismjs';
-VMdPreview.use(vuepressTheme, {
-  Prism,
-});
-VMdPreview.use(createCopyCodePlugin());
-
-//代码行号
-import createLineNumbertPlugin from '@kangc/v-md-editor/lib/plugins/line-number/index';
-VMdPreview.use(createLineNumbertPlugin());
+import 'md-editor-v3/lib/style.css';
 
 import './api/visitor'
 
@@ -51,7 +33,6 @@ import 'huang-ui/dist/style.css'
 app.use(HuangUi);
 app.use(Antd);
 app.use(router);
-app.use(VMdPreview);
 app.mount('#app');
 
 // 全局使用图标，遍历引入
