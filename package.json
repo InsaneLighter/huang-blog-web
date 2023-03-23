@@ -12,6 +12,7 @@
   "dependencies": {
     "@ant-design/icons-vue": "^6.1.0",
     "ant-design-vue": "3.2.14",
+    "compression-webpack-plugin": "6.1.1",
     "core-js": "3.20.1",
     "dayjs": "^1.11.0",
     "huang-ui": "file:huang-ui",
