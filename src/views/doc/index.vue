@@ -234,6 +234,9 @@ export default {
       this.params.startDate = dateArr.length > 0 && dateArr[0] ? dayjs(dateArr[0]).format('YYYY-MM-DD') : ''
       this.params.endDate = dateArr.length > 0 && dateArr[1] ? dayjs(dateArr[1]).format('YYYY-MM-DD') : ''
       try {
+        document.body.scrollTop = document.documentElement.scrollTop = 0
+        let htmlEl = document.getElementsByTagName("html")[0]
+        htmlEl.setAttribute('style', "overflow-y: hidden !important;")
         postApi.list(this.params).then(response => {
           if (response.code === 1) {
             this.articles = response.data.list
@@ -245,6 +248,7 @@ export default {
           const _this = this
           setTimeout(function () {
             _this.isLoading = false
+            htmlEl.setAttribute('style', "overflow-y: auto !important;")
           },700)
         })
       } catch (e) {
@@ -464,5 +468,8 @@ button:active {
   100% {
     transform: translateX(100%);
   }
+}
+:deep(.anticon) {
+  vertical-align: 0.2em;
 }
 </style>

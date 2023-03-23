@@ -237,4 +237,7 @@ export default {
 :deep(.ant-list-pagination) {
   padding: 15px;
 }
+:deep(.anticon) {
+  vertical-align: 0.2em;
+}
 </style>
