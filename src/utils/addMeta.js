@@ -16,5 +16,4 @@ export const addMeta = function (keywords,description){
   descriptionMeta.name = "description";
   descriptionMeta.content = description;
   head.appendChild(descriptionMeta);
-  console.log("head",head)
 }

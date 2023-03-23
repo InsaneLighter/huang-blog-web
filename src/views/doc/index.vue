@@ -62,10 +62,14 @@
         </a-form>
         <a-divider/>
         <div class="articles">
-          <div class="skeleton" v-if="isLoading">
-            <a-skeleton v-for="index of 4" :key="index" active :paragraph="{ rows: 4 }"/>
+          <div class="cover" v-if="isLoading">
+            <div class="balls">
+              <div></div>
+              <div></div>
+              <div></div>
+            </div>
           </div>
-          <a-list v-else item-layout="vertical" size="large" :pagination="pagination" :data-source="articles">
+          <a-list item-layout="vertical" size="large" :pagination="pagination" :data-source="articles">
             <template #renderItem="{ item }">
               <a-list-item key="item.title">
                 <template #actions>
@@ -103,8 +107,12 @@
                 <!--TODO summary 85个字-->
                 <a-list-item-meta :description="item.summary" @click="jumpToPage('/doc/' + item.id)">
                   <template #title>
-                    <div class="article_title">{{ item.title }}<span v-if="item.topPriority === 1"
-                                                                     id="topPriority">置顶</span></div>
+                    <h2 class="article_title">
+                      <span style="line-height: 30px;">
+                        {{ item.title }}
+                        <span v-if="item.topPriority === 1" class="topPriority">置顶</span>
+                      </span>
+                    </h2>
                   </template>
                 </a-list-item-meta>
                 {{ item.content }}
@@ -234,7 +242,10 @@ export default {
             this.$message.error(response.msg)
           }
         }).finally(() => {
-          this.isLoading = false
+          const _this = this
+          setTimeout(function () {
+            _this.isLoading = false
+          },700)
         })
       } catch (e) {
         this.$message.error('Failed to load articles', e)
@@ -329,12 +340,13 @@ export default {
   top: 43%
 }
 
-#topPriority {
+.topPriority {
+  position: relative;
+  top: -2px;
   font-size: 14px;
   color: #fff;
   font-weight: normal;
   padding: 2px 5px 2px 5px;
-  margin-left: 5px;
   border-radius: 5px;
   background-color: #ff4545;
 }
@@ -381,4 +393,76 @@ button:hover::before {
   transform: translate3d(50%, -50%, 0) scale3d(15, 15, 15);
 }
 
+button:active {
+  animation: btnClick 0.6s;
+}
+
+@keyframes btnClick {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  25% {
+    transform: scale(0.9, 1.1);
+  }
+  50% {
+    transform: scale(1.1, 0.9);
+  }
+  75% {
+    transform: scale(0.95, 1.05);
+  }
+}
+
+.cover {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.1);
+  z-index: 200;
+}
+.balls {
+  position: relative;
+  top: 50%;
+  left: 49%;
+  width: 4em;
+  display: flex;
+  flex-flow: row nowrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.balls div {
+  width: 0.8em;
+  height: 0.8em;
+  border-radius: 50%;
+  background-color: #000;
+}
+
+.balls div:nth-of-type(1) {
+  transform: translateX(-100%);
+  animation: left-swing 0.5s ease-in alternate infinite;
+}
+
+.balls div:nth-of-type(3) {
+  transform: translateX(-95%);
+  animation: right-swing 0.5s ease-out alternate infinite;
+}
+
+@keyframes left-swing {
+  50%,
+  100% {
+    transform: translateX(95%);
+  }
+}
+
+@keyframes right-swing {
+  50% {
+    transform: translateX(-95%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
 </style>

@@ -189,12 +189,14 @@ export default {
   font-weight: 600 !important;
 }
 #topPriority {
+  position: relative;
+  top: -5px;
   font-size: 14px;
   color: #fff;
   font-weight: normal;
   padding: 2px 5px 2px 5px;
-  margin-left: 5px;
   border-radius: 5px;
   background-color: #ff4545;
+  margin-left: 10px;
 }
 </style>
